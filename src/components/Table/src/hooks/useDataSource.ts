@@ -287,12 +287,12 @@ export function useDataSource(
       }
 
       const res = await api(params);
-      rawDataSourceRef.value = res.data;
+      rawDataSourceRef.value = res;
 
-      const isArrayResult = Array.isArray(res.data);
+      const isArrayResult = Array.isArray(res);
 
-      let resultItems: Recordable[] = isArrayResult ? res.data : get(res.data, listField);
-      const resultTotal: number = isArrayResult ? 0 : get(res.data, totalField);
+      let resultItems: Recordable[] = isArrayResult ? res : get(res, listField);
+      const resultTotal: number = isArrayResult ? 0 : get(res, totalField);
 
       // 假如数据变少，导致总页数变少并小于当前选中页码，通过getPaginationRef获取到的页码是不正确的，需获取正确的页码再次执行
       if (resultTotal) {

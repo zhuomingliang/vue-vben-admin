@@ -14,19 +14,16 @@ export interface RoleInfo {
 interface Error {
   username?: string;
 }
-interface Data {
-  message?: string;
-  errors?: Error;
-  userId?: number;
-  username?: string;
-}
 
 /**
  * @description: Login interface return value
  */
 export interface LoginResultModel {
   status: number;
-  data: Data;
+  message?: string;
+  errors?: Error;
+  userId?: number;
+  username?: string;
 }
 
 /**

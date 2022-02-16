@@ -39,10 +39,12 @@ const transform: AxiosTransform = {
 
     const { status, data } = res;
 
+    data.status = status;
+
     // 不进行任何处理，直接返回
     // 用于页面代码可能需要直接获取code，data，message这些信息时开启
     if (!isTransformResponse) {
-      return { status, data };
+      return data;
     }
     // 错误的时候返回
     // const { data } = res;
@@ -72,7 +74,7 @@ const transform: AxiosTransform = {
         // if (message) {
         //   timeoutMsg = message;
         // }
-        return { status, data };
+        return data;
     }
 
     // errorMessageMode=‘modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
