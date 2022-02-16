@@ -90,20 +90,35 @@ export const useUserStore = defineStore({
     ): Promise<GetUserInfoModel | null> {
       try {
         const { goHome = true, mode, ...loginParams } = params;
-        const data = await loginApi(loginParams, mode);
-        const { token } = data;
-
+        const result = await loginApi(loginParams, mode);
+        const { status, data } = result;
         // save token
-        this.setToken(token);
-        return this.afterLoginAction(goHome);
+        // this.setToken(token);
+        if (status === 200) {
+          this.setUserInfo(data);
+
+          return this.afterLoginAction(data, goHome);
+        }
+
+        if (status === 422) {
+          if (data.errors?.username) {
+            throw new Error(data.errors.username);
+          }
+        }
+
+        if (data.hasOwnProperty('message')) {
+          throw new Error(data.message);
+        }
+
+        throw new Error(status as unknown as string);
       } catch (error) {
         return Promise.reject(error);
       }
     },
-    async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
-      if (!this.getToken) return null;
+    async afterLoginAction(data: any, goHome?: boolean): Promise<GetUserInfoModel | null> {
+      // if (!this.getToken) return null;
       // get user info
-      const userInfo = await this.getUserInfoAction();
+      // const userInfo = await this.getUserInfoAction();
 
       const sessionTimeout = this.sessionTimeout;
       if (sessionTimeout) {
@@ -118,12 +133,13 @@ export const useUserStore = defineStore({
           router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
           permissionStore.setDynamicAddedRoute(true);
         }
-        goHome && (await router.replace(userInfo?.homePath || PageEnum.BASE_HOME));
+        // goHome && (await router.replace(userInfo?.homePath || PageEnum.BASE_HOME));
+        goHome && (await router.replace(PageEnum.BASE_HOME));
       }
-      return userInfo;
+      return data;
     },
     async getUserInfoAction(): Promise<UserInfo | null> {
-      if (!this.getToken) return null;
+      // if (!this.getToken) return null;
       const userInfo = await getUserInfo();
       const { roles = [] } = userInfo;
       if (isArray(roles)) {
@@ -139,10 +155,12 @@ export const useUserStore = defineStore({
     /**
      * @description: logout
      */
-    async logout(goLogin = false) {
-      if (this.getToken) {
+    async logout(goLogin = false, logout = true) {
+      if (this.getUserInfo) {
         try {
-          await doLogout();
+          if (logout) {
+            await doLogout();
+          }
         } catch {
           console.log('注销Token失败');
         }

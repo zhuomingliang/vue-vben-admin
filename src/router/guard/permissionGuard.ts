@@ -29,14 +29,14 @@ export function createPermissionGuard(router: Router) {
       return;
     }
 
-    const token = userStore.getToken;
+    const userinfo = userStore.getUserInfo;
 
     // Whitelist can be directly entered
     if (whitePathList.includes(to.path as PageEnum)) {
-      if (to.path === LOGIN_PATH && token) {
+      if (to.path === LOGIN_PATH && userinfo.userId) {
         const isSessionTimeout = userStore.getSessionTimeout;
         try {
-          await userStore.afterLoginAction();
+          // await userStore.afterLoginAction();
           if (!isSessionTimeout) {
             next((to.query?.redirect as string) || '/');
             return;
@@ -48,7 +48,7 @@ export function createPermissionGuard(router: Router) {
     }
 
     // token does not exist
-    if (!token) {
+    if (!userinfo) {
       // You can access without permission. You need to set the routing meta.ignoreAuth to true
       if (to.meta.ignoreAuth) {
         next();
@@ -81,14 +81,14 @@ export function createPermissionGuard(router: Router) {
     }
 
     // get userinfo while last fetch time is empty
-    if (userStore.getLastUpdateTime === 0) {
-      try {
-        await userStore.getUserInfoAction();
-      } catch (err) {
-        next();
-        return;
-      }
-    }
+    // if (userStore.getLastUpdateTime === 0) {
+    //   try {
+    //     await userStore.getUserInfoAction();
+    //   } catch (err) {
+    //     next();
+    //     return;
+    //   }
+    // }
 
     if (permissionStore.getIsDynamicAddedRoute) {
       next();

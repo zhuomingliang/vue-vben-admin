@@ -59,7 +59,6 @@
     setup(props, { attrs, emit }) {
       const currentActiveMenu = ref('');
       const isClickGo = ref(false);
-
       const menuState = reactive<MenuState>({
         activeName: '',
         openNames: [],
