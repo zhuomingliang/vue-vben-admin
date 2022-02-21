@@ -8,18 +8,13 @@ import { useMessage } from '/@/hooks/web/useMessage';
 export const columns: BasicColumn[] = [
   {
     title: '角色名称',
-    dataIndex: 'roleName',
+    dataIndex: 'name',
     width: 200,
   },
   {
-    title: '角色值',
-    dataIndex: 'roleValue',
+    title: '警卫名称',
+    dataIndex: 'guard_name',
     width: 180,
-  },
-  {
-    title: '排序',
-    dataIndex: 'orderNo',
-    width: 50,
   },
   {
     title: '状态',
@@ -30,13 +25,13 @@ export const columns: BasicColumn[] = [
         record.pendingStatus = false;
       }
       return h(Switch, {
-        checked: record.status === '1',
+        checked: record.status === true,
         checkedChildren: '已启用',
         unCheckedChildren: '已禁用',
         loading: record.pendingStatus,
         onChange(checked: boolean) {
           record.pendingStatus = true;
-          const newStatus = checked ? '1' : '0';
+          const newStatus = checked ? true : false;
           const { createMessage } = useMessage();
           setRoleStatus(record.id, newStatus)
             .then(() => {
@@ -54,19 +49,19 @@ export const columns: BasicColumn[] = [
     },
   },
   {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    width: 180,
+    title: '描述',
+    dataIndex: 'description',
   },
   {
-    title: '备注',
-    dataIndex: 'remark',
+    title: '创建时间',
+    dataIndex: 'created_at',
+    width: 180,
   },
 ];
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'roleNme',
+    field: 'name',
     label: '角色名称',
     component: 'Input',
     colProps: { span: 8 },
@@ -77,8 +72,8 @@ export const searchFormSchema: FormSchema[] = [
     component: 'Select',
     componentProps: {
       options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
+        { label: '启用', value: true },
+        { label: '停用', value: false },
       ],
     },
     colProps: { span: 8 },
@@ -87,14 +82,8 @@ export const searchFormSchema: FormSchema[] = [
 
 export const formSchema: FormSchema[] = [
   {
-    field: 'roleName',
+    field: 'name',
     label: '角色名称',
-    required: true,
-    component: 'Input',
-  },
-  {
-    field: 'roleValue',
-    label: '角色值',
     required: true,
     component: 'Input',
   },
@@ -102,17 +91,17 @@ export const formSchema: FormSchema[] = [
     field: 'status',
     label: '状态',
     component: 'RadioButtonGroup',
-    defaultValue: '0',
+    defaultValue: false,
     componentProps: {
       options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
+        { label: '启用', value: true },
+        { label: '停用', value: false },
       ],
     },
   },
   {
-    label: '备注',
-    field: 'remark',
+    label: '描述',
+    field: 'description',
     component: 'InputTextArea',
   },
   {
