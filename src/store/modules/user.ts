@@ -16,7 +16,6 @@ import { RouteRecordRaw } from 'vue-router';
 import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
 import { isArray } from '/@/utils/is';
 import { h } from 'vue';
-import { unset } from 'lodash-es';
 
 interface UserState {
   userInfo: Nullable<UserInfo>;
@@ -92,26 +91,23 @@ export const useUserStore = defineStore({
       try {
         const { goHome = true, mode, ...loginParams } = params;
         const result = await loginApi(loginParams, mode);
-        const { status } = result;
+        const { status, data } = result;
         // save token
         // this.setToken(token);
         if (status === 200) {
-          unset(result, 'status');
-          const userInfo = result;
+          this.setUserInfo(data);
 
-          this.setUserInfo(userInfo);
-
-          return this.afterLoginAction(userInfo, goHome);
+          return this.afterLoginAction(data, goHome);
         }
 
         if (status === 422) {
-          if (result.errors?.username) {
-            throw new Error(result.errors.username);
+          if (data.errors?.username) {
+            throw new Error(data.errors.username);
           }
         }
 
-        if (result.hasOwnProperty('message')) {
-          throw new Error(result.message);
+        if (data.hasOwnProperty('message')) {
+          throw new Error(data.message);
         }
 
         throw new Error(status as unknown as string);
