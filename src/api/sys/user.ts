@@ -8,6 +8,7 @@ enum Api {
   Logout = '/logout',
   GetUserInfo = '/getUserInfo',
   GetPermCode = '/getPermCode',
+  User = '/user',
 }
 
 /**
@@ -38,4 +39,8 @@ export function getPermCode() {
 
 export function doLogout() {
   return defHttp.post({ url: Api.Logout });
+}
+
+export function createUser(user) {
+  return defHttp.post({ url: Api.User, params: { user } });
 }

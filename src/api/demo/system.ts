@@ -46,3 +46,7 @@ export const setRoleStatus = (id: number, status: boolean) =>
 
 export const isAccountExist = (account: string) =>
   defHttp.post({ url: Api.IsAccountExist, params: { account } }, { errorMessageMode: 'none' });
+
+export function createRole(role: Object) {
+  return defHttp.post({ url: Api.RolePageList, params: { ...role, guard_name: 'admin' } });
+}

@@ -28,7 +28,7 @@
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTree, TreeItem } from '/@/components/Tree';
 
-  import { getMenuList } from '/@/api/demo/system';
+  import { getMenuList, createRole } from '/@/api/demo/system';
 
   export default defineComponent({
     name: 'RoleDrawer',
@@ -68,6 +68,7 @@
           setDrawerProps({ confirmLoading: true });
           // TODO custom api
           console.log(values);
+          await createRole(values);
           closeDrawer();
           emit('success');
         } finally {

@@ -66,6 +66,12 @@ const transform: AxiosTransform = {
     switch (status) {
       case ResultEnum.HTTP_OK:
         return data;
+      case ResultEnum.HTTP_CREATED:
+        createMessage.success('创建成功');
+        return;
+      case ResultEnum.HTTP_CONFLICT:
+        errorMsg = data.message;
+        break;
       case ResultEnum.UNKNOWN_ERROR:
         if (Reflect.has(data, 'message')) {
           errorMsg = data.message;
@@ -80,7 +86,10 @@ const transform: AxiosTransform = {
         break;
       case ResultEnum.HTTP_UNPROCESSABLE_ENTITY:
         if (Reflect.has(data, 'errors')) {
-          errorMsg = data.errors.username;
+          for (const key in data.errors) {
+            errorMsg = data.errors[key];
+            break;
+          }
         } else if (Reflect.has(data, 'message')) {
           errorMsg = data.message;
         }
