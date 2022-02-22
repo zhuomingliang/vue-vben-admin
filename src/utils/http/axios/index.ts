@@ -62,13 +62,28 @@ const transform: AxiosTransform = {
 
     // 在此处根据自己项目的实际情况对不同的code执行不同的操作
     // 如果不希望中断当前请求，请return数据，否则直接抛出异常即可
-    let timeoutMsg = '';
+    let errorMsg = '未知错误';
     switch (status) {
-      case ResultEnum.TIMEOUT:
-        timeoutMsg = t('sys.api.timeoutMessage');
+      case ResultEnum.HTTP_OK:
+        return data;
+      case ResultEnum.UNKNOWN_ERROR:
+        if (Reflect.has(data, 'message')) {
+          errorMsg = data.message;
+        }
+
+        break;
+      case ResultEnum.HTTP_UNAUTHORIZED:
+        errorMsg = t('sys.api.timeoutMessage');
         const userStore = useUserStoreWithOut();
         userStore.setToken(undefined);
         userStore.logout(true, false);
+        break;
+      case ResultEnum.HTTP_UNPROCESSABLE_ENTITY:
+        if (Reflect.has(data, 'errors')) {
+          errorMsg = data.errors.username;
+        } else if (Reflect.has(data, 'message')) {
+          errorMsg = data.message;
+        }
         break;
       default:
         // if (message) {
@@ -77,15 +92,15 @@ const transform: AxiosTransform = {
         return result;
     }
 
-    // errorMessageMode=‘modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
+    // errorMessageMode='modal'的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
     // errorMessageMode='none' 一般是调用时明确表示不希望自动弹出错误提示
     if (options.errorMessageMode === 'modal') {
-      createErrorModal({ title: t('sys.api.errorTip'), content: timeoutMsg });
+      createErrorModal({ title: t('sys.api.errorTip'), content: errorMsg });
     } else if (options.errorMessageMode === 'message') {
-      createMessage.error(timeoutMsg);
+      createMessage.error(errorMsg);
     }
 
-    throw new Error(timeoutMsg || t('sys.api.apiRequestFailed'));
+    throw new Error(errorMsg || t('sys.api.apiRequestFailed'));
   },
 
   // 请求之前处理config

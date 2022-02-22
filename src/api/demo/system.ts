@@ -18,7 +18,7 @@ enum Api {
   IsAccountExist = '/system/accountExist',
   DeptList = '/system/getDeptList',
   setRoleStatus = '/role/Status',
-  MenuList = '/system/getMenuList',
+  MenuList = '/permission/Permissions',
   RolePageList = '/role',
   GetAllRoleList = '/system/getAllRoleList',
 }

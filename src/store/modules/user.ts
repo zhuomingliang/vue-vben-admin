@@ -91,26 +91,10 @@ export const useUserStore = defineStore({
       try {
         const { goHome = true, mode, ...loginParams } = params;
         const result = await loginApi(loginParams, mode);
-        const { status, data } = result;
-        // save token
-        // this.setToken(token);
-        if (status === 200) {
-          this.setUserInfo(data);
 
-          return this.afterLoginAction(data, goHome);
-        }
+        this.setUserInfo(result);
 
-        if (status === 422) {
-          if (data.errors?.username) {
-            throw new Error(data.errors.username);
-          }
-        }
-
-        if (data.hasOwnProperty('message')) {
-          throw new Error(data.message);
-        }
-
-        throw new Error(status as unknown as string);
+        return this.afterLoginAction(result, goHome);
       } catch (error) {
         return Promise.reject(error);
       }
