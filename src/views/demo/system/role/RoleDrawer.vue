@@ -68,7 +68,10 @@
           setDrawerProps({ confirmLoading: true });
           // TODO custom api
           console.log(values);
-          await createRole(values);
+          if (unref(isUpdate)) {
+          } else {
+            await createRole(values);
+          }
           closeDrawer();
           emit('success');
         } finally {
