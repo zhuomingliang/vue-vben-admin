@@ -15,7 +15,7 @@
           :fieldNames="{ title: 'cname', key: 'id' }"
           checkable
           toolbar
-          title="菜单分配"
+          title="权限分配"
         />
       </template>
     </BasicForm>
@@ -28,7 +28,7 @@
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTree, TreeItem } from '/@/components/Tree';
 
-  import { getMenuList, createRole } from '/@/api/demo/system';
+  import { getMenuList, createRole, updateRole } from '/@/api/demo/system';
 
   export default defineComponent({
     name: 'RoleDrawer',
@@ -67,9 +67,12 @@
           const values = await validate();
           setDrawerProps({ confirmLoading: true });
           // TODO custom api
-          console.log(values);
           if (unref(isUpdate)) {
+            await updateRole(values);
           } else {
+            delete values.id;
+            console.log(values);
+
             await createRole(values);
           }
           closeDrawer();

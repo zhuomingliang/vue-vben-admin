@@ -72,6 +72,9 @@ const transform: AxiosTransform = {
       case ResultEnum.HTTP_CONFLICT:
         errorMsg = data.message;
         break;
+      case ResultEnum.HTTP_NOT_FOUND:
+        errorMsg = '数据不存在';
+        break;
       case ResultEnum.UNKNOWN_ERROR:
         if (Reflect.has(data, 'message')) {
           errorMsg = data.message;

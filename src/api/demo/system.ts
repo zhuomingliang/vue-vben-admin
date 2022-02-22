@@ -50,3 +50,7 @@ export const isAccountExist = (account: string) =>
 export function createRole(role: Object) {
   return defHttp.post({ url: Api.RolePageList, params: { ...role, guard_name: 'admin' } });
 }
+
+export function updateRole(role: Object) {
+  return defHttp.put({ url: Api.RolePageList, params: { ...role, guard_name: 'admin' } });
+}
