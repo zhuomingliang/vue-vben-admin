@@ -15,6 +15,7 @@
           :fieldNames="{ title: 'cname', key: 'id' }"
           checkable
           toolbar
+          search
           title="权限分配"
         />
       </template>
