@@ -59,3 +59,7 @@ export function updateRole(role: Object) {
 export function getRolePermissions(id: number) {
   return defHttp.get({ url: Api.getRolePermissions, params: { id } });
 }
+
+export function deleteRole(id: number) {
+  return defHttp.delete({ url: Api.RolePageList, params: { id, guard_name: 'admin' } });
+}
