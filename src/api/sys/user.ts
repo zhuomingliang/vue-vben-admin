@@ -41,6 +41,6 @@ export function doLogout() {
   return defHttp.post({ url: Api.Logout });
 }
 
-export function createUser(user) {
+export function createUser(user: any) {
   return defHttp.post({ url: Api.User, params: { user } });
 }

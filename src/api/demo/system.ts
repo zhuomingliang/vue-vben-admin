@@ -21,6 +21,7 @@ enum Api {
   MenuList = '/menu',
   RolePageList = '/role',
   GetAllRoleList = '/system/getAllRoleList',
+  getRolePermissions = '/role/permissions',
 }
 
 export const getUserList = (params: AccountParams) =>
@@ -53,4 +54,8 @@ export function createRole(role: Object) {
 
 export function updateRole(role: Object) {
   return defHttp.put({ url: Api.RolePageList, params: { ...role, guard_name: 'admin' } });
+}
+
+export function getRolePermissions(id: number) {
+  return defHttp.get({ url: Api.getRolePermissions, params: { id } });
 }

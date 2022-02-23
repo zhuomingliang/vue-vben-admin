@@ -28,7 +28,7 @@
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTree, TreeItem } from '/@/components/Tree';
 
-  import { getMenuList, createRole, updateRole } from '/@/api/demo/system';
+  import { getMenuList, createRole, updateRole, getRolePermissions } from '/@/api/demo/system';
 
   export default defineComponent({
     name: 'RoleDrawer',
@@ -54,8 +54,10 @@
         isUpdate.value = !!data?.isUpdate;
 
         if (unref(isUpdate)) {
+          const menu = await getRolePermissions(data.record.id);
           setFieldsValue({
             ...data.record,
+            menu,
           });
         }
       });
