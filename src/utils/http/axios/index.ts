@@ -100,6 +100,13 @@ const transform: AxiosTransform = {
       case ResultEnum.HTTP_INTERNAL_SERVER_ERROR:
         errorMsg = data.message;
         break;
+      case ResultEnum.HTTP_BAD_REQUEST:
+        if (Reflect.has(data, 'message')) {
+          errorMsg = data.message;
+        } else {
+          errorMsg = '错误请求';
+        }
+        break;
       default:
         // if (message) {
         //   timeoutMsg = message;
