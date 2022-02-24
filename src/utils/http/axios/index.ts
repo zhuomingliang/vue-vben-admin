@@ -97,6 +97,9 @@ const transform: AxiosTransform = {
           errorMsg = data.message;
         }
         break;
+      case ResultEnum.HTTP_INTERNAL_SERVER_ERROR:
+        errorMsg = data.message;
+        break;
       default:
         // if (message) {
         //   timeoutMsg = message;
