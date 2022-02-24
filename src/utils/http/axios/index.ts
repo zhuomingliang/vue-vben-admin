@@ -73,7 +73,7 @@ const transform: AxiosTransform = {
         errorMsg = data.message;
         break;
       case ResultEnum.HTTP_NOT_FOUND:
-        errorMsg = '数据不存在';
+        errorMsg = '页面不存在';
         break;
       case ResultEnum.UNKNOWN_ERROR:
         if (Reflect.has(data, 'message')) {
