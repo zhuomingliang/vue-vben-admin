@@ -93,6 +93,7 @@ export const useUserStore = defineStore({
         const result = await loginApi(loginParams, mode);
 
         this.setUserInfo(result);
+        this.setToken(result.userId as any);
 
         return this.afterLoginAction(result, goHome);
       } catch (error) {
