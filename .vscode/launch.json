@@ -16,7 +16,6 @@
       "url": "https://localhost:3100",
       "webRoot": "${workspaceFolder}/src",
       "breakOnLoad": true,
-      "port": 9222,
       "sourceMapPathOverrides": {
         "webpack:///src/*": "${webRoot}/*"
       }
