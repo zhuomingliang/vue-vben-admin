@@ -13,9 +13,10 @@
       "type": "chrome",
       "request": "launch",
       "name": "Launch Chrome",
-      "url": "http://localhost:3100",
+      "url": "https://localhost:3100",
       "webRoot": "${workspaceFolder}/src",
       "breakOnLoad": true,
+      "port": 9222,
       "sourceMapPathOverrides": {
         "webpack:///src/*": "${webRoot}/*"
       }

@@ -147,7 +147,7 @@ export const useUserStore = defineStore({
             await doLogout();
           }
         } catch {
-          console.log('注销Token失败');
+          console.log('注销 Token 失败');
         }
       }
       this.setToken(undefined);
