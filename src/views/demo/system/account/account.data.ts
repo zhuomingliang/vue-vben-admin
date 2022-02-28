@@ -1,6 +1,7 @@
 import { getAllRoleList, isAccountExist } from '/@/api/demo/system';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import { useId } from '/@/hooks/core/useId';
 
 export const columns: BasicColumn[] = [
   {
@@ -63,7 +64,8 @@ export const accountFormSchema: FormSchema[] = [
       {
         validator(_, value) {
           return new Promise((resolve, reject) => {
-            isAccountExist(value)
+            const [id, _] = useId(); // validator 无法获取表单中的其它值，临时用一个 'Hook' 来传递 id
+            isAccountExist(id, value)
               .then(() => resolve())
               .catch((err) => {
                 reject(err.message || '验证失败');
