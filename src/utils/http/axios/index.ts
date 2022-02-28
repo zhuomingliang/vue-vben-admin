@@ -93,7 +93,9 @@ const transform: AxiosTransform = {
             errorMsg = data.errors[key];
             break;
           }
-        } else if (Reflect.has(data, 'message')) {
+        }
+
+        if (errorMsg === '未知错误' && Reflect.has(data, 'message')) {
           errorMsg = data.message;
         }
         break;

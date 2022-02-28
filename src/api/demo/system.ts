@@ -15,7 +15,7 @@ import { defHttp } from '/@/utils/http/axios';
 enum Api {
   UserList = '/user',
   AccountList = '/system/getAccountList',
-  IsAccountExist = '/system/accountExist',
+  IsUserExist = '/user/exists',
   DeptList = '/system/getDeptList',
   setRoleStatus = '/role/Status',
   MenuList = '/menu',
@@ -45,8 +45,8 @@ export const getAllRoleList = (params?: RoleParams) =>
 export const setRoleStatus = (id: number, status: boolean) =>
   defHttp.put({ url: Api.setRoleStatus, params: { id, status } });
 
-export const isAccountExist = (account: string) =>
-  defHttp.post({ url: Api.IsAccountExist, params: { account } }, { errorMessageMode: 'none' });
+export const isAccountExist = (username: string) =>
+  defHttp.get({ url: Api.IsUserExist, params: { username } }, { errorMessageMode: 'none' });
 
 export function createRole(role: Object) {
   return defHttp.post({ url: Api.RolePageList, params: { ...role, guard_name: 'admin' } });
