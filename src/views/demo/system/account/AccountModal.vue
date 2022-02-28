@@ -33,13 +33,16 @@
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
 
+        const [_, setId] = useId();
+
         if (unref(isUpdate)) {
-          const [_, setId] = useId();
           setId(data.record.id); // validator 无法获取表单中的其它值，临时用一个 'Hook' 来传递 id
           rowId.value = data.record.id;
           setFieldsValue({
             ...data.record,
           });
+        } else {
+          setId(0);
         }
 
         const treeData = await getDeptList();
