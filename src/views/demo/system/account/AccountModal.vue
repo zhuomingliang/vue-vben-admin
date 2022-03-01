@@ -34,19 +34,26 @@
         isUpdate.value = !!data?.isUpdate;
 
         const [_, setId] = useId();
+        const record = data.record;
 
         if (unref(isUpdate)) {
-          rowId.value = data.record.id;
+          rowId.value = record.id;
 
-          if (data.record.role === null) {
-            data.record.role = [];
-          } else if (typeof data.record.role === 'string') {
-            data.record.role = data.record.role.split('、');
+          if (record.role_id === null) {
+            record.role_id = [];
+          } else if (typeof record.role_id === 'string') {
+            let roles = record.role_id.split(',') as string[];
+            let selected = [] as number[];
+            roles.forEach(function (id) {
+              selected.push(parseInt(id));
+            });
+
+            record.role_id = selected;
           }
 
-          setId(data.record.id); // validator 无法获取表单中的其它值，临时用一个 'Hook' 来传递 id
+          setId(record.id); // validator 无法获取表单中的其它值，临时用一个 'Hook' 来传递 id
           setFieldsValue({
-            ...data.record,
+            ...record,
           });
         } else {
           setId(0);
