@@ -27,18 +27,19 @@ export const columns: BasicColumn[] = [
     width: 200,
     customRender: ({ record }) => {
       const tags = [] as any[];
-      record.role.split(',').forEach((role) => {
-        tags.push(
-          h(
-            Tag,
-            {
-              color: 'blue',
-              marginRight: '8px',
-            },
-            () => role,
-          ),
-        );
-      });
+      if (record.role !== null)
+        record.role.split(',').forEach((role) => {
+          tags.push(
+            h(
+              Tag,
+              {
+                color: 'blue',
+                marginRight: '8px',
+              },
+              () => role,
+            ),
+          );
+        });
       return tags;
     },
   },
