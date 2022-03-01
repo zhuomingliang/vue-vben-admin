@@ -1,7 +1,9 @@
+import { h } from 'vue';
 import { getAllRoleList, isAccountExist } from '/@/api/demo/system';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { useId } from '/@/hooks/core/useId';
+import { Tag } from 'ant-design-vue';
 
 export const columns: BasicColumn[] = [
   {
@@ -23,6 +25,22 @@ export const columns: BasicColumn[] = [
     title: '角色',
     dataIndex: 'role',
     width: 200,
+    customRender: ({ record }) => {
+      const tags = [] as any[];
+      record.role.split(',').forEach((role) => {
+        tags.push(
+          h(
+            Tag,
+            {
+              color: 'blue',
+              marginRight: '8px',
+            },
+            () => role,
+          ),
+        );
+      });
+      return tags;
+    },
   },
   {
     title: '备注',

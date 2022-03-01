@@ -343,7 +343,7 @@
     },
   });
 </script>
-<style lang="less">
+<style lang="less" scoped>
   @border-color: #cecece4d;
 
   @prefix-cls: ~'@{namespace}-basic-table';
