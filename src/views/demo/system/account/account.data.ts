@@ -28,7 +28,7 @@ export const columns: BasicColumn[] = [
     customRender: ({ record }) => {
       const tags = [] as any[];
       if (record.role !== null)
-        record.role.split(',').forEach((role) => {
+        record.role.split(',').forEach((role: string) => {
           tags.push(
             h(
               Tag,
