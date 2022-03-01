@@ -38,6 +38,7 @@
         if (unref(isUpdate)) {
           setId(data.record.id); // validator 无法获取表单中的其它值，临时用一个 'Hook' 来传递 id
           rowId.value = data.record.id;
+          data.record.role = data.record.role.split('、');
           setFieldsValue({
             ...data.record,
           });

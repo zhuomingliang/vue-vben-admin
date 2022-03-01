@@ -20,7 +20,7 @@ enum Api {
   setRoleStatus = '/role/Status',
   MenuList = '/menu',
   RolePageList = '/role',
-  GetAllRoleList = '/system/getAllRoleList',
+  GetAllRoleList = '/role/roles',
   getRolePermissions = '/role/permissions',
 }
 
