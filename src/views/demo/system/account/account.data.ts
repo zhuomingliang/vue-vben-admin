@@ -1,4 +1,4 @@
-import { h } from 'vue';
+import { h, VNode } from 'vue';
 import { getAllRoleList, isAccountExist } from '/@/api/demo/system';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
@@ -26,20 +26,20 @@ export const columns: BasicColumn[] = [
     dataIndex: 'role',
     width: 200,
     customRender: ({ record }) => {
-      const tags = [] as any[];
-      if (record.role !== null)
+      const tags: VNode[] = [];
+      if (record.role !== null) {
         record.role.split(',').forEach((role: string) => {
           tags.push(
             h(
               Tag,
               {
                 color: 'blue',
-                marginRight: '8px',
               },
               () => role,
             ),
           );
         });
+      }
       return tags;
     },
   },

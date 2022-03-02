@@ -42,7 +42,7 @@
           if (record.role_id === null) {
             record.role_id = [];
           } else if (typeof record.role_id === 'string') {
-            let roles = record.role_id.split(',') as string[];
+            let roles: string[] = record.role_id.split(',');
             let selected: number[] = [];
             roles.forEach(function (id) {
               selected.push(parseInt(id));
@@ -56,7 +56,7 @@
             ...record,
           });
         } else {
-          setId(0);
+          setId(null);
         }
 
         const treeData = await getDeptList();

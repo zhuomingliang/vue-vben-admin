@@ -45,7 +45,7 @@ export const getAllRoleList = (params?: RoleParams) =>
 export const setRoleStatus = (id: number, status: boolean) =>
   defHttp.put({ url: Api.setRoleStatus, params: { id, status } });
 
-export const isAccountExist = (id: number, username: string) =>
+export const isAccountExist = (id: Nullable<number>, username: string) =>
   defHttp.get({ url: Api.IsUserExist, params: { id, username } }, { errorMessageMode: 'none' });
 
 export function createRole(role: Object) {
