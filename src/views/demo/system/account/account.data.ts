@@ -2,7 +2,6 @@ import { h, VNode } from 'vue';
 import { getAllRoleList, isAccountExist } from '/@/api/demo/system';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
-import { useId } from '/@/hooks/core/useId';
 import { Tag } from 'ant-design-vue';
 
 export const columns: BasicColumn[] = [
@@ -71,28 +70,35 @@ export const searchFormSchema: FormSchema[] = [
 
 export const accountFormSchema: FormSchema[] = [
   {
+    field: 'id',
+    label: 'ID',
+    component: 'Input',
+    show: false,
+  },
+  {
     field: 'username',
     label: '用户名',
     component: 'Input',
     helpMessage: ['本字段演示异步验证', '不能输入带有admin的用户名'],
-    rules: [
-      {
-        required: true,
-        message: '请输入用户名',
-      },
-      {
-        validator(_, value) {
-          return new Promise((resolve, reject) => {
-            const [id, _] = useId(); // validator 无法获取表单中的其它值，临时用一个 'Hook' 来传递 id
-            isAccountExist(id, value)
-              .then(() => resolve())
-              .catch((err) => {
-                reject(err.message || '验证失败');
-              });
-          });
+    dynamicRules: ({ model }) => {
+      return [
+        {
+          required: true,
+          message: '请输入用户名',
         },
-      },
-    ],
+        {
+          validator() {
+            return new Promise((resolve, reject) => {
+              isAccountExist(model.id, model.username)
+                .then(() => resolve())
+                .catch((err) => {
+                  reject(err.message || '验证失败');
+                });
+            });
+          },
+        },
+      ];
+    },
   },
   {
     field: 'pwd',

@@ -9,7 +9,6 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { accountFormSchema } from './account.data';
   import { getDeptList } from '/@/api/demo/system';
-  import { useId } from '/@/hooks/core/useId';
 
   export default defineComponent({
     name: 'AccountModal',
@@ -33,7 +32,6 @@
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
 
-        const [_, setId] = useId();
         const record = data.record;
 
         if (unref(isUpdate)) {
@@ -51,12 +49,9 @@
             record.role_id = selected;
           }
 
-          setId(record.id); // validator 无法获取表单中的其它值，临时用一个 'Hook' 来传递 id
           setFieldsValue({
             ...record,
           });
-        } else {
-          setId(null);
         }
 
         const treeData = await getDeptList();
