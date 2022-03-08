@@ -28,15 +28,7 @@ export const columns: BasicColumn[] = [
       const tags: VNode[] = [];
       if (record.role !== null) {
         record.role.split(',').forEach((role: string) => {
-          tags.push(
-            h(
-              Tag,
-              {
-                color: 'blue',
-              },
-              () => role,
-            ),
-          );
+          tags.push(h(Tag, { color: 'blue' }, () => role));
         });
       }
       return tags;

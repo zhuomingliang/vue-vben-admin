@@ -7,7 +7,7 @@ import { Icon } from '/@/components/Icon';
 export const columns: BasicColumn[] = [
   {
     title: '菜单名称',
-    dataIndex: 'menuName',
+    dataIndex: 'cname',
     width: 200,
     align: 'left',
   },
@@ -21,7 +21,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '权限标识',
-    dataIndex: 'permission',
+    dataIndex: 'name',
     width: 180,
   },
   {
