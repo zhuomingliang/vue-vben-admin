@@ -20,6 +20,7 @@ const system: AppRouteModule = {
       meta: {
         title: t('routes.demo.system.account'),
         ignoreKeepAlive: false,
+        permission: 'user',
       },
       component: () => import('/@/views/demo/system/account/index.vue'),
     },
@@ -41,6 +42,7 @@ const system: AppRouteModule = {
       meta: {
         title: t('routes.demo.system.role'),
         ignoreKeepAlive: true,
+        permission: 'role',
       },
       component: () => import('/@/views/demo/system/role/index.vue'),
     },

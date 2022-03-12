@@ -1,4 +1,5 @@
 import type { AppRouteRecordRaw, Menu } from '/@/router/types';
+import type { MessageArgsProps } from 'ant-design-vue';
 
 import { defineStore } from 'pinia';
 import { store } from '/@/store';
@@ -6,7 +7,7 @@ import { useI18n } from '/@/hooks/web/useI18n';
 import { useUserStore } from './user';
 import { useAppStoreWithOut } from './app';
 import { toRaw } from 'vue';
-import { transformObjToRoute, flatMultiLevelRoutes } from '/@/router/helper/routeHelper';
+import { flatMultiLevelRoutes } from '/@/router/helper/routeHelper';
 import { transformRouteToMenu } from '/@/router/helper/menuHelper';
 
 import projectSetting from '/@/settings/projectSetting';
@@ -18,8 +19,7 @@ import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
 
 import { filter } from '/@/utils/helper/treeHelper';
 
-import { getMenuList } from '/@/api/sys/menu';
-import { getPermCode } from '/@/api/sys/user';
+import { getPermCode, getUserPermissions } from '/@/api/sys/user';
 
 import { useMessage } from '/@/hooks/web/useMessage';
 import { PageEnum } from '/@/enums/pageEnum';
@@ -178,23 +178,35 @@ export const usePermissionStore = defineStore({
           createMessage.loading({
             content: t('sys.app.menuLoading'),
             duration: 1,
-          });
+          } as MessageArgsProps);
 
           // !Simulate to obtain permission codes from the background,
           // this function may only need to be executed once, and the actual project can be put at the right time by itself
           let routeList: AppRouteRecordRaw[] = [];
+          let userPermissions: string[] = [];
           try {
             this.changePermissionCode();
-            routeList = (await getMenuList()) as AppRouteRecordRaw[];
+            userPermissions = await getUserPermissions();
+            routes = filter(asyncRoutes, routeFilter);
+            routeList = routes.filter(routeFilter);
           } catch (error) {
             console.error(error);
           }
 
+          const permissionFilter = (route: AppRouteRecordRaw) => {
+            const { meta } = route;
+            const { permission = '' } = meta;
+            if (!permission) return false;
+            return userPermissions.includes(permission);
+          };
+
+          routes = filter(asyncRoutes, permissionFilter);
+
           // Dynamically introduce components
-          routeList = transformObjToRoute(routeList);
+          // routeList = transformObjToRoute(routeList);
 
           //  Background routing to menu structure
-          const backMenuList = transformRouteToMenu(routeList);
+          const backMenuList = transformRouteToMenu(routes);
           this.setBackMenuList(backMenuList);
 
           // remove meta.ignoreRoute item
