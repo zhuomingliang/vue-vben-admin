@@ -195,7 +195,7 @@ export const usePermissionStore = defineStore({
 
           const permissionFilter = (route: AppRouteRecordRaw) => {
             const { permission = '' } = route.meta;
-            if (!permission) return false;
+            if (!permission) return true;
             return userPermissions.includes(permission);
           };
 
