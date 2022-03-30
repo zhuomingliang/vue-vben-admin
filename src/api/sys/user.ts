@@ -10,6 +10,7 @@ enum Api {
   GetUserPermissions = '/user/permissions',
   GetPermCode = '/getPermCode',
   User = '/user',
+  TestRetry = '/testRetry',
 }
 
 /**
@@ -48,4 +49,17 @@ export function doLogout() {
 
 export function createUser(user: any) {
   return defHttp.post({ url: Api.User, params: { user } });
+}
+
+export function testRetry() {
+  return defHttp.get(
+    { url: Api.TestRetry },
+    {
+      retryRequest: {
+        isOpenRetry: true,
+        count: 5,
+        waitTime: 1000,
+      },
+    },
+  );
 }
