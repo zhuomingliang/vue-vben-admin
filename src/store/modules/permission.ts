@@ -5,7 +5,7 @@ import { defineStore } from 'pinia';
 import { store } from '/@/store';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { useUserStore } from './user';
-import { useAppStoreWithOut } from './app';
+//import { useAppStoreWithOut } from './app';
 import { toRaw } from 'vue';
 import { flatMultiLevelRoutes } from '/@/router/helper/routeHelper';
 import { transformRouteToMenu } from '/@/router/helper/menuHelper';
@@ -99,11 +99,11 @@ export const usePermissionStore = defineStore({
     async buildRoutesAction(): Promise<AppRouteRecordRaw[]> {
       const { t } = useI18n();
       const userStore = useUserStore();
-      const appStore = useAppStoreWithOut();
+      //const appStore = useAppStoreWithOut();
 
       let routes: AppRouteRecordRaw[] = [];
       const roleList = toRaw(userStore.getRoleList) || [];
-      const { permissionMode = projectSetting.permissionMode } = appStore.getProjectConfig;
+      const permissionMode = projectSetting.permissionMode;
 
       const routeFilter = (route: AppRouteRecordRaw) => {
         const { meta } = route;
@@ -185,7 +185,7 @@ export const usePermissionStore = defineStore({
           let routeList: AppRouteRecordRaw[] = [];
           let userPermissions: string[] = [];
           try {
-            this.changePermissionCode();
+            //this.changePermissionCode();
             userPermissions = await getUserPermissions();
             routes = filter(asyncRoutes, routeFilter);
             routeList = routes.filter(routeFilter);
