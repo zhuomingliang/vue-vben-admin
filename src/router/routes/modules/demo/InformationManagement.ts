@@ -9,7 +9,7 @@ const InformationManagement: AppRouteModule = {
   redirect: '/InformationManagement/IndexInformation',
   meta: {
     orderNo: 2000,
-    icon: 'ion:settings-outline',
+    icon: 'ion:information-circle',
     title: '信息管理',
   },
   children: [
@@ -21,7 +21,7 @@ const InformationManagement: AppRouteModule = {
         ignoreKeepAlive: false,
         permission: 'IndexInformation/getIndex',
       },
-      component: () => import('/@/views/demo/DataManagement/IndexInformation/index.vue'),
+      component: () => import('/@/views/demo/InformationManagement/IndexInformation/index.vue'),
     },
     {
       path: 'LocalInformation',
@@ -31,7 +31,7 @@ const InformationManagement: AppRouteModule = {
         ignoreKeepAlive: false,
         permission: 'LocalInformation/getIndex',
       },
-      component: () => import('/@/views/demo/DataManagement/LocalInformation/index.vue'),
+      component: () => import('/@/views/demo/InformationManagement/LocalInformation/index.vue'),
     },
     {
       path: 'HomeDecorationExpo',
@@ -41,7 +41,7 @@ const InformationManagement: AppRouteModule = {
         ignoreKeepAlive: false,
         permission: 'HomeDecorationExpo/getIndex',
       },
-      component: () => import('/@/views/demo/DataManagement/HomeDecorationExpo/index.vue'),
+      component: () => import('/@/views/demo/InformationManagement/HomeDecorationExpo/index.vue'),
     },
     {
       path: 'FileInformation',
@@ -51,7 +51,7 @@ const InformationManagement: AppRouteModule = {
         ignoreKeepAlive: false,
         permission: 'FileInformation/getIndex',
       },
-      component: () => import('/@/views/demo/DataManagement/FileInformation/index.vue'),
+      component: () => import('/@/views/demo/InformationManagement/FileInformation/index.vue'),
     },
     {
       path: 'ServiceInformation',
@@ -61,7 +61,7 @@ const InformationManagement: AppRouteModule = {
         ignoreKeepAlive: false,
         permission: 'ServiceInformation/getIndex',
       },
-      component: () => import('/@/views/demo/DataManagement/ServiceInformation/index.vue'),
+      component: () => import('/@/views/demo/InformationManagement/ServiceInformation/index.vue'),
     },
   ],
 };

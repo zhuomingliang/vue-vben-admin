@@ -9,7 +9,7 @@ const DataManagement: AppRouteModule = {
   redirect: '/DataManagement/GuestInformation',
   meta: {
     orderNo: 2000,
-    icon: 'ion:settings-outline',
+    icon: 'ion:md-contact',
     title: '数据管理',
   },
   children: [
