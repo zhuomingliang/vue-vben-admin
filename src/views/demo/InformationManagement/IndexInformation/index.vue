@@ -24,12 +24,8 @@
           </template>
         </a-tabs>
       </template>
-      <template v-if="currentKey == 'TravelArrangements'">
-        <div v-for="i in 10" :key="i">这是用户{{ userId }}操作日志Tab</div>
-      </template>
-      <template v-if="currentKey == 'SpeechActivities'">
-        <div v-for="i in 10" :key="i">这是用户{{ userId }}操作日志Tab</div>
-      </template>
+      <template v-if="currentKey == 'TravelArrangements'"> <TravelArrangements /> </template>
+      <template v-if="currentKey == 'SpeechActivities'"> <SpeechActivities /> </template>
     </div>
   </PageWrapper>
 </template>
@@ -43,6 +39,8 @@
   import DiningArrangements from './DiningArrangements.vue';
   import AccommodationArrangements from './AccommodationArrangements.vue';
   import RideArrangements from './RideArrangements.vue';
+  import TravelArrangements from './TravelArrangements.vue';
+  import SpeechActivities from './SpeechActivities.vue';
 
   export default defineComponent({
     name: 'IndexInformation',
@@ -53,6 +51,8 @@
       DiningArrangements,
       AccommodationArrangements,
       RideArrangements,
+      TravelArrangements,
+      SpeechActivities,
     },
     setup() {
       const route = useRoute();
