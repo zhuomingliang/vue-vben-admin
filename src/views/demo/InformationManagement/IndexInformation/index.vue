@@ -9,7 +9,20 @@
     </template>
     <div class="pt-4 m-4 desc-wrap">
       <template v-if="currentKey == 'AccommodationArrangements'">
-        <div v-for="i in 10" :key="i">这是用户{{ userId }}资料Tab</div>
+        <a-tabs v-model:activeKey="activeKey">
+          <a-tab-pane key="DiningArrangements" tab="用餐安排" style="height: 200px">
+            <DiningArrangements />
+          </a-tab-pane>
+          <a-tab-pane key="AccommodationArrangements" tab="住宿安排" force-render>
+            <AccommodationArrangements />
+          </a-tab-pane>
+          <a-tab-pane key="RideArrangements" tab="乘车安排">
+            <RideArrangements />
+          </a-tab-pane>
+          <template #leftExtra>
+            <span class="pt-4 m-4">分类：</span>
+          </template>
+        </a-tabs>
       </template>
       <template v-if="currentKey == 'TravelArrangements'">
         <div v-for="i in 10" :key="i">这是用户{{ userId }}操作日志Tab</div>
@@ -26,9 +39,21 @@
   import { PageWrapper } from '/@/components/Page';
   import { useGo } from '/@/hooks/web/usePage';
   import { Tabs } from 'ant-design-vue';
+
+  import DiningArrangements from './DiningArrangements.vue';
+  import AccommodationArrangements from './DiningArrangements.vue';
+  import RideArrangements from './DiningArrangements.vue';
+
   export default defineComponent({
     name: 'IndexInformation',
-    components: { PageWrapper, ATabs: Tabs, ATabPane: Tabs.TabPane },
+    components: {
+      PageWrapper,
+      ATabs: Tabs,
+      ATabPane: Tabs.TabPane,
+      DiningArrangements,
+      AccommodationArrangements,
+      RideArrangements,
+    },
     setup() {
       const route = useRoute();
       const go = useGo();

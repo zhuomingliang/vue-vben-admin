@@ -30,20 +30,19 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getGuest, deleteGuest } from '/@/api/demo/guest';
+  import { getGuest, deleteGuest } from '/@/api/demo/DiningArrangements';
 
   import { useModal } from '/@/components/Modal';
-  import GuestModal from './GuestModal.vue';
+  import GuestModal from './DiningArrangementsModal.vue';
 
-  import { columns, searchFormSchema } from './guest.data';
+  import { columns, searchFormSchema } from './DiningArrangements.data';
 
   export default defineComponent({
-    name: 'RoleManagement',
+    name: 'DiningArrangements',
     components: { BasicTable, GuestModal, TableAction },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
-        title: '嘉宾列表',
         api: getGuest,
         columns,
         formConfig: {
