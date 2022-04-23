@@ -5,27 +5,27 @@ export const columns: BasicColumn[] = [
   {
     title: '姓名',
     dataIndex: 'full_name',
-    width: 200,
+    width: 120,
   },
   {
     title: '手机号',
     dataIndex: 'phone',
-    width: 180,
+    width: 120,
   },
   {
     title: '添加渠道',
     dataIndex: 'from',
-    width: 180,
+    width: 120,
   },
   {
     title: '新增时间',
     dataIndex: 'created_at',
-    width: 180,
+    width: 120,
   },
   {
     title: '更新时间',
     dataIndex: 'updated_at',
-    width: 180,
+    width: 120,
   },
 ];
 

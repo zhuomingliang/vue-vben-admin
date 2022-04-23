@@ -51,6 +51,7 @@
             await putGuest(values);
           } else {
             delete values.id;
+            values.from = '管理后台';
             await postGuest(values);
           }
           console.log(values);
