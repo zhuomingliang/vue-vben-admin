@@ -7,38 +7,18 @@ import { useMessage } from '/@/hooks/web/useMessage';
 
 export const columns: BasicColumn[] = [
   {
-    title: '日期',
-    dataIndex: 'date',
+    title: '标题',
+    dataIndex: 'title',
     width: 120,
   },
   {
-    title: '早餐地点',
-    dataIndex: 'breakfast_place',
+    title: '视频',
+    dataIndex: 'video',
     width: 120,
   },
   {
-    title: '早餐桌次安排图',
-    dataIndex: 'breakfast_picture',
-    width: 120,
-  },
-  {
-    title: '午餐地点',
-    dataIndex: 'lunch_place',
-    width: 120,
-  },
-  {
-    title: '午餐桌次安排图',
-    dataIndex: 'lunch_picture',
-    width: 120,
-  },
-  {
-    title: '晚餐地点',
-    dataIndex: 'dinner_place',
-    width: 120,
-  },
-  {
-    title: '晚餐桌次安排图',
-    dataIndex: 'dinner_picture',
+    title: '排序',
+    dataIndex: 'title',
     width: 120,
   },
   {
@@ -87,10 +67,10 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'date',
-    label: '日期',
-    component: 'DatePicker',
-    colProps: { span: 4 },
+    field: 'title',
+    label: '标题',
+    component: 'Input',
+    colProps: { span: 6 },
   },
   {
     field: 'status',
