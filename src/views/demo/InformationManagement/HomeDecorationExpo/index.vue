@@ -22,7 +22,7 @@
   import AdvertisingVideo from './AdvertisingVideo.vue';
 
   export default defineComponent({
-    name: 'IndexInformation',
+    name: 'HomeDecorationExpo',
     components: {
       PageWrapper,
       ATabs: Tabs,
