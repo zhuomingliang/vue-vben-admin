@@ -12,33 +12,8 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
-    title: '早餐地点',
-    dataIndex: 'breakfast_place',
-    width: 120,
-  },
-  {
-    title: '早餐桌次安排图',
-    dataIndex: 'breakfast_picture',
-    width: 120,
-  },
-  {
-    title: '午餐地点',
-    dataIndex: 'breakfast_picture',
-    width: 120,
-  },
-  {
-    title: '午餐桌次安排图',
-    dataIndex: 'breakfast_picture',
-    width: 120,
-  },
-  {
-    title: '晚餐地点',
-    dataIndex: 'breakfast_picture',
-    width: 120,
-  },
-  {
-    title: '早餐桌次安排图',
-    dataIndex: '晚餐桌次安排图',
+    title: '行程安排',
+    dataIndex: 'scheduling',
     width: 120,
   },
   {

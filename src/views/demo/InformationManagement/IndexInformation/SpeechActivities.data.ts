@@ -7,43 +7,33 @@ import { useMessage } from '/@/hooks/web/useMessage';
 
 export const columns: BasicColumn[] = [
   {
-    title: '车次',
-    dataIndex: 'auto_no',
+    title: '主题',
+    dataIndex: 'title',
     width: 120,
   },
   {
-    title: '车牌号码',
-    dataIndex: 'license_plate_number',
+    title: '日期',
+    dataIndex: 'date',
     width: 120,
   },
   {
-    title: '司机',
-    dataIndex: 'driver',
+    title: '时间',
+    dataIndex: 'time',
     width: 120,
   },
   {
-    title: '司机电话号码',
-    dataIndex: 'driver_phone',
+    title: '地点',
+    dataIndex: 'place',
     width: 120,
   },
   {
-    title: '讲解员',
-    dataIndex: 'commentator',
+    title: '主持人',
+    dataIndex: 'host',
     width: 120,
   },
   {
-    title: '讲解员电话号码',
-    dataIndex: 'commentator_phone',
-    width: 120,
-  },
-  {
-    title: '服务员',
-    dataIndex: 'attendants',
-    width: 120,
-  },
-  {
-    title: '服务员电话号码',
-    dataIndex: 'attendants_phone',
+    title: '嘉宾',
+    dataIndex: 'guest',
     width: 120,
   },
   {

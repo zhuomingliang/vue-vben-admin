@@ -35,7 +35,7 @@
   import { useModal } from '/@/components/Modal';
   import SpeechActivitiesModal from './SpeechActivitiesModal.vue';
 
-  import { columns, searchFormSchema } from './RideArrangements.data';
+  import { columns, searchFormSchema } from './SpeechActivities.data';
 
   export default defineComponent({
     name: 'SpeechActivities',
