@@ -19,7 +19,7 @@ const InformationManagement: AppRouteModule = {
       meta: {
         title: '首页信息',
         ignoreKeepAlive: false,
-        permission: 'IndexInformation/getIndex',
+        permission: 'IndexInformation',
       },
       component: () => import('/@/views/demo/InformationManagement/IndexInformation/index.vue'),
     },
