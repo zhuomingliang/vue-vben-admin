@@ -23,22 +23,22 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '午餐地点',
-    dataIndex: 'breakfast_picture',
+    dataIndex: 'lunch_place',
     width: 120,
   },
   {
     title: '午餐桌次安排图',
-    dataIndex: 'breakfast_picture',
+    dataIndex: 'lunch_picture',
     width: 120,
   },
   {
     title: '晚餐地点',
-    dataIndex: 'breakfast_picture',
+    dataIndex: 'dinner_place',
     width: 120,
   },
   {
-    title: '早餐桌次安排图',
-    dataIndex: '晚餐桌次安排图',
+    title: '晚餐桌次安排图',
+    dataIndex: 'dinner_picture',
     width: 120,
   },
   {
