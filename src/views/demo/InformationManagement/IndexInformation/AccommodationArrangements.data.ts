@@ -3,18 +3,23 @@ import { FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
-    title: '日期',
-    dataIndex: 'date',
+    title: '酒店名',
+    dataIndex: 'hotel',
     width: 120,
   },
   {
-    title: '早餐地点',
-    dataIndex: 'breakfast_place',
+    title: '楼层信息',
+    dataIndex: 'storey_info',
     width: 120,
   },
   {
-    title: '添加渠道',
-    dataIndex: 'from',
+    title: '联系人',
+    dataIndex: 'contacts',
+    width: 120,
+  },
+  {
+    title: '联系人电话',
+    dataIndex: 'contacts_phone',
     width: 120,
   },
   {
@@ -31,16 +36,22 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'full_name',
-    label: '姓名',
+    field: 'hotel',
+    label: '酒店名',
     component: 'Input',
-    colProps: { span: 8 },
+    colProps: { span: 6 },
   },
   {
-    field: 'phone',
-    label: '手机号',
-    component: 'Input',
-    colProps: { span: 8 },
+    field: 'status',
+    label: '状态',
+    component: 'Select',
+    componentProps: {
+      options: [
+        { label: '启用', value: true },
+        { label: '停用', value: false },
+      ],
+    },
+    colProps: { span: 4 },
   },
 ];
 

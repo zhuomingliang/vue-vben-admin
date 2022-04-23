@@ -36,9 +36,9 @@
   } from '/@/api/demo/AccommodationArrangements';
 
   import { useModal } from '/@/components/Modal';
-  import AccommodationArrangementsModal from './DiningArrangementsModal.vue';
+  import AccommodationArrangementsModal from './AccommodationArrangementsModal.vue';
 
-  import { columns, searchFormSchema } from './DiningArrangements.data';
+  import { columns, searchFormSchema } from './AccommodationArrangements.data';
 
   export default defineComponent({
     name: 'AccommodationArrangements',

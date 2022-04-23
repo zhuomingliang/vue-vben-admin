@@ -35,7 +35,7 @@
   import { useModal } from '/@/components/Modal';
   import GuestModal from './DiningArrangementsModal.vue';
 
-  import { columns, searchFormSchema } from './DiningArrangements.data';
+  import { columns, searchFormSchema } from './RideArrangements.data';
 
   export default defineComponent({
     name: 'RideArrangements',

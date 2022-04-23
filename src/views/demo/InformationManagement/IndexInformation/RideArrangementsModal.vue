@@ -7,7 +7,7 @@
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { formSchema } from './DiningArrangements.data';
+  import { formSchema } from './RideArrangements.data';
   import { postGuest, putGuest } from '/@/api/demo/guest';
 
   export default defineComponent({
