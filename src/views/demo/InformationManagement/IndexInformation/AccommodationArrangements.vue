@@ -23,27 +23,30 @@
         />
       </template>
     </BasicTable>
-    <GuestModal @register="registerModal" @success="handleSuccess" />
+    <AccommodationArrangementsModal @register="registerModal" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getGuest, deleteGuest } from '/@/api/demo/DiningArrangements';
+  import {
+    getAccommodationArrangements,
+    deleteAccommodationArrangements,
+  } from '/@/api/demo/AccommodationArrangements';
 
   import { useModal } from '/@/components/Modal';
-  import GuestModal from './DiningArrangementsModal.vue';
+  import AccommodationArrangementsModal from './DiningArrangementsModal.vue';
 
   import { columns, searchFormSchema } from './DiningArrangements.data';
 
   export default defineComponent({
     name: 'AccommodationArrangements',
-    components: { BasicTable, GuestModal, TableAction },
+    components: { BasicTable, AccommodationArrangementsModal, TableAction },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
-        api: getGuest,
+        api: getAccommodationArrangements,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -76,7 +79,7 @@
       }
 
       async function handleDelete(record: Recordable) {
-        await deleteGuest(record.id);
+        await deleteAccommodationArrangements(record.id);
         reload();
       }
 
