@@ -41,7 +41,7 @@
         }
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增嘉宾' : '编辑嘉宾'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增' : '编辑'));
 
       async function handleSubmit() {
         try {

@@ -8,7 +8,7 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './DiningArrangements.data';
-  import { postGuest, putGuest } from '/@/api/demo/guest';
+  import { postDiningArrangements, putDiningArrangements } from '/@/api/demo/DiningArrangements';
 
   export default defineComponent({
     name: 'DiningArrangementsModal',
@@ -19,7 +19,7 @@
       const rowId = ref('');
 
       const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
-        labelWidth: 100,
+        labelWidth: 180,
         schemas: formSchema,
         showActionButtonGroup: false,
         actionColOptions: {
@@ -41,18 +41,17 @@
         }
       });
 
-      const getTitle = computed(() => (!unref(isUpdate) ? '新增嘉宾' : '编辑嘉宾'));
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增' : '编辑'));
 
       async function handleSubmit() {
         try {
           const values = await validate();
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
-            await putGuest(values);
+            await putDiningArrangements(values);
           } else {
             delete values.id;
-            values.from = '管理后台';
-            await postGuest(values);
+            await postDiningArrangements(values);
           }
           console.log(values);
           closeModal();

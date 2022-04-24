@@ -2,8 +2,9 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
-import { setRoleStatus } from '/@/api/demo/system';
+import { putStatus } from '/@/api/demo/DiningArrangements';
 import { useMessage } from '/@/hooks/web/useMessage';
+import { uploadImage } from '/@/api/demo/Upload';
 
 export const columns: BasicColumn[] = [
   {
@@ -58,7 +59,7 @@ export const columns: BasicColumn[] = [
           record.pendingStatus = true;
           const newStatus = checked ? true : false;
           const { createMessage } = useMessage();
-          setRoleStatus(record.id, newStatus)
+          putStatus(record.id, newStatus)
             .then(() => {
               record.status = newStatus;
               createMessage.success(`已成功修改状态`);
@@ -114,15 +115,69 @@ export const formSchema: FormSchema[] = [
     show: false,
   },
   {
-    field: 'full_name',
-    label: '姓名',
+    field: 'breakfast_place',
+    label: '早餐地点',
     required: true,
     component: 'Input',
   },
   {
-    field: 'phone',
-    label: '手机号',
+    field: 'breakfast_picture',
+    label: '早餐桌次安排图',
+    required: true,
+    component: 'Upload',
+    componentProps: {
+      api: uploadImage,
+      multiple: false,
+      accept: ['.jpg', '.png', '.jpeg'],
+      maxNumber: 1,
+    },
+  },
+  {
+    field: 'lunch_place',
+    label: '午餐地点',
     required: true,
     component: 'Input',
+  },
+  {
+    field: 'lunch_picture',
+    label: '午餐桌次安排图',
+    required: true,
+    component: 'Upload',
+    componentProps: {
+      api: uploadImage,
+      multiple: false,
+      accept: ['.jpg', '.png', '.jpeg'],
+      maxNumber: 1,
+    },
+  },
+  {
+    field: 'dinner_place',
+    label: '晚餐地点',
+    required: true,
+    component: 'Input',
+  },
+  {
+    field: 'dinner_picture',
+    label: '晚餐桌次安排图',
+    required: true,
+    component: 'Upload',
+    componentProps: {
+      api: uploadImage,
+      multiple: false,
+      accept: ['.jpg', '.png', '.jpeg'],
+      maxNumber: 1,
+    },
+  },
+  {
+    field: 'status',
+    label: '状态',
+    component: 'RadioButtonGroup',
+    defaultValue: false,
+    componentProps: {
+      options: [
+        { label: '启用', value: true },
+        { label: '停用', value: false },
+      ],
+    },
   },
 ];

@@ -32,7 +32,7 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
-    title: '嘉宾',
+    title: '',
     dataIndex: 'guest',
     width: 120,
   },
