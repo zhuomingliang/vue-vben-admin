@@ -115,6 +115,11 @@ export const formSchema: FormSchema[] = [
     show: false,
   },
   {
+    field: 'date',
+    label: '日期',
+    component: 'DatePicker',
+  },
+  {
     field: 'breakfast_place',
     label: '早餐地点',
     required: true,
