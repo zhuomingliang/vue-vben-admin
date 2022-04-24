@@ -125,6 +125,8 @@ const transform: AxiosTransform = {
       createMessage.error(errorMsg);
     }
 
+    if (status === ResultEnum.HTTP_UNAUTHORIZED) return; // 未授权请求，不能抛出异常，否则 Vue 路由不起作用
+
     throw new Error(errorMsg || t('sys.api.apiRequestFailed'));
   },
 
