@@ -19,7 +19,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '联系人电话',
-    dataIndex: 'contacts_phone',
+    dataIndex: 'contact_telephone',
     width: 120,
   },
   {
@@ -63,14 +63,27 @@ export const formSchema: FormSchema[] = [
     show: false,
   },
   {
-    field: 'full_name',
-    label: '姓名',
-    required: true,
+    field: 'hotel',
+    label: '酒店名',
     component: 'Input',
+    required: true,
   },
   {
-    field: 'phone',
-    label: '手机号',
+    field: 'storey_info',
+    label: '楼层分布',
+    component: 'Input',
+    required: false,
+    show: false,
+  },
+  {
+    field: 'contacts',
+    label: '联系人',
+    component: 'Input',
+    required: true,
+  },
+  {
+    field: 'contact_telephone',
+    label: '联系人电话',
     required: true,
     component: 'Input',
   },

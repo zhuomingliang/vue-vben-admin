@@ -8,7 +8,10 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './AccommodationArrangements.data';
-  import { postGuest, putGuest } from '/@/api/demo/guest';
+  import {
+    postAccommodationArrangements,
+    putAccommodationArrangements,
+  } from '/@/api/demo/AccommodationArrangements';
 
   export default defineComponent({
     name: 'AccommodationArrangementsModal',
@@ -48,13 +51,11 @@
           const values = await validate();
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
-            await putGuest(values);
+            await putAccommodationArrangements(values);
           } else {
             delete values.id;
-            values.from = '管理后台';
-            await postGuest(values);
+            await postAccommodationArrangements(values);
           }
-          console.log(values);
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });
         } finally {
