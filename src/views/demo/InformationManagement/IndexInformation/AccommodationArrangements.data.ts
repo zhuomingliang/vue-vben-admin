@@ -20,34 +20,27 @@ export const columns: BasicColumn[] = [
       if (Array.isArray(storey)) {
         if (storey.length > 1) {
           result.push(
-            h(
-              Row,
-              {
-                prefixCls: 'ant-row accommodation_arrangements_storey_info',
-              },
-              () => [
-                h(Col, { span: 12 }, () => '房号首位数'),
-                h(Col, { span: 12 }, () => '对应楼层'),
-              ],
-            ),
+            h(Row, {}, () => [
+              h(Col, { span: 12 }, () => '房号首位数'),
+              h(Col, { span: 12 }, () => '对应楼层'),
+            ]),
           );
           storey.forEach((row) => {
             result.push(
-              h(
-                Row,
-                {
-                  prefixCls: 'ant-row accommodation_arrangements_storey_info',
-                },
-                () => [
-                  h(Col, { span: 12 }, () => row.first_number),
-                  h(Col, { span: 12 }, () => row.storey_number),
-                ],
-              ),
+              h(Row, {}, () => [
+                h(Col, { span: 12 }, () => row.first_number),
+                h(Col, { span: 12 }, () => row.storey_number),
+              ]),
             );
           });
         }
       }
-      return result;
+
+      if (result.length > 0) {
+        return h('div', { class: 'accommodation_arrangements_storey_info' }, result);
+      }
+
+      return null;
     },
   },
   {

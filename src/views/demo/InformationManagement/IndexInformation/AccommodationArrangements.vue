@@ -99,7 +99,7 @@
   });
 </script>
 <style>
-  .accommodation_arrangements_storey_info {
+  .accommodation_arrangements_storey_info > div {
     border-bottom: 1px solid #eee;
   }
 </style>
