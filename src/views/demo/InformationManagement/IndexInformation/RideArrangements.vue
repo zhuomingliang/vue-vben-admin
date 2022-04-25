@@ -23,7 +23,7 @@
         />
       </template>
     </BasicTable>
-    <GuestModal @register="registerModal" @success="handleSuccess" />
+    <RideArrangementsModal @register="registerModal" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
@@ -33,13 +33,13 @@
   import { getRideArrangements, deleteRideArrangements } from '/@/api/demo/RideArrangements';
 
   import { useModal } from '/@/components/Modal';
-  import GuestModal from './DiningArrangementsModal.vue';
+  import RideArrangementsModal from './RideArrangementsModal.vue';
 
   import { columns, searchFormSchema } from './RideArrangements.data';
 
   export default defineComponent({
     name: 'RideArrangements',
-    components: { BasicTable, GuestModal, TableAction },
+    components: { BasicTable, RideArrangementsModal, TableAction },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({

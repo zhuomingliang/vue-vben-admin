@@ -67,13 +67,64 @@ export const formSchema: FormSchema[] = [
     label: '酒店名',
     component: 'Input',
     required: true,
+    colProps: {
+      span: 24,
+    },
   },
   {
-    field: 'storey_info',
+    field: 'first_number[]',
     label: '楼层分布',
     component: 'Input',
-    required: false,
-    show: false,
+    required: true,
+    colProps: {
+      span: 10,
+    },
+    componentProps: {
+      placeholder: '首位数字',
+    },
+  },
+  {
+    field: 'floor_number[]',
+    label: '',
+    component: 'Input',
+    colProps: {
+      span: 6,
+    },
+    componentProps: {
+      placeholder: '对应楼层',
+    },
+  },
+  {
+    field: 'first_number[]',
+    label: '楼层分布',
+    component: 'Input',
+    required: true,
+    colProps: {
+      span: 10,
+    },
+    componentProps: {
+      placeholder: '首位数字',
+    },
+  },
+  {
+    field: 'floor_number[]',
+    label: '',
+    component: 'Input',
+    colProps: {
+      span: 6,
+    },
+    componentProps: {
+      placeholder: '对应楼层',
+    },
+  },
+  {
+    field: '0',
+    component: 'Input',
+    label: ' ',
+    colProps: {
+      span: 8,
+    },
+    slot: 'floor',
   },
   {
     field: 'contacts',
