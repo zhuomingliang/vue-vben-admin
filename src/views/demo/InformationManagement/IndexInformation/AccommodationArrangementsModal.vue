@@ -1,27 +1,31 @@
 <template>
   <BasicModal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
     <Form
-      class="p-4 enter-x accommodation_arrangements_modal"
+      class="p-4 accommodation_arrangements_modal"
       :model="formData"
       ref="formRef"
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
     >
-      <FormItem name="account" class="enter-x" label="酒店名">
+      <FormItem name="hotel" label="酒店名">
         <Input size="middle" v-model:value="formData.hotel" placeholder="请输入酒店名" />
       </FormItem>
 
       <Space
-        v-for="(floor, index) in dynamicFloor.floors"
+        v-for="(floor, index) in formData.floors"
         :key="index"
         style="display: flex"
         align="baseline"
       >
-        <FormItem :name="`${index}-floor.first_number`" class="enter-x" :label="floor.label">
-          <Input size="middle" v-model:value="formData.floors" placeholder="首位数字" />
+        <FormItem
+          :class="floor.class"
+          :name="['floors', index, 'first_number']"
+          :label="floor.label"
+        >
+          <Input size="middle" v-model:value="floor.first_number" placeholder="首位数字" />
         </FormItem>
-        <FormItem :name="`${index}-floor.floor_number`" class="enter-x">
-          <Input size="middle" v-model:value="formData.floors" placeholder="对应楼层" />
+        <FormItem :class="floor.class" :name="['floors', index, 'floor_number']">
+          <Input size="middle" v-model:value="floor.floor_number" placeholder="对应楼层" />
         </FormItem>
         <MinusCircleOutlined @click="removeFloor(floor)" />
       </Space>
@@ -31,18 +35,16 @@
           新增
         </Button>
       </FormItem>
-      <FormItem name="mobile" class="enter-x" label="联系人">
-        <Input size="middle" v-model:value="formData.contacts" placeholder="请输入联系人方式" />
+      <FormItem name="contacts" label="联系人">
+        <Input size="middle" v-model:value="formData.contacts" placeholder="请输入联系人" />
       </FormItem>
-
-      <!-- <FormItem class="enter-x">
-        <Button type="primary" size="large" block @click="handleReset" :loading="loading">
-          {{ t('common.resetText') }}
-        </Button>
-        <Button size="large" block class="mt-4" @click="handleBackLogin">
-          {{ t('sys.login.backSignIn') }}
-        </Button>
-      </FormItem> -->
+      <FormItem name="contact_telephone" label="联系人电话">
+        <Input
+          size="middle"
+          v-model:value="formData.contact_telephone"
+          placeholder="请输入联系人电话"
+        />
+      </FormItem>
     </Form>
   </BasicModal>
 </template>
@@ -61,7 +63,7 @@
     label: string;
     first_number: string;
     floor_number: string;
-    disabled: boolean;
+    class: string;
   }
   const FormItem = Form.Item;
 
@@ -84,34 +86,31 @@
       const formRef = ref();
       const formData = reactive({
         hotel: '',
-        floors: '',
-        contacts: '',
-        contacts_telephone: '',
-      });
-
-      const dynamicFloor = reactive<{ floors: Floor[] }>({
         floors: [
           {
             label: '楼层信息',
             first_number: '',
             floor_number: '',
-            disabled: true,
+            class: '',
           },
         ],
+        contacts: '',
+        contact_telephone: '',
       });
 
       const removeFloor = (item: Floor) => {
-        let index = dynamicFloor.floors.indexOf(item);
+        let index = formData.floors.indexOf(item);
         if (index > 0) {
-          dynamicFloor.floors.splice(index, 1);
+          formData.floors.splice(index, 1);
         }
       };
+
       const addFloor = () => {
-        dynamicFloor.floors.push({
+        formData.floors.push({
           label: '　',
           first_number: '',
           floor_number: '',
-          disabled: false,
+          class: 'enter-x',
         });
       };
 
@@ -134,9 +133,9 @@
 
       async function handleSubmit() {
         try {
-          // const values = await validate();
-          const values = [];
-
+          const form = unref(formRef);
+          const values = await form.validate();
+          console.log(values);
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
             await putAccommodationArrangements(values);
@@ -156,7 +155,6 @@
         wrapperCol: { span: 24 },
         formRef,
         formData,
-        dynamicFloor,
         registerModal,
         addFloor,
         removeFloor,
@@ -166,7 +164,7 @@
     },
   });
 </script>
-<style>
+<style local>
   .accommodation_arrangements_modal
     > .ant-space:nth-child(n + 3)
     .ant-form-item-label
