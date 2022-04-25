@@ -98,3 +98,8 @@
     },
   });
 </script>
+<style>
+  .accommodation_arrangements_storey_info {
+    border-bottom: 1px solid #eee;
+  }
+</style>

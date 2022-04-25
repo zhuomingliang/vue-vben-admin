@@ -1,5 +1,7 @@
+import { h } from 'vue';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import { Row, Col } from 'ant-design-vue';
 
 export const columns: BasicColumn[] = [
   {
@@ -11,6 +13,42 @@ export const columns: BasicColumn[] = [
     title: '楼层信息',
     dataIndex: 'storey_info',
     width: 120,
+    customRender: ({ value }) => {
+      const storey = JSON.parse(value);
+      const result: any[] = [];
+
+      if (Array.isArray(storey)) {
+        if (storey.length > 1) {
+          result.push(
+            h(
+              Row,
+              {
+                prefixCls: 'ant-row accommodation_arrangements_storey_info',
+              },
+              () => [
+                h(Col, { span: 12 }, () => '房号首位数'),
+                h(Col, { span: 12 }, () => '对应楼层'),
+              ],
+            ),
+          );
+        }
+        storey.forEach((row) => {
+          result.push(
+            h(
+              Row,
+              {
+                prefixCls: 'ant-row accommodation_arrangements_storey_info',
+              },
+              () => [
+                h(Col, { span: 12 }, () => row.first_number),
+                h(Col, { span: 12 }, () => row.storey_number),
+              ],
+            ),
+          );
+        });
+      }
+      return result;
+    },
   },
   {
     title: '联系人',
@@ -52,90 +90,5 @@ export const searchFormSchema: FormSchema[] = [
       ],
     },
     colProps: { span: 4 },
-  },
-];
-
-export const formSchema: FormSchema[] = [
-  {
-    field: 'id',
-    label: 'ID',
-    component: 'Input',
-    show: false,
-  },
-  {
-    field: 'hotel',
-    label: '酒店名',
-    component: 'Input',
-    required: true,
-    colProps: {
-      span: 24,
-    },
-  },
-  {
-    field: 'first_number[]',
-    label: '楼层分布',
-    component: 'Input',
-    required: true,
-    colProps: {
-      span: 10,
-    },
-    componentProps: {
-      placeholder: '首位数字',
-    },
-  },
-  {
-    field: 'floor_number[]',
-    label: '',
-    component: 'Input',
-    colProps: {
-      span: 6,
-    },
-    componentProps: {
-      placeholder: '对应楼层',
-    },
-  },
-  {
-    field: 'first_number[]',
-    label: '楼层分布',
-    component: 'Input',
-    required: true,
-    colProps: {
-      span: 10,
-    },
-    componentProps: {
-      placeholder: '首位数字',
-    },
-  },
-  {
-    field: 'floor_number[]',
-    label: '',
-    component: 'Input',
-    colProps: {
-      span: 6,
-    },
-    componentProps: {
-      placeholder: '对应楼层',
-    },
-  },
-  {
-    field: '0',
-    component: 'Input',
-    label: ' ',
-    colProps: {
-      span: 8,
-    },
-    slot: 'floor',
-  },
-  {
-    field: 'contacts',
-    label: '联系人',
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'contact_telephone',
-    label: '联系人电话',
-    required: true,
-    component: 'Input',
   },
 ];

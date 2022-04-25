@@ -176,7 +176,7 @@
     },
   });
 </script>
-<style local>
+<style>
   .accommodation_arrangements_modal
     > .ant-space:nth-of-type(n + 3)
     .ant-form-item-label
