@@ -138,14 +138,16 @@
 
         if (unref(isUpdate)) {
           const storey_info = JSON.parse(record.storey_info);
-          formData.storey_info = storey_info.map(function (storey: any, index: any) {
-            if (index == 0) {
-              storey.label = '楼层信息';
-            } else {
-              storey.label = '　';
-            }
-            return storey;
-          });
+          if (Array.isArray(storey_info)) {
+            formData.storey_info = storey_info.map(function (storey: any, index: any) {
+              if (index == 0) {
+                storey.label = '楼层信息';
+              } else {
+                storey.label = '　';
+              }
+              return storey;
+            });
+          }
 
           formData.id = record.id;
           formData.hotel = record.hotel;
