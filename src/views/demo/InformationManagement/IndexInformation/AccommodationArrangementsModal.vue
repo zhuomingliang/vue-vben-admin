@@ -10,7 +10,7 @@
       <FormItem name="id" label="Id" style="display: none">
         <Input size="middle" v-model:value="formData.id" />
       </FormItem>
-      <FormItem name="hotel" label="酒店名">
+      <FormItem name="hotel" label="酒店名" :rules="[{ required: true, message: '请输入酒店名' }]">
         <Input size="middle" v-model:value="formData.hotel" placeholder="请输入酒店名" />
       </FormItem>
 
@@ -38,10 +38,18 @@
           新增
         </Button>
       </FormItem>
-      <FormItem name="contacts" label="联系人">
+      <FormItem
+        name="contacts"
+        label="联系人"
+        :rules="[{ required: true, message: '请输入联系人' }]"
+      >
         <Input size="middle" v-model:value="formData.contacts" placeholder="请输入联系人" />
       </FormItem>
-      <FormItem name="contact_telephone" label="联系人电话">
+      <FormItem
+        name="contact_telephone"
+        label="联系人电话"
+        :rules="[{ required: true, message: '请输入联系人电话' }]"
+      >
         <Input
           size="middle"
           v-model:value="formData.contact_telephone"
