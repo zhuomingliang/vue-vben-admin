@@ -24,7 +24,7 @@
         >
           <Input size="middle" v-model:value="storey.first_number" placeholder="首位数字" />
         </FormItem>
-        <FormItem :class="storey.class" :name="['storey_info', index, 'storey_info_number']">
+        <FormItem :class="storey.class" :name="['storey_info', index, 'storey_number']">
           <Input size="middle" v-model:value="storey.storey_number" placeholder="对应楼层" />
         </FormItem>
         <MinusCircleOutlined @click="removeStorey(storey)" />
@@ -123,9 +123,19 @@
         const record = data.record;
 
         if (unref(isUpdate)) {
-          form.setFieldsValue({
-            ...record,
+          const storey_info = JSON.parse(record.storey_info);
+          formData.storey_info = storey_info.map(function (storey: any, index: any) {
+            if (index == 0) {
+              storey.label = '楼层信息';
+            } else {
+              storey.label = '　';
+            }
+            return storey;
           });
+
+          formData.hotel = record.hotel;
+          formData.contacts = record.contacts;
+          formData.contact_telephone = record.contact_telephone;
         }
       });
 
