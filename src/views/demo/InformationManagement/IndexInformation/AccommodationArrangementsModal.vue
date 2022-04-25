@@ -7,6 +7,9 @@
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
     >
+      <FormItem name="id" label="Id" style="display: none">
+        <Input size="middle" v-model:value="formData.id" />
+      </FormItem>
       <FormItem name="hotel" label="酒店名">
         <Input size="middle" v-model:value="formData.hotel" placeholder="请输入酒店名" />
       </FormItem>
@@ -85,6 +88,7 @@
       const rowId = ref('');
       const formRef = ref();
       const formInit = {
+        id: 0,
         hotel: '',
         storey_info: [
           {
@@ -135,6 +139,7 @@
             return storey;
           });
 
+          formData.id = record.id;
           formData.hotel = record.hotel;
           formData.contacts = record.contacts;
           formData.contact_telephone = record.contact_telephone;
@@ -147,6 +152,7 @@
         try {
           const form = unref(formRef);
           const values = await form.validate();
+          console.log(values);
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
             await putAccommodationArrangements(values);
