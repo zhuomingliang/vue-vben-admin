@@ -166,7 +166,7 @@
 </script>
 <style local>
   .accommodation_arrangements_modal
-    > .ant-space:nth-child(n + 3)
+    > .ant-space:nth-of-type(n + 3)
     .ant-form-item-label
     > label::after {
     content: '';
