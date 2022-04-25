@@ -84,7 +84,7 @@
       const isUpdate = ref(true);
       const rowId = ref('');
       const formRef = ref();
-      const formData = reactive({
+      const formInit = {
         hotel: '',
         storey_info: [
           {
@@ -96,7 +96,8 @@
         ],
         contacts: '',
         contact_telephone: '',
-      });
+      };
+      const formData = reactive({ ...formInit });
 
       const removeStorey = (item: Storey) => {
         let index = formData.storey_info.indexOf(item);
@@ -121,6 +122,7 @@
         isUpdate.value = !!data?.isUpdate;
 
         const record = data.record;
+        formData.storey_info = [...formInit.storey_info];
 
         if (unref(isUpdate)) {
           const storey_info = JSON.parse(record.storey_info);
@@ -145,7 +147,6 @@
         try {
           const form = unref(formRef);
           const values = await form.validate();
-          console.log(values);
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
             await putAccommodationArrangements(values);
@@ -153,6 +154,7 @@
             //delete values.id;
             await postAccommodationArrangements(values);
           }
+
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });
         } finally {
