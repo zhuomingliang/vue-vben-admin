@@ -31,21 +31,21 @@ export const columns: BasicColumn[] = [
               ],
             ),
           );
+          storey.forEach((row) => {
+            result.push(
+              h(
+                Row,
+                {
+                  prefixCls: 'ant-row accommodation_arrangements_storey_info',
+                },
+                () => [
+                  h(Col, { span: 12 }, () => row.first_number),
+                  h(Col, { span: 12 }, () => row.storey_number),
+                ],
+              ),
+            );
+          });
         }
-        storey.forEach((row) => {
-          result.push(
-            h(
-              Row,
-              {
-                prefixCls: 'ant-row accommodation_arrangements_storey_info',
-              },
-              () => [
-                h(Col, { span: 12 }, () => row.first_number),
-                h(Col, { span: 12 }, () => row.storey_number),
-              ],
-            ),
-          );
-        });
       }
       return result;
     },
