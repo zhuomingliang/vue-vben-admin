@@ -12,25 +12,25 @@
       </FormItem>
 
       <Space
-        v-for="(floor, index) in formData.floors"
+        v-for="(storey, index) in formData.storey_info"
         :key="index"
         style="display: flex"
         align="baseline"
       >
         <FormItem
-          :class="floor.class"
-          :name="['floors', index, 'first_number']"
-          :label="floor.label"
+          :class="storey.class"
+          :name="['storey_info', index, 'first_number']"
+          :label="storey.label"
         >
-          <Input size="middle" v-model:value="floor.first_number" placeholder="首位数字" />
+          <Input size="middle" v-model:value="storey.first_number" placeholder="首位数字" />
         </FormItem>
-        <FormItem :class="floor.class" :name="['floors', index, 'floor_number']">
-          <Input size="middle" v-model:value="floor.floor_number" placeholder="对应楼层" />
+        <FormItem :class="storey.class" :name="['storey_info', index, 'storey_info_number']">
+          <Input size="middle" v-model:value="storey.storey_number" placeholder="对应楼层" />
         </FormItem>
-        <MinusCircleOutlined @click="removeFloor(floor)" />
+        <MinusCircleOutlined @click="removeStorey(storey)" />
       </Space>
       <FormItem>
-        <Button type="dashed" block @click="addFloor">
+        <Button type="dashed" block @click="addStorey">
           <PlusOutlined />
           新增
         </Button>
@@ -59,10 +59,10 @@
     putAccommodationArrangements,
   } from '/@/api/demo/AccommodationArrangements';
 
-  interface Floor {
+  interface Storey {
     label: string;
     first_number: string;
-    floor_number: string;
+    storey_number: string;
     class: string;
   }
   const FormItem = Form.Item;
@@ -86,11 +86,11 @@
       const formRef = ref();
       const formData = reactive({
         hotel: '',
-        floors: [
+        storey_info: [
           {
             label: '楼层信息',
             first_number: '',
-            floor_number: '',
+            storey_number: '',
             class: '',
           },
         ],
@@ -98,18 +98,18 @@
         contact_telephone: '',
       });
 
-      const removeFloor = (item: Floor) => {
-        let index = formData.floors.indexOf(item);
+      const removeStorey = (item: Storey) => {
+        let index = formData.storey_info.indexOf(item);
         if (index > 0) {
-          formData.floors.splice(index, 1);
+          formData.storey_info.splice(index, 1);
         }
       };
 
-      const addFloor = () => {
-        formData.floors.push({
+      const addStorey = () => {
+        formData.storey_info.push({
           label: '　',
           first_number: '',
-          floor_number: '',
+          storey_number: '',
           class: 'enter-x',
         });
       };
@@ -156,8 +156,8 @@
         formRef,
         formData,
         registerModal,
-        addFloor,
-        removeFloor,
+        addStorey,
+        removeStorey,
         getTitle,
         handleSubmit,
       };
