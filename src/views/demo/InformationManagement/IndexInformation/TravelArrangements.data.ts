@@ -18,8 +18,6 @@ export const columns: BasicColumn[] = [
       const result: any[] = [];
       if (Array.isArray(scheduling)) {
         if (scheduling.length > 0) {
-          console.log(scheduling.length);
-
           result.push(
             h(Row, {}, () => [
               h(Col, { span: 12 }, () => '时间'),
