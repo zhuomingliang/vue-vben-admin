@@ -14,18 +14,18 @@ export const columns: BasicColumn[] = [
     dataIndex: 'scheduling',
     width: 240,
     customRender: ({ value }) => {
-      const storey = JSON.parse(value);
+      const scheduling = JSON.parse(value);
       const result: any[] = [];
 
-      if (Array.isArray(storey)) {
-        if (storey.length > 1) {
+      if (Array.isArray(scheduling)) {
+        if (scheduling.length > 1) {
           result.push(
             h(Row, {}, () => [
               h(Col, { span: 12 }, () => '时间'),
               h(Col, { span: 12 }, () => '安排'),
             ]),
           );
-          storey.forEach((row) => {
+          scheduling.forEach((row) => {
             result.push(
               h(Row, {}, () => [
                 h(Col, { span: 12 }, () => row.time),
@@ -44,9 +44,9 @@ export const columns: BasicColumn[] = [
     },
   },
   {
-    title: '联系人',
-    dataIndex: 'contacts',
-    width: 80,
+    title: '新增时间',
+    dataIndex: 'created_at',
+    width: 120,
   },
   {
     title: '更新时间',
@@ -60,18 +60,6 @@ export const searchFormSchema: FormSchema[] = [
     field: 'date',
     label: '日期',
     component: 'DatePicker',
-    colProps: { span: 4 },
-  },
-  {
-    field: 'status',
-    label: '状态',
-    component: 'Select',
-    componentProps: {
-      options: [
-        { label: '启用', value: true },
-        { label: '停用', value: false },
-      ],
-    },
     colProps: { span: 4 },
   },
 ];
