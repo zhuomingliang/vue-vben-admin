@@ -31,7 +31,7 @@
         <FormItem :class="storey.class" :name="['storey_info', index, 'storey_number']">
           <Input size="middle" v-model:value="storey.storey_number" placeholder="对应楼层" />
         </FormItem>
-        <MinusCircleOutlined @click="removeStorey(storey)" />
+        <MinusCircleOutlined @click="removeStorey(index)" />
       </Space>
       <FormItem>
         <Button type="dashed" block @click="addStorey">
@@ -71,12 +71,6 @@
     putAccommodationArrangements,
   } from '/@/api/demo/AccommodationArrangements';
 
-  interface Storey {
-    label: string;
-    first_number: string;
-    storey_number: string;
-    class: string;
-  }
   const FormItem = Form.Item;
 
   export default defineComponent({
@@ -112,13 +106,6 @@
       };
       const formData = reactive({ ...formInit });
 
-      const removeStorey = (item: Storey) => {
-        let index = formData.storey_info.indexOf(item);
-        if (index > 0) {
-          formData.storey_info.splice(index, 1);
-        }
-      };
-
       const addStorey = () => {
         formData.storey_info.push({
           label: '　',
@@ -126,6 +113,12 @@
           storey_number: '',
           class: 'enter-x',
         });
+      };
+
+      const removeStorey = (index: number) => {
+        if (index > 0) {
+          formData.storey_info.splice(index, 1);
+        }
       };
 
       const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data) => {
