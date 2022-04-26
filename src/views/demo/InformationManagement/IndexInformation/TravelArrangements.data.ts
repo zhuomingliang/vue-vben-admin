@@ -7,12 +7,12 @@ export const columns: BasicColumn[] = [
   {
     title: '日期',
     dataIndex: 'date',
-    width: 120,
+    width: 80,
   },
   {
     title: '行程安排',
     dataIndex: 'scheduling',
-    width: 120,
+    width: 240,
     customRender: ({ value }) => {
       const storey = JSON.parse(value);
       const result: any[] = [];
@@ -46,12 +46,12 @@ export const columns: BasicColumn[] = [
   {
     title: '联系人',
     dataIndex: 'contacts',
-    width: 120,
+    width: 80,
   },
   {
     title: '更新时间',
     dataIndex: 'updated_at',
-    width: 120,
+    width: 80,
   },
 ];
 

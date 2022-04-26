@@ -44,10 +44,7 @@
   import { Form, Input, Button, Space } from 'ant-design-vue';
   import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
 
-  import {
-    postAccommodationArrangements,
-    putAccommodationArrangements,
-  } from '/@/api/demo/AccommodationArrangements';
+  import { postTravelArrangements, putTravelArrangements } from '/@/api/demo/TravelArrangements';
 
   const FormItem = Form.Item;
 
@@ -133,10 +130,10 @@
           console.log(values);
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
-            await putAccommodationArrangements(values);
+            await putTravelArrangements(values);
           } else {
             //delete values.id;
-            await postAccommodationArrangements(values);
+            await postTravelArrangements(values);
           }
 
           closeModal();
