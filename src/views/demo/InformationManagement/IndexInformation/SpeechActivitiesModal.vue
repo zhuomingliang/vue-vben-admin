@@ -46,6 +46,13 @@
       async function handleSubmit() {
         try {
           const values = await validate();
+          if (Array.isArray(values.time)) {
+            values.start_time = values.time[0].format('HH:mm');
+            values.end_time = values.time[1].format('HH:mm');
+          }
+
+          delete values.time;
+
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
             await putSpeechActivities(values);

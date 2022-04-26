@@ -12,13 +12,16 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
-    title: '主题',
-    dataIndex: 'title',
-    width: 120,
-  },
-  {
     title: '时间',
     dataIndex: 'time',
+    width: 120,
+    customRender: ({ record }) => {
+      return h('span', {}, `${record.start_time} ~ ${record.end_time}`);
+    },
+  },
+  {
+    title: '主题',
+    dataIndex: 'title',
     width: 120,
   },
   {
@@ -121,12 +124,6 @@ export const formSchema: FormSchema[] = [
     required: true,
   },
   {
-    field: 'title',
-    label: '主题',
-    required: true,
-    component: 'Input',
-  },
-  {
     field: 'time',
     label: '时间',
     required: true,
@@ -134,9 +131,15 @@ export const formSchema: FormSchema[] = [
     componentProps: { format: 'HH:mm', placeholder: ['开始时间', '结束时间'] },
   },
   {
+    field: 'title',
+    label: '主题',
+    required: true,
+    component: 'Input',
+  },
+  {
     field: 'place',
     label: '地点',
-    required: true,
+    required: false,
     component: 'Input',
   },
   {
