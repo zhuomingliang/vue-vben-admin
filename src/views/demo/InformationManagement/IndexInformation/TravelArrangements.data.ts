@@ -20,15 +20,15 @@ export const columns: BasicColumn[] = [
         if (scheduling.length > 0) {
           result.push(
             h(Row, {}, () => [
-              h(Col, { span: 12 }, () => '时间'),
-              h(Col, { span: 12 }, () => '安排'),
+              h(Col, { span: 6 }, () => '时间'),
+              h(Col, { span: 18 }, () => '安排'),
             ]),
           );
           scheduling.forEach((row) => {
             result.push(
               h(Row, {}, () => [
-                h(Col, { span: 12 }, () => row.time),
-                h(Col, { span: 12 }, () => row.arrangements),
+                h(Col, { span: 6 }, () => row.time),
+                h(Col, { span: 18 }, () => row.arrangements),
               ]),
             );
           });

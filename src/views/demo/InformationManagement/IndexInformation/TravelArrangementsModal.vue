@@ -12,20 +12,29 @@
         <Input size="middle" v-model:value="formData.id" />
       </FormItem>
       <FormItem name="date" label="日期" :rules="[{ required: true }]">
-        <Input size="middle" v-model:value="formData.date" placeholder="请选择日期" />
+        <DatePicker size="middle" v-model:value="formData.date" placeholder="请选择日期" />
       </FormItem>
 
       <Space
-        v-for="(storey, index) in formData.scheduling"
+        v-for="(schedule, index) in formData.scheduling"
         :key="index"
         style="display: flex"
         align="baseline"
       >
-        <FormItem :class="storey.class" :name="['scheduling', index, 'time']" :label="storey.label">
-          <Input size="middle" v-model:value="storey.time" placeholder="时间" />
+        <FormItem
+          :class="schedule.class"
+          :name="['scheduling', index, 'time']"
+          :label="schedule.label"
+        >
+          <TimePicker
+            size="middle"
+            v-model:value="schedule.time"
+            placeholder="时间"
+            format="HH:mm"
+          />
         </FormItem>
-        <FormItem :class="storey.class" :name="['scheduling', index, 'arrangements']">
-          <Input size="middle" v-model:value="storey.arrangements" placeholder="安排" />
+        <FormItem :class="schedule.class" :name="['scheduling', index, 'arrangements']">
+          <Input size="middle" v-model:value="schedule.arrangements" placeholder="安排" />
         </FormItem>
         <MinusCircleOutlined @click="removeSchedule(index)" />
       </Space>
@@ -40,8 +49,9 @@
 </template>
 <script lang="ts">
   import { defineComponent, ref, computed, unref, reactive } from 'vue';
+  import dayjs from 'dayjs';
   import { BasicModal, useModalInner } from '/@/components/Modal';
-  import { Form, Input, Button, Space } from 'ant-design-vue';
+  import { Form, Input, DatePicker, TimePicker, Button, Space } from 'ant-design-vue';
   import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
 
   import { postTravelArrangements, putTravelArrangements } from '/@/api/demo/TravelArrangements';
@@ -53,9 +63,11 @@
     components: {
       BasicModal,
       Form,
+      Input,
       Space,
       FormItem,
-      Input,
+      DatePicker,
+      TimePicker,
       Button,
       MinusCircleOutlined,
       PlusOutlined,
@@ -67,7 +79,7 @@
       const formRef = ref();
       const formInit = {
         id: 0,
-        date: '',
+        date: dayjs(),
         scheduling: [
           {
             label: '行程',
@@ -106,18 +118,20 @@
         if (unref(isUpdate)) {
           const scheduling = JSON.parse(record.scheduling);
           if (Array.isArray(scheduling)) {
-            formData.scheduling = scheduling.map(function (storey: any, index: any) {
+            formData.scheduling = scheduling.map(function (scheduling: any, index: any) {
               if (index == 0) {
-                storey.label = '行程';
+                scheduling.label = '行程';
               } else {
-                storey.label = '　';
+                scheduling.label = '　';
               }
-              return storey;
+              scheduling.time = dayjs(scheduling.time, 'HH:mm');
+
+              return scheduling;
             });
           }
 
           formData.id = record.id;
-          formData.date = record.date;
+          formData.date = dayjs(record.date, 'YYYY-MM-DD');
         }
       });
 
@@ -127,7 +141,11 @@
         try {
           const form = unref(formRef);
           const values = await form.validate();
-          console.log(values);
+
+          values.scheduling.forEach((row: any) => {
+            if (typeof row.time == 'object') row.time = row.time.format('HH:mm');
+          });
+
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
             await putTravelArrangements(values);
