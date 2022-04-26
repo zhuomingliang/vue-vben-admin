@@ -1,11 +1,12 @@
 <template>
   <BasicModal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
     <Form
-      class="p-4 accommodation_arrangements_modal"
+      class="p-4"
       :model="formData"
       ref="formRef"
       :label-col="labelCol"
       :wrapper-col="wrapperCol"
+      :colon="false"
     >
       <FormItem name="id" label="Id" style="display: none">
         <Input size="middle" v-model:value="formData.id" />
@@ -192,11 +193,3 @@
     },
   });
 </script>
-<style>
-  .accommodation_arrangements_modal
-    > .ant-space:nth-of-type(n + 4)
-    .ant-form-item-label
-    > label::after {
-    content: '';
-  }
-</style>
