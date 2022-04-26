@@ -30,7 +30,7 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getDiningArrangements, deleteDiningArrangements } from '/@/api/demo/DiningArrangements';
+  import { getTravelArrangements, deleteTravelArrangements } from '/@/api/demo/TravelArrangements';
 
   import { useModal } from '/@/components/Modal';
   import TravelArrangementsModal from './TravelArrangementsModal.vue';
@@ -43,7 +43,7 @@
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
-        api: getDiningArrangements,
+        api: getTravelArrangements,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -76,7 +76,7 @@
       }
 
       async function handleDelete(record: Recordable) {
-        await deleteDiningArrangements(record.id);
+        await deleteTravelArrangements(record.id);
         reload();
       }
 
@@ -95,3 +95,8 @@
     },
   });
 </script>
+<style>
+  .travel_arrangements_scheduling > div {
+    border-bottom: 1px solid #eee;
+  }
+</style>

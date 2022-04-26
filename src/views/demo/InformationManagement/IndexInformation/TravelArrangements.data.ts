@@ -1,9 +1,7 @@
+import { h } from 'vue';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
-import { h } from 'vue';
-import { Switch } from 'ant-design-vue';
-import { setRoleStatus } from '/@/api/demo/system';
-import { useMessage } from '/@/hooks/web/useMessage';
+import { Row, Col } from 'ant-design-vue';
 
 export const columns: BasicColumn[] = [
   {
@@ -15,42 +13,39 @@ export const columns: BasicColumn[] = [
     title: '行程安排',
     dataIndex: 'scheduling',
     width: 120,
-  },
-  {
-    title: '状态',
-    dataIndex: 'status',
-    width: 80,
-    customRender: ({ record }) => {
-      if (!Reflect.has(record, 'pendingStatus')) {
-        record.pendingStatus = false;
+    customRender: ({ value }) => {
+      const storey = JSON.parse(value);
+      const result: any[] = [];
+
+      if (Array.isArray(storey)) {
+        if (storey.length > 1) {
+          result.push(
+            h(Row, {}, () => [
+              h(Col, { span: 12 }, () => '时间'),
+              h(Col, { span: 12 }, () => '安排'),
+            ]),
+          );
+          storey.forEach((row) => {
+            result.push(
+              h(Row, {}, () => [
+                h(Col, { span: 12 }, () => row.time),
+                h(Col, { span: 12 }, () => row.arrangements),
+              ]),
+            );
+          });
+        }
       }
-      return h(Switch, {
-        checked: record.status === true,
-        checkedChildren: '已启用',
-        unCheckedChildren: '已禁用',
-        loading: record.pendingStatus,
-        onChange(checked: boolean) {
-          record.pendingStatus = true;
-          const newStatus = checked ? true : false;
-          const { createMessage } = useMessage();
-          setRoleStatus(record.id, newStatus)
-            .then(() => {
-              record.status = newStatus;
-              createMessage.success(`已成功修改状态`);
-            })
-            .catch(() => {
-              createMessage.error('修改状态失败');
-            })
-            .finally(() => {
-              record.pendingStatus = false;
-            });
-        },
-      });
+
+      if (result.length > 0) {
+        return h('div', { class: 'travel_arrangements_scheduling' }, result);
+      }
+
+      return null;
     },
   },
   {
-    title: '新增时间',
-    dataIndex: 'created_at',
+    title: '联系人',
+    dataIndex: 'contacts',
     width: 120,
   },
   {
@@ -78,26 +73,5 @@ export const searchFormSchema: FormSchema[] = [
       ],
     },
     colProps: { span: 4 },
-  },
-];
-
-export const formSchema: FormSchema[] = [
-  {
-    field: 'id',
-    label: 'ID',
-    component: 'Input',
-    show: false,
-  },
-  {
-    field: 'full_name',
-    label: '姓名',
-    required: true,
-    component: 'Input',
-  },
-  {
-    field: 'phone',
-    label: '手机号',
-    required: true,
-    component: 'Input',
   },
 ];
