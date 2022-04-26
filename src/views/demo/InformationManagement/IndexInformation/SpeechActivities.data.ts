@@ -2,18 +2,18 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
-import { setRoleStatus } from '/@/api/demo/system';
+import { putStatus } from '/@/api/demo/SpeechActivities';
 import { useMessage } from '/@/hooks/web/useMessage';
 
 export const columns: BasicColumn[] = [
   {
-    title: '主题',
-    dataIndex: 'title',
+    title: '日期',
+    dataIndex: 'date',
     width: 120,
   },
   {
-    title: '日期',
-    dataIndex: 'date',
+    title: '主题',
+    dataIndex: 'title',
     width: 120,
   },
   {
@@ -53,7 +53,7 @@ export const columns: BasicColumn[] = [
           record.pendingStatus = true;
           const newStatus = checked ? true : false;
           const { createMessage } = useMessage();
-          setRoleStatus(record.id, newStatus)
+          putStatus(record.id, newStatus)
             .then(() => {
               record.status = newStatus;
               createMessage.success(`已成功修改状态`);
@@ -82,8 +82,14 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'auto_no',
-    label: '车次',
+    field: 'date',
+    label: '日期',
+    component: 'DatePicker',
+    colProps: { span: 4 },
+  },
+  {
+    field: 'title',
+    label: '主题',
     component: 'Input',
     colProps: { span: 6 },
   },
@@ -109,15 +115,52 @@ export const formSchema: FormSchema[] = [
     show: false,
   },
   {
-    field: 'full_name',
-    label: '姓名',
+    field: 'date',
+    label: '日期',
+    component: 'DatePicker',
+    required: true,
+  },
+  {
+    field: 'title',
+    label: '主题',
     required: true,
     component: 'Input',
   },
   {
-    field: 'phone',
-    label: '手机号',
+    field: 'time',
+    label: '时间',
+    required: true,
+    component: 'TimeRangePicker',
+    componentProps: { format: 'HH:mm', placeholder: ['开始时间', '结束时间'] },
+  },
+  {
+    field: 'place',
+    label: '地点',
     required: true,
     component: 'Input',
+  },
+  {
+    field: 'host',
+    label: '主持人',
+    required: false,
+    component: 'Input',
+  },
+  {
+    field: 'guest',
+    label: '嘉宾',
+    required: false,
+    component: 'Input',
+  },
+  {
+    field: 'status',
+    label: '状态',
+    component: 'RadioButtonGroup',
+    defaultValue: false,
+    componentProps: {
+      options: [
+        { label: '启用', value: true },
+        { label: '停用', value: false },
+      ],
+    },
   },
 ];
