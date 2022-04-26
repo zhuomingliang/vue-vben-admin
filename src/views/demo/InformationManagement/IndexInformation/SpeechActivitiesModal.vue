@@ -8,7 +8,7 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './SpeechActivities.data';
-  import { postGuest, putGuest } from '/@/api/demo/guest';
+  import { postSpeechActivities, putSpeechActivities } from '/@/api/demo/SpeechActivities';
 
   export default defineComponent({
     name: 'SpeechActivitiesModal',
@@ -48,13 +48,11 @@
           const values = await validate();
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
-            await putGuest(values);
+            await putSpeechActivities(values);
           } else {
             delete values.id;
-            values.from = '管理后台';
-            await postGuest(values);
+            await postSpeechActivities(values);
           }
-          console.log(values);
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });
         } finally {
@@ -66,3 +64,8 @@
     },
   });
 </script>
+<style>
+  .ant-picker-dropdown-placement-bottomLeft {
+    top: 36px !important;
+  }
+</style>
