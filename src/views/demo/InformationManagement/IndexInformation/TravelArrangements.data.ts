@@ -16,9 +16,10 @@ export const columns: BasicColumn[] = [
     customRender: ({ value }) => {
       const scheduling = JSON.parse(value);
       const result: any[] = [];
-
       if (Array.isArray(scheduling)) {
-        if (scheduling.length > 1) {
+        if (scheduling.length > 0) {
+          console.log(scheduling.length);
+
           result.push(
             h(Row, {}, () => [
               h(Col, { span: 12 }, () => '时间'),
@@ -35,7 +36,6 @@ export const columns: BasicColumn[] = [
           });
         }
       }
-
       if (result.length > 0) {
         return h('div', { class: 'travel_arrangements_scheduling' }, result);
       }

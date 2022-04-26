@@ -18,7 +18,7 @@ export const columns: BasicColumn[] = [
       const result: any[] = [];
 
       if (Array.isArray(storey)) {
-        if (storey.length > 1) {
+        if (storey.length > 0) {
           result.push(
             h(Row, {}, () => [
               h(Col, { span: 12 }, () => '房号首位数'),
