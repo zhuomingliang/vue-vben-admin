@@ -8,7 +8,7 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './RideArrangements.data';
-  import { postGuest, putGuest } from '/@/api/demo/guest';
+  import { postRideArrangements, putRideArrangements } from '/@/api/demo/RideArrangements';
 
   export default defineComponent({
     name: 'RideArrangementsModal',
@@ -48,11 +48,10 @@
           const values = await validate();
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
-            await putGuest(values);
+            await putRideArrangements(values);
           } else {
             delete values.id;
-            values.from = '管理后台';
-            await postGuest(values);
+            await postRideArrangements(values);
           }
           console.log(values);
           closeModal();

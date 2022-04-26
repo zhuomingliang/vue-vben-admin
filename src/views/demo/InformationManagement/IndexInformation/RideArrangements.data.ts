@@ -143,7 +143,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'driver_phone',
     label: '',
-    required: true,
+    required: false,
     component: 'Input',
     colProps: { span: 8 },
     componentProps: { placeholder: '联系电话' },
@@ -151,7 +151,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'commentator',
     label: '讲解员',
-    required: true,
+    required: false,
     component: 'Input',
     colProps: { span: 12 },
     componentProps: { placeholder: '姓名' },
@@ -159,7 +159,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'commentator_phone',
     label: '',
-    required: true,
+    required: false,
     component: 'Input',
     colProps: { span: 8 },
     componentProps: { placeholder: '联系电话' },
@@ -167,7 +167,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'attendants',
     label: '服务员',
-    required: true,
+    required: false,
     component: 'Input',
     colProps: { span: 12 },
     componentProps: { placeholder: '姓名' },
@@ -175,7 +175,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'attendants_phone',
     label: '',
-    required: true,
+    required: false,
     component: 'Input',
     colProps: { span: 8 },
     componentProps: { placeholder: '联系电话' },
