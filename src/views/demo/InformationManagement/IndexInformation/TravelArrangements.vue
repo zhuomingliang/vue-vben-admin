@@ -96,6 +96,11 @@
   });
 </script>
 <style>
+  .travel_arrangements_scheduling {
+    padding-left: 2%;
+    text-align: left;
+  }
+
   .travel_arrangements_scheduling > div {
     border-bottom: 1px solid #eee;
   }

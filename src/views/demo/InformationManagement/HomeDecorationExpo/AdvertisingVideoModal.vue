@@ -8,7 +8,7 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './AdvertisingVideo.data';
-  import { postGuest, putGuest } from '/@/api/demo/guest';
+  import { postAdvertisingVideo, putAdvertisingVideo } from '/@/api/demo/AdvertisingVideo';
 
   export default defineComponent({
     name: 'AdvertisingVideoModal',
@@ -48,11 +48,10 @@
           const values = await validate();
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
-            await putGuest(values);
+            await putAdvertisingVideo(values);
           } else {
             delete values.id;
-            values.from = '管理后台';
-            await postGuest(values);
+            await postAdvertisingVideo(values);
           }
           console.log(values);
           closeModal();

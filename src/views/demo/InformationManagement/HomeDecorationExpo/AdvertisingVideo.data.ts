@@ -4,6 +4,7 @@ import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
 import { setRoleStatus } from '/@/api/demo/system';
 import { useMessage } from '/@/hooks/web/useMessage';
+import { uploadFile } from '/@/api/demo/Upload';
 
 export const columns: BasicColumn[] = [
   {
@@ -94,15 +95,29 @@ export const formSchema: FormSchema[] = [
     show: false,
   },
   {
-    field: 'full_name',
-    label: '姓名',
+    field: 'title',
+    label: '标题',
     required: true,
     component: 'Input',
+    colProps: { span: 20 },
   },
   {
-    field: 'phone',
-    label: '手机号',
+    field: 'video',
+    label: '视频',
     required: true,
-    component: 'Input',
+    component: 'Upload',
+    colProps: { span: 20 },
+    componentProps: {
+      api: uploadFile,
+      multiple: false,
+      accept: ['.png', '.ogg', '.webm'],
+      maxNumber: 1,
+    },
+  },
+  {
+    field: 'sort',
+    label: '排序',
+    required: false,
+    component: 'InputNumber',
   },
 ];
