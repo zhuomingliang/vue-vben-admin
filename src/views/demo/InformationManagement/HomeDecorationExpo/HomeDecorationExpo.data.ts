@@ -9,7 +9,7 @@ export const columns: BasicColumn[] = [
   {
     title: '时间',
     dataIndex: 'daterange',
-    width: 120,
+    width: 100,
   },
   {
     title: '标题',
@@ -19,7 +19,7 @@ export const columns: BasicColumn[] = [
   {
     title: '简介',
     dataIndex: 'description',
-    width: 120,
+    width: 240,
   },
   {
     title: '状态',
@@ -56,12 +56,12 @@ export const columns: BasicColumn[] = [
   {
     title: '新增时间',
     dataIndex: 'created_at',
-    width: 120,
+    width: 100,
   },
   {
     title: '更新时间',
     dataIndex: 'updated_at',
-    width: 120,
+    width: 100,
   },
 ];
 
@@ -94,6 +94,12 @@ export const formSchema: FormSchema[] = [
     show: false,
   },
   {
+    field: 'daterange',
+    label: '时间',
+    required: true,
+    component: 'RangePicker',
+  },
+  {
     field: 'title',
     label: '标题',
     required: true,
@@ -103,7 +109,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'description',
     label: '简介',
-    required: true,
+    required: false,
     component: 'InputTextArea',
     colProps: { span: 20 },
   },
