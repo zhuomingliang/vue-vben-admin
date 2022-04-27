@@ -13,7 +13,7 @@
           <TabPane key="DiningArrangements" tab="用餐安排">
             <DiningArrangements />
           </TabPane>
-          <TabPane key="AccommodationArrangements" tab="住宿安排" force-render>
+          <TabPane key="AccommodationArrangements" tab="住宿安排">
             <AccommodationArrangements />
           </TabPane>
           <TabPane key="RideArrangements" tab="乘车安排">
