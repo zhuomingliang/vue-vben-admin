@@ -4,6 +4,7 @@ import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
 import { putStatus } from '/@/api/demo/SpeechActivities';
 import { useMessage } from '/@/hooks/web/useMessage';
+import dayjs from 'dayjs';
 
 export const columns: BasicColumn[] = [
   {
@@ -16,7 +17,14 @@ export const columns: BasicColumn[] = [
     dataIndex: 'time',
     width: 120,
     customRender: ({ record }) => {
-      return h('span', {}, `${record.start_time} ~ ${record.end_time}`);
+      return h(
+        'span',
+        {},
+        `${dayjs(record.start_time, 'HH:mm').format('HH:mm')} ~ ${dayjs(
+          record.end_time,
+          'HH:mm',
+        ).format('HH:mm')}`,
+      );
     },
   },
   {

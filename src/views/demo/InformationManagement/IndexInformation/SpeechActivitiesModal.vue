@@ -4,6 +4,7 @@
   </BasicModal>
 </template>
 <script lang="ts">
+  import dayjs from 'dayjs';
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
@@ -35,6 +36,7 @@
         const record = data.record;
 
         if (unref(isUpdate)) {
+          record.time = [dayjs(record.start_time, 'HH:mm'), dayjs(record.end_time, 'HH:mm')];
           setFieldsValue({
             ...record,
           });
