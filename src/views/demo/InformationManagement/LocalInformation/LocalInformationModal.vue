@@ -8,7 +8,7 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './LocalInformation.data';
-  import { postGuest, putGuest } from '/@/api/demo/guest';
+  import { postLocalInformation, putLocalInformation } from '/@/api/demo/LocalInformation';
 
   export default defineComponent({
     name: 'LocalInformationModal',
@@ -35,6 +35,9 @@
         const record = data.record;
 
         if (unref(isUpdate)) {
+          if (typeof record.pictures === 'string')
+            record.pictures = record.pictures.replace(/^\{(.*)\}$/, '$1').split(',');
+
           setFieldsValue({
             ...record,
           });
@@ -48,13 +51,11 @@
           const values = await validate();
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
-            await putGuest(values);
+            await putLocalInformation(values);
           } else {
             delete values.id;
-            values.from = '管理后台';
-            await postGuest(values);
+            await postLocalInformation(values);
           }
-          console.log(values);
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });
         } finally {
