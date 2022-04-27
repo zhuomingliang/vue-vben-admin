@@ -4,12 +4,24 @@ import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
 import { putStatus } from '/@/api/demo/HomeDecorationExpo';
 import { useMessage } from '/@/hooks/web/useMessage';
+import dayjs from 'dayjs';
 
 export const columns: BasicColumn[] = [
   {
     title: '时间',
     dataIndex: 'daterange',
     width: 100,
+    customRender: ({ value }) => {
+      let result = value;
+      if (typeof value === 'string') result = value.replace(/^\[(.*)\)$/, '$1').split(',');
+      return h(
+        'span',
+        {},
+        `${dayjs(result[0]).format('YYYY-MM-DD')} ~ ${dayjs(result[1])
+          .subtract(1, 'day')
+          .format('YYYY-MM-DD')}`,
+      );
+    },
   },
   {
     title: '标题',

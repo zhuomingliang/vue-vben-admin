@@ -9,6 +9,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './HomeDecorationExpo.data';
   import { postHomeDecorationExpo, putHomeDecorationExpo } from '/@/api/demo/HomeDecorationExpo';
+  import dayjs from 'dayjs';
 
   export default defineComponent({
     name: 'HomeDecorationExpoModal',
@@ -32,9 +33,14 @@
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
 
-        const record = data.record;
-
+        const record = { ...data.record };
         if (unref(isUpdate)) {
+          if (typeof record.daterange === 'string') {
+            record.daterange = record.daterange.replace(/^\[(.*)\)$/, '$1').split(',');
+            record.daterange[0] = dayjs(record.daterange[0]);
+            record.daterange[1] = dayjs(record.daterange[1]).subtract(1, 'day');
+          }
+
           setFieldsValue({
             ...record,
           });
