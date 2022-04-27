@@ -2,7 +2,7 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Switch, Image } from 'ant-design-vue';
-import { setRoleStatus } from '/@/api/demo/system';
+import { putStatus } from '/@/api/demo/LocalInformation';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { uploadImage } from '/@/api/demo/Upload';
 
@@ -60,7 +60,7 @@ export const columns: BasicColumn[] = [
           record.pendingStatus = true;
           const newStatus = checked ? true : false;
           const { createMessage } = useMessage();
-          setRoleStatus(record.id, newStatus)
+          putStatus(record.id, newStatus)
             .then(() => {
               record.status = newStatus;
               createMessage.success(`已成功修改状态`);
@@ -120,12 +120,14 @@ export const formSchema: FormSchema[] = [
     label: '标题',
     required: true,
     component: 'Input',
+    colProps: { span: 20 },
   },
   {
     field: 'description',
     label: '描述',
     required: true,
     component: 'InputTextArea',
+    colProps: { span: 20 },
   },
   {
     field: 'pictures',
@@ -138,5 +140,6 @@ export const formSchema: FormSchema[] = [
       accept: ['.jpg', '.png', '.jpeg'],
       maxNumber: 5,
     },
+    colProps: { span: 20 },
   },
 ];
