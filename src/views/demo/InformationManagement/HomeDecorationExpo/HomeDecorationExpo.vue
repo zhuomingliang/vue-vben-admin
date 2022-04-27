@@ -43,7 +43,7 @@
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
-        title: '嘉宾列表',
+        title: '家博会',
         api: getHomeDecorationExpo,
         columns,
         formConfig: {

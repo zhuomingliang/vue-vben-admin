@@ -7,7 +7,9 @@
       </a-tabs>
     </template>
     <div class="pt-4 m-4 desc-wrap">
-      <template v-if="currentKey == 'HomeDecorationExpoInfo'"> XXXXXX </template>
+      <template v-if="currentKey == 'HomeDecorationExpoInfo'">
+        <HomeDecorationExpoInfo />
+      </template>
       <template v-if="currentKey == 'AdvertisingVideo'"> <AdvertisingVideo /> </template>
     </div>
   </PageWrapper>
@@ -20,6 +22,7 @@
   import { Tabs } from 'ant-design-vue';
 
   import AdvertisingVideo from './AdvertisingVideo.vue';
+  import HomeDecorationExpoInfo from './HomeDecorationExpo.vue';
 
   export default defineComponent({
     name: 'HomeDecorationExpo',
@@ -28,6 +31,7 @@
       ATabs: Tabs,
       ATabPane: Tabs.TabPane,
       AdvertisingVideo,
+      HomeDecorationExpoInfo,
     },
     setup() {
       const route = useRoute();
