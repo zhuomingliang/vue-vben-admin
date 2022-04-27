@@ -30,7 +30,7 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getDiningArrangements, deleteDiningArrangements } from '/@/api/demo/DiningArrangements';
+  import { getFileInformation, deleteFileInformation } from '/@/api/demo/FileInformation';
 
   import { useModal } from '/@/components/Modal';
   import FileInformationModal from './FileInformationModal.vue';
@@ -43,7 +43,7 @@
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
-        api: getDiningArrangements,
+        api: getFileInformation,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -76,7 +76,7 @@
       }
 
       async function handleDelete(record: Recordable) {
-        await deleteDiningArrangements(record.id);
+        await deleteFileInformation(record.id);
         reload();
       }
 

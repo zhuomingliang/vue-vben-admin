@@ -30,7 +30,7 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getDiningArrangements, deleteDiningArrangements } from '/@/api/demo/DiningArrangements';
+  import { getAdvertisingVideo, deleteAdvertisingVideo } from '/@/api/demo/AdvertisingVideo';
 
   import { useModal } from '/@/components/Modal';
   import AdvertisingVideoModal from './AdvertisingVideoModal.vue';
@@ -43,7 +43,7 @@
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
-        api: getDiningArrangements,
+        api: getAdvertisingVideo,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -76,7 +76,7 @@
       }
 
       async function handleDelete(record: Recordable) {
-        await deleteDiningArrangements(record.id);
+        await deleteAdvertisingVideo(record.id);
         reload();
       }
 

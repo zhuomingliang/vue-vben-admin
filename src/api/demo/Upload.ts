@@ -20,6 +20,22 @@ export function uploadImage(
 /**
  * @description: Upload interface
  */
+export function uploadVideo(
+  params: UploadFileParams,
+  onUploadProgress: (progressEvent: ProgressEvent) => void,
+) {
+  return defHttp.uploadFile(
+    {
+      url: '/basic-api/Upload/Video',
+      onUploadProgress,
+    },
+    params,
+  );
+}
+
+/**
+ * @description: Upload interface
+ */
 export function uploadFile(
   params: UploadFileParams,
   onUploadProgress: (progressEvent: ProgressEvent) => void,

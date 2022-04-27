@@ -8,7 +8,7 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './FileInformation.data';
-  import { postGuest, putGuest } from '/@/api/demo/guest';
+  import { postFileInformation, putFileInformation } from '/@/api/demo/FileInformation';
 
   export default defineComponent({
     name: 'FileInformationModal',
@@ -35,6 +35,8 @@
         const record = data.record;
 
         if (unref(isUpdate)) {
+          if (!Array.isArray(record.file_path)) record.file_path = [record.file_path];
+
           setFieldsValue({
             ...record,
           });
@@ -48,13 +50,11 @@
           const values = await validate();
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
-            await putGuest(values);
+            await putFileInformation(values);
           } else {
             delete values.id;
-            values.from = '管理后台';
-            await postGuest(values);
+            await postFileInformation(values);
           }
-          console.log(values);
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });
         } finally {

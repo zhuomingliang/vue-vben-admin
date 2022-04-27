@@ -33,8 +33,9 @@
         isUpdate.value = !!data?.isUpdate;
 
         const record = data.record;
-
         if (unref(isUpdate)) {
+          if (!Array.isArray(record.video)) record.video = [record.video];
+
           setFieldsValue({
             ...record,
           });
@@ -53,7 +54,6 @@
             delete values.id;
             await postAdvertisingVideo(values);
           }
-          console.log(values);
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });
         } finally {

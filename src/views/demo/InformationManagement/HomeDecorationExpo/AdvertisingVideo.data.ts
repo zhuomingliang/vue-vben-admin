@@ -2,9 +2,9 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
-import { setRoleStatus } from '/@/api/demo/system';
+import { putStatus } from '/@/api/demo/AdvertisingVideo';
 import { useMessage } from '/@/hooks/web/useMessage';
-import { uploadFile } from '/@/api/demo/Upload';
+import { uploadVideo } from '/@/api/demo/Upload';
 
 export const columns: BasicColumn[] = [
   {
@@ -15,12 +15,15 @@ export const columns: BasicColumn[] = [
   {
     title: '视频',
     dataIndex: 'video',
-    width: 120,
+    width: 240,
+    customRender: ({ value }) => {
+      return h('video', { src: value });
+    },
   },
   {
     title: '排序',
     dataIndex: 'title',
-    width: 120,
+    width: 40,
   },
   {
     title: '状态',
@@ -39,7 +42,7 @@ export const columns: BasicColumn[] = [
           record.pendingStatus = true;
           const newStatus = checked ? true : false;
           const { createMessage } = useMessage();
-          setRoleStatus(record.id, newStatus)
+          putStatus(record.id, newStatus)
             .then(() => {
               record.status = newStatus;
               createMessage.success(`已成功修改状态`);
@@ -108,10 +111,11 @@ export const formSchema: FormSchema[] = [
     component: 'Upload',
     colProps: { span: 20 },
     componentProps: {
-      api: uploadFile,
+      api: uploadVideo,
       multiple: false,
-      accept: ['.png', '.ogg', '.webm'],
+      accept: ['.mp4', '.ogv', '.webm'],
       maxNumber: 1,
+      maxSize: 50,
     },
   },
   {

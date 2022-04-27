@@ -2,8 +2,9 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
-import { setRoleStatus } from '/@/api/demo/system';
+import { putStatus } from '/@/api/demo/FileInformation';
 import { useMessage } from '/@/hooks/web/useMessage';
+import { uploadFile } from '/@/api/demo/Upload';
 
 export const columns: BasicColumn[] = [
   {
@@ -14,7 +15,10 @@ export const columns: BasicColumn[] = [
   {
     title: '文件路径',
     dataIndex: 'file_path',
-    width: 120,
+    width: 240,
+    customRender: ({ value }) => {
+      return h('a', { href: value, target: '_blank' }, value);
+    },
   },
   {
     title: '状态',
@@ -33,7 +37,7 @@ export const columns: BasicColumn[] = [
           record.pendingStatus = true;
           const newStatus = checked ? true : false;
           const { createMessage } = useMessage();
-          setRoleStatus(record.id, newStatus)
+          putStatus(record.id, newStatus)
             .then(() => {
               record.status = newStatus;
               createMessage.success(`已成功修改状态`);
@@ -89,15 +93,21 @@ export const formSchema: FormSchema[] = [
     show: false,
   },
   {
-    field: 'full_name',
-    label: '姓名',
+    field: 'file_name',
+    label: '文件名',
     required: true,
     component: 'Input',
   },
   {
-    field: 'phone',
-    label: '手机号',
+    field: 'file_path',
+    label: '文件路径',
     required: true,
-    component: 'Input',
+    component: 'Upload',
+    componentProps: {
+      api: uploadFile,
+      multiple: false,
+      maxNumber: 1,
+    },
+    colProps: { span: 20 },
   },
 ];
