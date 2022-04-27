@@ -1,28 +1,28 @@
 <template>
   <PageWrapper contentBackground>
     <template #footer>
-      <a-tabs default-active-key="FoodAccommodationArrangements" v-model:activeKey="currentKey">
-        <a-tab-pane key="FoodAccommodationArrangements" tab="食宿安排" />
-        <a-tab-pane key="TravelArrangements" tab="行程安排" />
-        <a-tab-pane key="SpeechActivities" tab="演讲活动" />
-      </a-tabs>
+      <Tabs default-active-key="FoodAccommodationArrangements" v-model:activeKey="currentKey">
+        <TabPane key="FoodAccommodationArrangements" tab="食宿安排" />
+        <TabPane key="TravelArrangements" tab="行程安排" />
+        <TabPane key="SpeechActivities" tab="演讲活动" />
+      </Tabs>
     </template>
     <div class="pt-4 m-4 desc-wrap">
       <template v-if="currentKey == 'FoodAccommodationArrangements'">
-        <a-tabs default-active-key="DiningArrangements">
-          <a-tab-pane key="DiningArrangements" tab="用餐安排">
+        <Tabs default-active-key="DiningArrangements">
+          <TabPane key="DiningArrangements" tab="用餐安排">
             <DiningArrangements />
-          </a-tab-pane>
-          <a-tab-pane key="AccommodationArrangements" tab="住宿安排" force-render>
+          </TabPane>
+          <TabPane key="AccommodationArrangements" tab="住宿安排" force-render>
             <AccommodationArrangements />
-          </a-tab-pane>
-          <a-tab-pane key="RideArrangements" tab="乘车安排">
+          </TabPane>
+          <TabPane key="RideArrangements" tab="乘车安排">
             <RideArrangements />
-          </a-tab-pane>
+          </TabPane>
           <template #leftExtra>
             <span class="pt-4 m-4">分类：</span>
           </template>
-        </a-tabs>
+        </Tabs>
       </template>
       <template v-if="currentKey == 'TravelArrangements'"> <TravelArrangements /> </template>
       <template v-if="currentKey == 'SpeechActivities'"> <SpeechActivities /> </template>
@@ -46,8 +46,8 @@
     name: 'IndexInformation',
     components: {
       PageWrapper,
-      ATabs: Tabs,
-      ATabPane: Tabs.TabPane,
+      Tabs: Tabs,
+      TabPane: Tabs.TabPane,
       DiningArrangements,
       AccommodationArrangements,
       RideArrangements,
