@@ -12,7 +12,7 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
-    title: '手机号',
+    title: '联系方式',
     dataIndex: 'phone',
     width: 120,
   },
@@ -96,7 +96,7 @@ export const formSchema: FormSchema[] = [
   },
   {
     field: 'phone',
-    label: '手机号',
+    label: '联系方式',
     required: true,
     component: 'Input',
   },

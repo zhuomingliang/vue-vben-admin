@@ -8,7 +8,7 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
-    title: '手机号',
+    title: '联系方式',
     dataIndex: 'phone',
     width: 120,
   },
