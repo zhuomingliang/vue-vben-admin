@@ -23,28 +23,28 @@
         />
       </template>
     </BasicTable>
-    <GuestModal @register="registerModal" @success="handleSuccess" />
+    <VehicleSafeguardModal @register="registerModal" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getGuest, deleteGuest } from '/@/api/demo/guest';
+  import { getVehicleSafeguard, deleteVehicleSafeguard } from '/@/api/demo/VehicleSafeguard';
 
   import { useModal } from '/@/components/Modal';
-  import GuestModal from './GuestModal.vue';
+  import VehicleSafeguardModal from './VehicleSafeguardModal.vue';
 
-  import { columns, searchFormSchema } from './guest.data';
+  import { columns, searchFormSchema } from './VehicleSafeguard.data';
 
   export default defineComponent({
-    name: 'Guest',
-    components: { BasicTable, GuestModal, TableAction },
+    name: 'VehicleSafeguard',
+    components: { BasicTable, VehicleSafeguardModal, TableAction },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
         title: '嘉宾列表',
-        api: getGuest,
+        api: getVehicleSafeguard,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -77,7 +77,7 @@
       }
 
       async function handleDelete(record: Recordable) {
-        await deleteGuest(record.id);
+        await deleteVehicleSafeguard(record.id);
         reload();
       }
 

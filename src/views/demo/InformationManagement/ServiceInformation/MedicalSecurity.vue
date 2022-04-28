@@ -23,28 +23,27 @@
         />
       </template>
     </BasicTable>
-    <GuestModal @register="registerModal" @success="handleSuccess" />
+    <MedicalSecurityModal @register="registerModal" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getGuest, deleteGuest } from '/@/api/demo/guest';
+  import { getMedicalSecurity, deleteMedicalSecurity } from '/@/api/demo/MedicalSecurity';
 
   import { useModal } from '/@/components/Modal';
-  import GuestModal from './GuestModal.vue';
+  import MedicalSecurityModal from './MedicalSecurityModal.vue';
 
-  import { columns, searchFormSchema } from './guest.data';
+  import { columns, searchFormSchema } from './MedicalSecurity.data';
 
   export default defineComponent({
-    name: 'Guest',
-    components: { BasicTable, GuestModal, TableAction },
+    name: 'MedicalSecurity',
+    components: { BasicTable, MedicalSecurityModal, TableAction },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
-        title: '嘉宾列表',
-        api: getGuest,
+        api: getMedicalSecurity,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -77,7 +76,7 @@
       }
 
       async function handleDelete(record: Recordable) {
-        await deleteGuest(record.id);
+        await deleteMedicalSecurity(record.id);
         reload();
       }
 
