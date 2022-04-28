@@ -54,7 +54,6 @@
             values.from = '管理后台';
             await postGuest(values);
           }
-          console.log(values);
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });
         } finally {

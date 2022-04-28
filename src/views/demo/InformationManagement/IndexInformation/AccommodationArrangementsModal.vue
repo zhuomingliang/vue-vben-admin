@@ -156,7 +156,6 @@
         try {
           const form = unref(formRef);
           const values = await form.validate();
-          console.log(values);
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
             await putAccommodationArrangements(values);
