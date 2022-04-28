@@ -35,6 +35,9 @@
         const record = data.record;
 
         if (unref(isUpdate)) {
+          if (typeof record.pictures === 'string')
+            record.pictures = record.pictures.replace(/^\{(.*)\}$/, '$1').split(',');
+
           setFieldsValue({
             ...record,
           });
