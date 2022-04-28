@@ -1,6 +1,6 @@
 <template>
   <BasicModal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
-    <BasicForm @register="registerForm" />
+    <BasicForm @register="registerForm" :label-col="labelCol" />
   </BasicModal>
 </template>
 <script lang="ts">
@@ -61,7 +61,13 @@
         }
       }
 
-      return { registerModal, registerForm, getTitle, handleSubmit };
+      return {
+        registerModal,
+        registerForm,
+        getTitle,
+        handleSubmit,
+        labelCol: { style: { width: '120px' } },
+      };
     },
   });
 </script>

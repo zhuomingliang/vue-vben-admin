@@ -43,7 +43,6 @@
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
-        title: '嘉宾列表',
         api: getVehicleSafeguard,
         columns,
         formConfig: {
