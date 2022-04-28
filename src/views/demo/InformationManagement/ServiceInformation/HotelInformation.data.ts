@@ -130,6 +130,13 @@ export const formSchema: FormSchema[] = [
     colProps: { span: 20 },
   },
   {
+    field: 'address',
+    label: '地址',
+    required: true,
+    component: 'Input',
+    colProps: { span: 20 },
+  },
+  {
     field: 'telephone',
     label: '前台电话',
     required: true,
@@ -139,7 +146,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'wifi_password',
     label: 'WIFI 密码',
-    required: true,
+    required: false,
     component: 'Input',
     colProps: { span: 20 },
   },
