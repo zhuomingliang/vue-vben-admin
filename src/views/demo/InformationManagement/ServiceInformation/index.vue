@@ -13,7 +13,7 @@
           <TabPane key="HotelInformation" tab="酒店信息">
             <HotelInformation />
           </TabPane>
-          <TabPane key="VehicleSafeguard" tab="车辆保障" force-render>
+          <TabPane key="VehicleSafeguard" tab="车辆保障">
             <VehicleSafeguard />
           </TabPane>
           <TabPane key="MedicalSecurity" tab="医疗保障">
