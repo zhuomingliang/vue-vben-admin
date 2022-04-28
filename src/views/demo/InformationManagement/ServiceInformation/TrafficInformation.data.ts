@@ -2,7 +2,7 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Switch, Image } from 'ant-design-vue';
-import { putStatus } from '/@/api/demo/RideArrangements';
+import { putStatus } from '/@/api/demo/TrafficInformation';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { uploadImage } from '/@/api/demo/Upload';
 
