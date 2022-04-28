@@ -24,8 +24,10 @@
           </template>
         </Tabs>
       </template>
-      <template v-if="currentKey == 'VehicleSafeguard'"> <VehicleSafeguard /> </template>
-      <template v-if="currentKey == 'MedicalSecurity'"> <MedicalSecurity /> </template>
+      <template v-if="currentKey == 'TrafficInformation'"> <TrafficInformation /> </template>
+      <template v-if="currentKey == 'EpidemicPreventionInstructions'">
+        <EpidemicPreventionInstructions />
+      </template>
     </div>
   </PageWrapper>
 </template>
@@ -37,10 +39,10 @@
   import { Tabs } from 'ant-design-vue';
 
   import HotelInformation from './HotelInformation.vue';
-  import VehicleSafeguard from './VehicleSafeguard.vue';
+  import TrafficInformation from './TrafficInformation.vue';
   import MedicalSecurity from './MedicalSecurity.vue';
   import VehicleSafeguard from './VehicleSafeguard.vue';
-  import MedicalSecurity from './MedicalSecurity.vue';
+  import EpidemicPreventionInstructions from './EpidemicPreventionInstructions.vue';
 
   export default defineComponent({
     name: 'IndexInformation',
@@ -49,10 +51,10 @@
       Tabs: Tabs,
       TabPane: Tabs.TabPane,
       HotelInformation,
-      VehicleSafeguard,
+      TrafficInformation,
       MedicalSecurity,
       VehicleSafeguard,
-      MedicalSecurity,
+      EpidemicPreventionInstructions,
     },
     setup() {
       const route = useRoute();
