@@ -4,6 +4,7 @@ import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
 import { putStatus } from '/@/api/demo/HotelInformation';
 import { useMessage } from '/@/hooks/web/useMessage';
+import { uploadVideo } from '/@/api/demo/Upload';
 
 export const columns: BasicColumn[] = [
   {
@@ -32,9 +33,12 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
-    title: '宣传视频',
+    title: '视频',
     dataIndex: 'video',
-    width: 120,
+    width: 240,
+    customRender: ({ value }) => {
+      return h('video', { src: value });
+    },
   },
   {
     title: '总联络人',
@@ -142,21 +146,28 @@ export const formSchema: FormSchema[] = [
   {
     field: 'breakfast_information',
     label: '早餐时间地点',
-    required: true,
+    required: false,
     component: 'Input',
     colProps: { span: 20 },
   },
   {
     field: 'video',
-    label: '宣传视频',
-    required: true,
-    component: 'Input',
+    label: '视频',
+    required: false,
+    component: 'Upload',
     colProps: { span: 20 },
+    componentProps: {
+      api: uploadVideo,
+      multiple: false,
+      accept: ['.mp4', '.ogv', '.webm'],
+      maxNumber: 1,
+      maxSize: 50,
+    },
   },
   {
     field: 'liaison',
     label: '总联络人',
-    required: true,
+    required: false,
     component: 'Input',
     colProps: { span: 12 },
     componentProps: { placeholder: '姓名' },
@@ -164,7 +175,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'liaison_phone',
     label: '',
-    required: true,
+    required: false,
     component: 'Input',
     colProps: { span: 8 },
     componentProps: { placeholder: '联系电话' },
@@ -172,7 +183,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'director',
     label: '酒店负责人',
-    required: true,
+    required: false,
     component: 'Input',
     colProps: { span: 12 },
     componentProps: { placeholder: '姓名' },
@@ -180,7 +191,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'director_phone',
     label: '',
-    required: true,
+    required: false,
     component: 'Input',
     colProps: { span: 8 },
     componentProps: { placeholder: '联系电话' },
