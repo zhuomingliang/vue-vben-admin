@@ -53,7 +53,6 @@
             delete values.id;
             await postMedicalSecurity(values);
           }
-          console.log(values);
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });
         } finally {

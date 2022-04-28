@@ -56,7 +56,6 @@
             delete values.id;
             await postTrafficInformation(values);
           }
-          console.log(values);
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });
         } finally {
