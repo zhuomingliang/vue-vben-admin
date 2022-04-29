@@ -8,7 +8,7 @@ export const columns: BasicColumn[] = [
     dataIndex: 'content',
     width: 680,
     customRender: ({ value }) => {
-      return h('div', {
+      return h('', {
         innerHTML: value,
       });
     },

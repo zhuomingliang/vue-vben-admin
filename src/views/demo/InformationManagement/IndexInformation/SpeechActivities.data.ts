@@ -18,7 +18,7 @@ export const columns: BasicColumn[] = [
     width: 120,
     customRender: ({ record }) => {
       return h(
-        'span',
+        '',
         {},
         `${dayjs(record.start_time, 'HH:mm').format('HH:mm')} ~ ${dayjs(
           record.end_time,
