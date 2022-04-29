@@ -1,21 +1,17 @@
+import { h } from 'vue';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
-    title: '姓名',
-    dataIndex: 'full_name',
-    width: 120,
-  },
-  {
-    title: '手机号',
-    dataIndex: 'phone',
-    width: 120,
-  },
-  {
-    title: '添加渠道',
-    dataIndex: 'from',
-    width: 120,
+    title: '内容',
+    dataIndex: 'content',
+    width: 680,
+    customRender: ({ value }) => {
+      return h('div', {
+        innerHTML: value,
+      });
+    },
   },
   {
     title: '新增时间',
@@ -29,21 +25,6 @@ export const columns: BasicColumn[] = [
   },
 ];
 
-export const searchFormSchema: FormSchema[] = [
-  {
-    field: 'full_name',
-    label: '姓名',
-    component: 'Input',
-    colProps: { span: 4 },
-  },
-  {
-    field: 'phone',
-    label: '手机号',
-    component: 'Input',
-    colProps: { span: 6 },
-  },
-];
-
 export const formSchema: FormSchema[] = [
   {
     field: 'id',
@@ -52,15 +33,9 @@ export const formSchema: FormSchema[] = [
     show: false,
   },
   {
-    field: 'full_name',
-    label: '姓名',
+    field: 'content',
+    label: '内容',
     required: true,
-    component: 'Input',
-  },
-  {
-    field: 'phone',
-    label: '手机号',
-    required: true,
-    component: 'Input',
+    component: 'Tinymce',
   },
 ];

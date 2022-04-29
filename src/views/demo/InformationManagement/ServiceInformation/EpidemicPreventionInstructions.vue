@@ -1,9 +1,6 @@
 <template>
   <div>
     <BasicTable @register="registerTable">
-      <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增 </a-button>
-      </template>
       <template #action="{ record }">
         <TableAction
           :actions="[
@@ -38,7 +35,7 @@
   import { useModal } from '/@/components/Modal';
   import EpidemicPreventionInstructionsModal from './EpidemicPreventionInstructionsModal.vue';
 
-  import { columns, searchFormSchema } from './EpidemicPreventionInstructions.data';
+  import { columns } from './EpidemicPreventionInstructions.data';
 
   export default defineComponent({
     name: 'EpidemicPreventionInstructions',
@@ -46,13 +43,10 @@
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
+        title: '防疫须知',
         api: getEpidemicPreventionInstructions,
         columns,
-        formConfig: {
-          labelWidth: 120,
-          schemas: searchFormSchema,
-        },
-        useSearchForm: true,
+        useSearchForm: false,
         showTableSetting: true,
         bordered: true,
         showIndexColumn: false,

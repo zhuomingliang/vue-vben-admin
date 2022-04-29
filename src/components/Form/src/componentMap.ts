@@ -31,6 +31,7 @@ import { BasicUpload } from '/@/components/Upload';
 import { StrengthMeter } from '/@/components/StrengthMeter';
 import { IconPicker } from '/@/components/Icon';
 import { CountdownInput } from '/@/components/CountDown';
+import { Tinymce } from '/@/components/Tinymce/index';
 
 const componentMap = new Map<ComponentType, Component>();
 
@@ -41,7 +42,7 @@ componentMap.set('InputSearch', Input.Search);
 componentMap.set('InputTextArea', Input.TextArea);
 componentMap.set('InputNumber', InputNumber);
 componentMap.set('AutoComplete', AutoComplete);
-
+componentMap.set('Tinymce', Tinymce);
 componentMap.set('Select', Select);
 componentMap.set('ApiSelect', ApiSelect);
 componentMap.set('ApiTree', ApiTree);

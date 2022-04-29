@@ -88,6 +88,7 @@ export type ComponentType =
   | 'InputTextArea'
   | 'InputNumber'
   | 'InputCountDown'
+  | 'Tinymce'
   | 'Select'
   | 'ApiSelect'
   | 'TreeSelect'
