@@ -19,6 +19,11 @@
     putEpidemicPreventionInstructions,
   } from '/@/api/demo/EpidemicPreventionInstructions';
 
+  import { useComponentRegister } from '/@/components/Form';
+  import { Tinymce } from '/@/components/Tinymce';
+
+  useComponentRegister('Tinymce', Tinymce);
+
   export default defineComponent({
     name: 'EpidemicPreventionInstructionsModal',
     components: { BasicModal, BasicForm },

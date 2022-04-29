@@ -15,7 +15,7 @@ export const columns: BasicColumn[] = [
       let result = value;
       if (typeof value === 'string') result = value.replace(/^\[(.*)\)$/, '$1').split(',');
       return h(
-        '',
+        'span',
         {},
         `${dayjs(result[0]).format('YYYY-MM-DD')} ~ ${dayjs(result[1])
           .subtract(1, 'day')

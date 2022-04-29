@@ -16,7 +16,7 @@ export const columns: BasicColumn[] = [
     dataIndex: 'doctor',
     width: 120,
     customRender: ({ record }) => {
-      return h('', {}, `${record.doctor} / ${record.doctor_phone}`);
+      return h('span', {}, `${record.doctor} / ${record.doctor_phone}`);
     },
   },
   {
@@ -29,7 +29,7 @@ export const columns: BasicColumn[] = [
     dataIndex: 'nurse',
     width: 120,
     customRender: ({ record }) => {
-      return h('', {}, `${record.nurse} / ${record.nurse_phone}`);
+      return h('span', {}, `${record.nurse} / ${record.nurse_phone}`);
     },
   },
   {

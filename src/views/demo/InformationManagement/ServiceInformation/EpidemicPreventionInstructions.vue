@@ -33,13 +33,19 @@
   } from '/@/api/demo/EpidemicPreventionInstructions';
 
   import { useModal } from '/@/components/Modal';
-  import EpidemicPreventionInstructionsModal from './EpidemicPreventionInstructionsModal.vue';
 
   import { columns } from './EpidemicPreventionInstructions.data';
+  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
   export default defineComponent({
     name: 'EpidemicPreventionInstructions',
-    components: { BasicTable, EpidemicPreventionInstructionsModal, TableAction },
+    components: {
+      BasicTable,
+      EpidemicPreventionInstructionsModal: createAsyncComponent(
+        () => import('./EpidemicPreventionInstructionsModal.vue'),
+      ),
+      TableAction,
+    },
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({

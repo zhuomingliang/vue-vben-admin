@@ -37,12 +37,9 @@
   import { PageWrapper } from '/@/components/Page';
   import { useGo } from '/@/hooks/web/usePage';
   import { Tabs } from 'ant-design-vue';
+  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
   import HotelInformation from './HotelInformation.vue';
-  import TrafficInformation from './TrafficInformation.vue';
-  import MedicalSecurity from './MedicalSecurity.vue';
-  import VehicleSafeguard from './VehicleSafeguard.vue';
-  import EpidemicPreventionInstructions from './EpidemicPreventionInstructions.vue';
 
   export default defineComponent({
     name: 'IndexInformation',
@@ -51,10 +48,12 @@
       Tabs: Tabs,
       TabPane: Tabs.TabPane,
       HotelInformation,
-      TrafficInformation,
-      MedicalSecurity,
-      VehicleSafeguard,
-      EpidemicPreventionInstructions,
+      TrafficInformation: createAsyncComponent(() => import('./TrafficInformation.vue')),
+      MedicalSecurity: createAsyncComponent(() => import('./MedicalSecurity.vue')),
+      VehicleSafeguard: createAsyncComponent(() => import('./VehicleSafeguard.vue')),
+      EpidemicPreventionInstructions: createAsyncComponent(() =>
+        import('./EpidemicPreventionInstructions.vue'),
+      ),
     },
     setup() {
       const route = useRoute();
