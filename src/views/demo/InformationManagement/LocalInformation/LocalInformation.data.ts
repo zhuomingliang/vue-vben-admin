@@ -132,7 +132,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'pictures',
     label: '图片',
-    required: true,
+    required: false,
     component: 'Upload',
     componentProps: {
       api: uploadImage,
