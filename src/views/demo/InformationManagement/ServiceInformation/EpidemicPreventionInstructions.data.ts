@@ -37,5 +37,6 @@ export const formSchema: FormSchema[] = [
     label: '内容',
     required: true,
     component: 'Tinymce',
+    componentProps: { showImageUpload: false },
   },
 ];
