@@ -7,6 +7,7 @@
       :action="uploadUrl"
       :showUploadList="false"
       accept=".jpg,.jpeg,.gif,.png,.webp"
+      :headers="headers"
     >
       <a-button type="primary" v-bind="{ ...getButtonProps }">
         {{ t('component.upload.imgUpload') }}
@@ -37,7 +38,7 @@
     emits: ['uploading', 'done', 'error'],
     setup(props, { emit }) {
       let uploading = false;
-
+      const headers = { 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN') };
       const { uploadUrl } = useGlobSetting();
       const { t } = useI18n();
       const { prefixCls } = useDesign('tinymce-img-upload');
@@ -49,7 +50,13 @@
         };
       });
 
+      function getCookie(name: string) {
+        var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+        return match ? decodeURIComponent(match[3]) : null;
+      }
+
       function handleChange(info: Recordable) {
+        console.log(info);
         const file = info.file;
         const status = file?.status;
         const url = file?.response?.url;
@@ -75,6 +82,7 @@
         uploadUrl,
         t,
         getButtonProps,
+        headers,
       };
     },
   });

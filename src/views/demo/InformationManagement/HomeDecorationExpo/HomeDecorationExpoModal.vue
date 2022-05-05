@@ -1,5 +1,11 @@
 <template>
-  <BasicModal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
+  <BasicModal
+    v-bind="$attrs"
+    @register="registerModal"
+    :title="getTitle"
+    @ok="handleSubmit"
+    width="55%"
+  >
     <BasicForm @register="registerForm" />
   </BasicModal>
 </template>
@@ -10,7 +16,10 @@
   import { formSchema } from './HomeDecorationExpo.data';
   import { postHomeDecorationExpo, putHomeDecorationExpo } from '/@/api/demo/HomeDecorationExpo';
   import dayjs from 'dayjs';
+  import { useComponentRegister } from '/@/components/Form';
+  import { Tinymce } from '/@/components/Tinymce';
 
+  useComponentRegister('Tinymce', Tinymce);
   export default defineComponent({
     name: 'HomeDecorationExpoModal',
     components: { BasicModal, BasicForm },

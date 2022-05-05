@@ -130,7 +130,7 @@ export const formSchema: FormSchema[] = [
     field: 'description',
     label: '简介',
     required: false,
-    component: 'InputTextArea',
+    component: 'Tinymce',
     colProps: { span: 20 },
   },
   {

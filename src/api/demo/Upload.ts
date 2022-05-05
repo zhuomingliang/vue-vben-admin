@@ -17,6 +17,8 @@ export function uploadImage(
   );
 }
 
+export const uploadImage2 = (file: any) => defHttp.post({ url: '/Upload/Image', params: { file } });
+
 /**
  * @description: Upload interface
  */
