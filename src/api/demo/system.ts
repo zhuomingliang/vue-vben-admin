@@ -24,6 +24,10 @@ enum Api {
   getRolePermissions = '/role/permissions',
 }
 
+export function createUser(user: Object) {
+  return defHttp.post({ url: Api.UserList, params: { ...user, guard_name: 'admin' } });
+}
+
 export const getUserList = (params: AccountParams) =>
   defHttp.get<AccountListGetResultModel>({ url: Api.UserList, params });
 

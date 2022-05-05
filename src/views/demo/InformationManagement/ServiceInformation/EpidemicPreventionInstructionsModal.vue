@@ -18,7 +18,6 @@
     postEpidemicPreventionInstructions,
     putEpidemicPreventionInstructions,
   } from '/@/api/demo/EpidemicPreventionInstructions';
-
   import { useComponentRegister } from '/@/components/Form';
   import { Tinymce } from '/@/components/Tinymce';
 

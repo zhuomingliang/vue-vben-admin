@@ -35,15 +35,13 @@
   import { useModal } from '/@/components/Modal';
 
   import { columns } from './EpidemicPreventionInstructions.data';
-  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+  import EpidemicPreventionInstructionsModal from './EpidemicPreventionInstructionsModal.vue';
 
   export default defineComponent({
     name: 'EpidemicPreventionInstructions',
     components: {
       BasicTable,
-      EpidemicPreventionInstructionsModal: createAsyncComponent(
-        () => import('./EpidemicPreventionInstructionsModal.vue'),
-      ),
+      EpidemicPreventionInstructionsModal,
       TableAction,
     },
     setup() {

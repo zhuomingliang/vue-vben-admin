@@ -8,22 +8,22 @@ export const columns: BasicColumn[] = [
   {
     title: '用户名',
     dataIndex: 'username',
-    width: 120,
+    width: 180,
   },
   {
     title: '昵称',
     dataIndex: 'nickname',
-    width: 120,
+    width: 180,
   },
   {
     title: '邮箱',
     dataIndex: 'email',
-    width: 120,
+    width: 180,
   },
   {
     title: '角色',
     dataIndex: 'role',
-    width: 200,
+    width: 180,
     customRender: ({ record }) => {
       const tags: VNode[] = [];
       if (record.role !== null) {
@@ -72,6 +72,7 @@ export const accountFormSchema: FormSchema[] = [
     label: '用户名',
     component: 'Input',
     helpMessage: ['本字段演示异步验证', '不能输入带有admin的用户名'],
+    colProps: { span: 20 },
     dynamicRules: ({ model }) => {
       return [
         {
@@ -98,6 +99,7 @@ export const accountFormSchema: FormSchema[] = [
     component: 'InputPassword',
     required: true,
     ifShow: false,
+    colProps: { span: 20 },
   },
   {
     label: '角色',
@@ -109,36 +111,21 @@ export const accountFormSchema: FormSchema[] = [
       valueField: 'id',
       mode: 'multiple',
     },
-    required: true,
-  },
-  {
-    field: 'dept',
-    label: '所属部门',
-    component: 'TreeSelect',
-    componentProps: {
-      fieldNames: {
-        label: 'deptName',
-        key: 'id',
-        value: 'id',
-      },
-      getPopupContainer: () => document.body,
-    },
+    colProps: { span: 20 },
     required: true,
   },
   {
     field: 'nickname',
     label: '昵称',
     component: 'Input',
-    required: true,
+    required: false,
   },
-
   {
     label: '邮箱',
     field: 'email',
     component: 'Input',
-    required: true,
+    required: false,
   },
-
   {
     label: '备注',
     field: 'remark',

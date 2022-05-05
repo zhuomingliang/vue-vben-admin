@@ -1,18 +1,12 @@
 <template>
   <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
-    <DeptTree class="w-1/4 xl:w-1/5" @select="handleSelect" />
     <BasicTable @register="registerTable" class="w-3/4 xl:w-4/5" :searchInfo="searchInfo">
-      <template #toolbar>
+      <!-- <template #toolbar>
         <a-button type="primary" @click="handleCreate">新增账号</a-button>
-      </template>
-      <template #action="{ record }">
+      </template> -->
+      <!-- <template #action="{ record }">
         <TableAction
           :actions="[
-            {
-              icon: 'clarity:info-standard-line',
-              tooltip: '查看用户详情',
-              onClick: handleView.bind(null, record),
-            },
             {
               icon: 'clarity:note-edit-line',
               tooltip: '编辑用户资料',
@@ -29,7 +23,7 @@
             },
           ]"
         />
-      </template>
+      </template> -->
     </BasicTable>
     <AccountModal @register="registerModal" @success="handleSuccess" />
   </PageWrapper>
@@ -37,10 +31,9 @@
 <script lang="ts">
   import { defineComponent, reactive } from 'vue';
 
-  import { BasicTable, useTable, TableAction } from '/@/components/Table';
+  import { BasicTable, useTable } from '/@/components/Table';
   import { getUserList } from '/@/api/demo/system';
   import { PageWrapper } from '/@/components/Page';
-  import DeptTree from './DeptTree.vue';
 
   import { useModal } from '/@/components/Modal';
   import AccountModal from './AccountModal.vue';
@@ -50,7 +43,7 @@
 
   export default defineComponent({
     name: 'AccountManagement',
-    components: { BasicTable, PageWrapper, DeptTree, AccountModal, TableAction },
+    components: { BasicTable, PageWrapper, AccountModal },
     setup() {
       const go = useGo();
       const [registerModal, { openModal }] = useModal();
