@@ -2,6 +2,9 @@ import { h } from 'vue';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { Row, Col } from 'ant-design-vue';
+import { Switch } from 'ant-design-vue';
+import { putStatus } from '/@/api/demo/AccommodationArrangements';
+import { useMessage } from '/@/hooks/web/useMessage';
 
 export const columns: BasicColumn[] = [
   {
@@ -52,6 +55,38 @@ export const columns: BasicColumn[] = [
     title: '联系人电话',
     dataIndex: 'contact_telephone',
     width: 120,
+  },
+  {
+    title: '状态',
+    dataIndex: 'status',
+    width: 80,
+    customRender: ({ record }) => {
+      if (!Reflect.has(record, 'pendingStatus')) {
+        record.pendingStatus = false;
+      }
+      return h(Switch, {
+        checked: record.status === true,
+        checkedChildren: '已启用',
+        unCheckedChildren: '已禁用',
+        loading: record.pendingStatus,
+        onChange(checked: boolean) {
+          record.pendingStatus = true;
+          const newStatus = checked ? true : false;
+          const { createMessage } = useMessage();
+          putStatus(record.id, newStatus)
+            .then(() => {
+              record.status = newStatus;
+              createMessage.success(`已成功修改状态`);
+            })
+            .catch(() => {
+              createMessage.error('修改状态失败');
+            })
+            .finally(() => {
+              record.pendingStatus = false;
+            });
+        },
+      });
+    },
   },
   {
     title: '新增时间',

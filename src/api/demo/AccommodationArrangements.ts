@@ -8,3 +8,5 @@ export const putAccommodationArrangements = (params: any) =>
   defHttp.put({ url: '/AccommodationArrangements', params });
 export const deleteAccommodationArrangements = (id: any) =>
   defHttp.delete({ url: '/AccommodationArrangements', params: { id } });
+export const putStatus = (id: number, status: boolean) =>
+  defHttp.put({ url: '/AccommodationArrangements/Status', params: { id, status } });

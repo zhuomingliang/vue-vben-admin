@@ -43,7 +43,7 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
-    title: '',
+    title: '嘉宾',
     dataIndex: 'guest',
     width: 120,
   },
