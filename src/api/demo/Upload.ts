@@ -10,7 +10,7 @@ export function uploadImage(
 ) {
   return defHttp.uploadFile(
     {
-      url: '/basic-api/Upload/Image',
+      url: '/Upload/Image',
       onUploadProgress,
     },
     params,
@@ -26,7 +26,7 @@ export function uploadVideo(
 ) {
   return defHttp.uploadFile(
     {
-      url: '/basic-api/Upload/Video',
+      url: '/Upload/Video',
       onUploadProgress,
     },
     params,
@@ -42,7 +42,7 @@ export function uploadFile(
 ) {
   return defHttp.uploadFile(
     {
-      url: '/basic-api/Upload/File',
+      url: '/Upload/File',
       onUploadProgress,
     },
     params,
