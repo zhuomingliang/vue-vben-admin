@@ -30,6 +30,9 @@
       />
     </div>
     <!-- menu-end -->
+    <div style="width: 50%; color: #aaa; text-align: center">
+      当前启用家博会：<span>{{ title }}</span>
+    </div>
 
     <!-- action  -->
     <div :class="`${prefixCls}-action`">
@@ -55,7 +58,7 @@
   </Header>
 </template>
 <script lang="ts">
-  import { defineComponent, unref, computed } from 'vue';
+  import { defineComponent, ref, unref, computed, onMounted } from 'vue';
 
   import { propTypes } from '/@/utils/propTypes';
 
@@ -80,6 +83,9 @@
 
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
   import { useLocale } from '/@/locales/useLocale';
+  import { getCurrentHomeDecorationExpo } from '/@/api/demo/HomeDecorationExpo';
+  import { events } from '/@/views/demo/InformationManagement/HomeDecorationExpo/HomeDecorationExpo.data';
+  import mitt from '/@/utils/mitt';
 
   export default defineComponent({
     name: 'LayoutHeader',
@@ -170,6 +176,23 @@
         return unref(getSplit) ? MenuModeEnum.HORIZONTAL : null;
       });
 
+      const title = ref('无');
+      async function fetch() {
+        const result = await getCurrentHomeDecorationExpo();
+        if (typeof result === 'object') {
+          title.value = result.title;
+        } else {
+          title.value = '无';
+        }
+      }
+      const emitter = mitt(events);
+
+      emitter.on('reload', fetch);
+
+      onMounted(() => {
+        fetch();
+      });
+
       return {
         prefixCls,
         getHeaderClass,
@@ -192,6 +215,7 @@
         getShowSettingButton,
         getShowSetting,
         getShowSearch,
+        title,
       };
     },
   });

@@ -10,3 +10,6 @@ export const deleteHomeDecorationExpo = (id: any) =>
   defHttp.delete({ url: '/HomeDecorationExpo', params: { id } });
 export const putStatus = (id: number, status: boolean) =>
   defHttp.put({ url: '/HomeDecorationExpo/Status', params: { id, status } });
+
+export const getCurrentHomeDecorationExpo = () =>
+  defHttp.get({ url: '/HomeDecorationExpo/current' });

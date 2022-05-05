@@ -5,6 +5,12 @@ import { Switch } from 'ant-design-vue';
 import { putStatus } from '/@/api/demo/HomeDecorationExpo';
 import { useMessage } from '/@/hooks/web/useMessage';
 import dayjs from 'dayjs';
+import { EventType, EventHandlerList } from '/@/utils/mitt';
+import mitt from '/@/utils/mitt';
+
+export const events: Map<EventType, EventHandlerList> = new Map();
+
+const emitter = mitt(events);
 
 export const columns: BasicColumn[] = [
   {
@@ -52,7 +58,9 @@ export const columns: BasicColumn[] = [
           const { createMessage } = useMessage();
           putStatus(record.id, newStatus)
             .then(() => {
-              record.status = newStatus;
+              //record.status = newStatus;
+              emitter.emit('reload', newStatus);
+
               createMessage.success(`已成功修改状态`);
             })
             .catch(() => {

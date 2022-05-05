@@ -28,6 +28,7 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
+  import mitt from '/@/utils/mitt';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { getHomeDecorationExpo, deleteHomeDecorationExpo } from '/@/api/demo/HomeDecorationExpo';
@@ -35,7 +36,7 @@
   import { useModal } from '/@/components/Modal';
   import HomeDecorationExpoModal from './HomeDecorationExpoModal.vue';
 
-  import { columns, searchFormSchema } from './HomeDecorationExpo.data';
+  import { events, columns, searchFormSchema } from './HomeDecorationExpo.data';
 
   export default defineComponent({
     name: 'HomeDecorationExpo',
@@ -62,6 +63,9 @@
           fixed: undefined,
         },
       });
+      const emitter = mitt(events);
+
+      emitter.on('reload', reload);
 
       function handleCreate() {
         openModal(true, {
@@ -93,6 +97,9 @@
         handleDelete,
         handleSuccess,
       };
+    },
+    onUnmounted() {
+      emitter.clear();
     },
   });
 </script>
