@@ -37,6 +37,7 @@
   import HomeDecorationExpoModal from './HomeDecorationExpoModal.vue';
 
   import { events, columns, searchFormSchema } from './HomeDecorationExpo.data';
+  const emitter = mitt(events);
 
   export default defineComponent({
     name: 'HomeDecorationExpo',
@@ -63,7 +64,6 @@
           fixed: undefined,
         },
       });
-      const emitter = mitt(events);
 
       emitter.on('reload', reload);
 
@@ -86,6 +86,8 @@
       }
 
       function handleSuccess() {
+        emitter.emit('reload', 1);
+
         reload();
       }
 
