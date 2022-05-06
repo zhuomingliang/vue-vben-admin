@@ -17,7 +17,7 @@ export const columns: BasicColumn[] = [
     dataIndex: 'video',
     width: 240,
     customRender: ({ value }) => {
-      return h('video', { src: value });
+      return h('video', { controls: 'controls', src: value });
     },
   },
   {
