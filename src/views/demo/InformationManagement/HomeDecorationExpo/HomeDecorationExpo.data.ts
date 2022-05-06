@@ -38,6 +38,11 @@ export const columns: BasicColumn[] = [
     title: '简介',
     dataIndex: 'description',
     width: 240,
+    customRender: ({ value }) => {
+      return h('div', {
+        innerHTML: value,
+      });
+    },
   },
   {
     title: '状态',
