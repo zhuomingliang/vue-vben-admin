@@ -13,6 +13,8 @@
   import { defineComponent } from 'vue';
   import { PageWrapper } from '/@/components/Page';
   import { BasicForm, useForm } from '/@/components/Form';
+  import { ChangePassword } from '/@/api/demo/system';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   import { formSchema } from './pwd.data';
   export default defineComponent({
@@ -31,8 +33,13 @@
           const values = await validate();
           const { passwordOld, passwordNew } = values;
 
-          // TODO custom api
-          console.log(passwordOld, passwordNew);
+          ChangePassword(passwordOld, passwordNew)
+            .then(() => {
+              const { createMessage } = useMessage();
+              createMessage.success('修改成功');
+            })
+            .catch(() => {});
+
           // const { router } = useRouter();
           // router.push(pageEnum.BASE_LOGIN);
         } catch (error) {}

@@ -28,6 +28,10 @@ export function createUser(user: Object) {
   return defHttp.post({ url: Api.UserList, params: { ...user, guard_name: 'admin' } });
 }
 
+export function ChangePassword(oldPassword: string, newPassword: string) {
+  return defHttp.post({ url: '/User/ChangePassword', params: { oldPassword, newPassword } });
+}
+
 export const getUserList = (params: AccountParams) =>
   defHttp.get<AccountListGetResultModel>({ url: Api.UserList, params });
 
