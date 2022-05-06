@@ -15,6 +15,8 @@
   import { BasicForm, useForm } from '/@/components/Form';
   import { ChangePassword } from '/@/api/demo/system';
   import { useMessage } from '/@/hooks/web/useMessage';
+  import { router } from '/@/router';
+  import { PageEnum } from '/@/enums/pageEnum';
 
   import { formSchema } from './pwd.data';
   export default defineComponent({
@@ -37,11 +39,9 @@
             .then(() => {
               const { createMessage } = useMessage();
               createMessage.success('修改成功');
+              router.push(PageEnum.BASE_LOGIN);
             })
             .catch(() => {});
-
-          // const { router } = useRouter();
-          // router.push(pageEnum.BASE_LOGIN);
         } catch (error) {}
       }
 
