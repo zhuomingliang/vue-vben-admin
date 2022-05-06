@@ -21,12 +21,12 @@
               src="../../../assets/svg/login-box-bg.svg"
               class="w-1/2 -mt-16 -enter-x"
             />
-            <div class="mt-10 font-medium text-white -enter-x">
+            <!-- <div class="mt-10 font-medium text-white -enter-x">
               <span class="inline-block mt-4 text-3xl"> {{ t('sys.login.signInTitle') }}</span>
             </div>
             <div class="mt-5 font-normal text-white text-md dark:text-gray-500 -enter-x">
               {{ t('sys.login.signInDesc') }}
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="flex w-full h-full py-5 xl:h-auto xl:py-0 xl:my-0 xl:w-6/12">
@@ -35,10 +35,10 @@
             class="relative w-full px-5 py-8 mx-auto my-auto rounded-md shadow-md xl:ml-16 xl:bg-transparent sm:px-8 xl:p-4 xl:shadow-none sm:w-3/4 lg:w-2/4 xl:w-auto enter-x"
           >
             <LoginForm />
-            <ForgetPasswordForm />
+            <!-- <ForgetPasswordForm />
             <RegisterForm />
             <MobileForm />
-            <QrCodeForm />
+            <QrCodeForm /> -->
           </div>
         </div>
       </div>
@@ -50,12 +50,7 @@
   import { AppLogo } from '/@/components/Application';
   import { AppLocalePicker, AppDarkModeToggle } from '/@/components/Application';
   import LoginForm from './LoginForm.vue';
-  import ForgetPasswordForm from './ForgetPasswordForm.vue';
-  import RegisterForm from './RegisterForm.vue';
-  import MobileForm from './MobileForm.vue';
-  import QrCodeForm from './QrCodeForm.vue';
   import { useGlobSetting } from '/@/hooks/setting';
-  import { useI18n } from '/@/hooks/web/useI18n';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useLocaleStore } from '/@/store/modules/locale';
 
@@ -67,7 +62,6 @@
 
   const globSetting = useGlobSetting();
   const { prefixCls } = useDesign('login');
-  const { t } = useI18n();
   const localeStore = useLocaleStore();
   const showLocale = localeStore.getShowPicker;
   const title = computed(() => globSetting?.title ?? '');
