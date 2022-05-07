@@ -31,7 +31,7 @@
     </div>
     <!-- menu-end -->
     <div style="width: 50%; color: #aaa; text-align: center">
-      当前启用家博会：<span style="color: #fb6b6b">{{ title }}</span>
+      当前启用家博会：<span style="color: #fb6b6b; font-weight: bold">{{ title }}</span>
     </div>
 
     <!-- action  -->
