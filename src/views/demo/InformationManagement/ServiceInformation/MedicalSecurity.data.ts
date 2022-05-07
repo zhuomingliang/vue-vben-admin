@@ -161,6 +161,7 @@ export const formSchema: FormSchema[] = [
     label: '日期',
     component: 'DatePicker',
     required: true,
+    colProps: { span: 20 },
   },
   {
     field: 'doctor',
