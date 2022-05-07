@@ -125,7 +125,7 @@ const transform: AxiosTransform = {
       createMessage.error(errorMsg);
     }
 
-    if (status === ResultEnum.HTTP_UNAUTHORIZED) return;
+    if (status === ResultEnum.HTTP_UNAUTHORIZED) return null;
 
     throw new Error(errorMsg || t('sys.api.apiRequestFailed'));
   },
