@@ -4,8 +4,14 @@ import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
 import { putStatus } from '/@/api/demo/VehicleSafeguard';
 import { useMessage } from '/@/hooks/web/useMessage';
+import { getAllHotels } from '/@/api/demo/HotelInformation';
 
 export const columns: BasicColumn[] = [
+  {
+    title: '酒店',
+    dataIndex: 'hotel',
+    width: 120,
+  },
   {
     title: '姓名',
     dataIndex: 'name',
@@ -62,6 +68,17 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
+    label: '酒店',
+    field: 'hotel_information_id',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getAllHotels,
+      labelField: 'hotel',
+      valueField: 'id',
+    },
+    colProps: { span: 5 },
+  },
+  {
     field: 'name',
     label: '姓名',
     component: 'Input',
@@ -89,16 +106,30 @@ export const formSchema: FormSchema[] = [
     show: false,
   },
   {
+    label: '酒店',
+    field: 'hotel_information_id',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getAllHotels,
+      labelField: 'hotel',
+      valueField: 'id',
+    },
+    colProps: { span: 16 },
+    required: true,
+  },
+  {
     field: 'name',
     label: '姓名',
     required: true,
     component: 'Input',
+    colProps: { span: 16 },
   },
   {
     field: 'phone',
     label: '联系方式',
     required: true,
     component: 'Input',
+    colProps: { span: 16 },
   },
   {
     field: 'status',

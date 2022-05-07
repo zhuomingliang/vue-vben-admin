@@ -4,8 +4,14 @@ import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
 import { putStatus } from '/@/api/demo/MedicalSecurity';
 import { useMessage } from '/@/hooks/web/useMessage';
+import { getAllHotels } from '/@/api/demo/HotelInformation';
 
 export const columns: BasicColumn[] = [
+  {
+    title: '酒店',
+    dataIndex: 'hotel',
+    width: 120,
+  },
   {
     title: '日期',
     dataIndex: 'date',
@@ -16,7 +22,11 @@ export const columns: BasicColumn[] = [
     dataIndex: 'doctor',
     width: 120,
     customRender: ({ record }) => {
-      return h('span', {}, `${record.doctor} / ${record.doctor_phone}`);
+      return h(
+        'span',
+        {},
+        record.doctor ? `${record.doctor ?? ''} / ${record.doctor_phone ?? ''}` : '',
+      );
     },
   },
   {
@@ -29,7 +39,11 @@ export const columns: BasicColumn[] = [
     dataIndex: 'nurse',
     width: 120,
     customRender: ({ record }) => {
-      return h('span', {}, `${record.nurse} / ${record.nurse_phone}`);
+      return h(
+        'span',
+        {},
+        record.nurse ? `${record.nurse ?? ''} / ${record.nurse_phone ?? ''}` : '',
+      );
     },
   },
   {
@@ -93,6 +107,17 @@ export const columns: BasicColumn[] = [
 
 export const searchFormSchema: FormSchema[] = [
   {
+    label: '酒店',
+    field: 'hotel_information_id',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getAllHotels,
+      labelField: 'hotel',
+      valueField: 'id',
+    },
+    colProps: { span: 5 },
+  },
+  {
     field: 'date',
     label: '日期',
     component: 'DatePicker',
@@ -118,6 +143,18 @@ export const formSchema: FormSchema[] = [
     label: 'ID',
     component: 'Input',
     show: false,
+  },
+  {
+    label: '酒店',
+    field: 'hotel_information_id',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getAllHotels,
+      labelField: 'hotel',
+      valueField: 'id',
+    },
+    colProps: { span: 20 },
+    required: true,
   },
   {
     field: 'date',

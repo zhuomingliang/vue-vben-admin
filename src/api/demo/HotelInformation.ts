@@ -10,3 +10,6 @@ export const deleteHotelInformation = (id: any) =>
   defHttp.delete({ url: '/HotelInformation', params: { id } });
 export const putStatus = (id: number, status: boolean) =>
   defHttp.put({ url: '/HotelInformation/Status', params: { id, status } });
+
+export const getAllHotels = (params: any) =>
+  defHttp.get({ url: '/HotelInformation/AllHotels', params });
