@@ -44,11 +44,25 @@ export const columns: BasicColumn[] = [
     title: '总联络人',
     dataIndex: '',
     width: 120,
+    customRender: ({ record }) => {
+      return h(
+        'span',
+        {},
+        record.liaison ? `${record.liaison ?? ''} / ${record.liaison_phone ?? ''}` : '',
+      );
+    },
   },
   {
     title: '酒店负责人',
     dataIndex: '',
     width: 120,
+    customRender: ({ record }) => {
+      return h(
+        'span',
+        {},
+        record.director ? `${record.director ?? ''} / ${record.director_phone ?? ''}` : '',
+      );
+    },
   },
   {
     title: '状态',
