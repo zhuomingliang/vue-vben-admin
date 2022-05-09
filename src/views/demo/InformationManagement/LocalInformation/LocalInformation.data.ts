@@ -125,7 +125,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'description',
     label: '描述',
-    required: true,
+    required: false,
     component: 'InputTextArea',
     colProps: { span: 20 },
   },
