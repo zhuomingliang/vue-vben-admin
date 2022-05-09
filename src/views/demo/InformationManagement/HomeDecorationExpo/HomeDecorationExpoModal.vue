@@ -61,12 +61,16 @@
       async function handleSubmit() {
         try {
           const values = await validate();
+          const data = { ...values };
+          data.daterange = [];
+          data.daterange[0] = values.daterange[0].format('YYYY-MM-DD');
+          data.daterange[1] = values.daterange[1].format('YYYY-MM-DD');
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
-            await putHomeDecorationExpo(values);
+            await putHomeDecorationExpo(data);
           } else {
             delete values.id;
-            await postHomeDecorationExpo(values);
+            await postHomeDecorationExpo(data);
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });
