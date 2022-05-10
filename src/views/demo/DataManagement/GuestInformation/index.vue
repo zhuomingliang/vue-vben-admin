@@ -3,6 +3,7 @@
     <BasicTable @register="registerTable">
       <template #toolbar>
         <a-button type="primary" @click="handleCreate"> 新增 </a-button>
+        <a-button type="primary" @click="handleImport"> 导入 </a-button>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -23,7 +24,8 @@
         />
       </template>
     </BasicTable>
-    <GuestModal @register="registerModal" @success="handleSuccess" />
+    <GuestModal @register="registerCreateGuestModal" @success="handleSuccess" />
+    <ImportGuestModal @register="registerImportGuestModal" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
@@ -34,14 +36,17 @@
 
   import { useModal } from '/@/components/Modal';
   import GuestModal from './GuestModal.vue';
+  import ImportGuestModal from './ImportGuestModal.vue';
 
   import { columns, searchFormSchema } from './guest.data';
 
   export default defineComponent({
     name: 'Guest',
-    components: { BasicTable, GuestModal, TableAction },
+    components: { BasicTable, GuestModal, ImportGuestModal, TableAction },
     setup() {
-      const [registerModal, { openModal }] = useModal();
+      const [registerCreateGuestModal, { openModal: openModalCreateGuestModal }] = useModal();
+      const [registerImportGuestModal, { openModal: openModalImportGuestModal }] = useModal();
+
       const [registerTable, { reload }] = useTable({
         title: '嘉宾列表',
         api: getGuest,
@@ -64,13 +69,19 @@
       });
 
       function handleCreate() {
-        openModal(true, {
+        openModalCreateGuestModal(true, {
+          isUpdate: false,
+        });
+      }
+
+      function handleImport() {
+        openModalImportGuestModal(true, {
           isUpdate: false,
         });
       }
 
       function handleEdit(record: Recordable) {
-        openModal(true, {
+        openModalCreateGuestModal(true, {
           record,
           isUpdate: true,
         });
@@ -87,8 +98,10 @@
 
       return {
         registerTable,
-        registerModal,
+        registerCreateGuestModal,
+        registerImportGuestModal,
         handleCreate,
+        handleImport,
         handleEdit,
         handleDelete,
         handleSuccess,
