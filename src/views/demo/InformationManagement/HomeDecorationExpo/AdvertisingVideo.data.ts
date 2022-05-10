@@ -22,7 +22,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '排序',
-    dataIndex: 'title',
+    dataIndex: 'sort',
     width: 40,
   },
   {
