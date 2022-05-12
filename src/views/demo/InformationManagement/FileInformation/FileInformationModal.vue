@@ -32,7 +32,7 @@
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
 
-        const record = data.record;
+        const record = { ...data.record };
 
         if (unref(isUpdate)) {
           if (!Array.isArray(record.file_path)) record.file_path = [record.file_path];
