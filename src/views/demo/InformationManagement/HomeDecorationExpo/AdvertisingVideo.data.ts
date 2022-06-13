@@ -115,7 +115,7 @@ export const formSchema: FormSchema[] = [
       multiple: false,
       accept: ['.mp4', '.ogv', '.webm'],
       maxNumber: 1,
-      maxSize: 50,
+      maxSize: 200,
     },
   },
   {

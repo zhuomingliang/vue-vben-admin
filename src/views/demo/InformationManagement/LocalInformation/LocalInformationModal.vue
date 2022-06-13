@@ -1,5 +1,11 @@
 <template>
-  <BasicModal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
+  <BasicModal
+    v-bind="$attrs"
+    @register="registerModal"
+    :title="getTitle"
+    @ok="handleSubmit"
+    width="55%"
+  >
     <BasicForm @register="registerForm" />
   </BasicModal>
 </template>
@@ -9,7 +15,10 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './LocalInformation.data';
   import { postLocalInformation, putLocalInformation } from '/@/api/demo/LocalInformation';
+  import { useComponentRegister } from '/@/components/Form';
+  import { Tinymce } from '/@/components/Tinymce';
 
+  useComponentRegister('Tinymce', Tinymce);
   export default defineComponent({
     name: 'LocalInformationModal',
     components: { BasicModal, BasicForm },
