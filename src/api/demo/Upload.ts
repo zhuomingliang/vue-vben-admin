@@ -12,6 +12,7 @@ export function uploadImage(
     {
       url: '/Upload/Image',
       onUploadProgress,
+      timeout: 0,
     },
     params,
   );
@@ -30,6 +31,7 @@ export function uploadVideo(
     {
       url: '/Upload/Video',
       onUploadProgress,
+      timeout: 0,
     },
     params,
   );
@@ -46,6 +48,7 @@ export function uploadFile(
     {
       url: '/Upload/File',
       onUploadProgress,
+      timeout: 0,
     },
     params,
   );
