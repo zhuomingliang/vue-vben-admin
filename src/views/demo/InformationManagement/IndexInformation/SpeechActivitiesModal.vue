@@ -1,0 +1,80 @@
+<template>
+  <BasicModal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
+    <BasicForm @register="registerForm" />
+  </BasicModal>
+</template>
+<script lang="ts">
+  import dayjs from 'dayjs';
+  import { defineComponent, ref, computed, unref } from 'vue';
+  import { BasicModal, useModalInner } from '/@/components/Modal';
+  import { BasicForm, useForm } from '/@/components/Form/index';
+  import { formSchema } from './SpeechActivities.data';
+  import { postSpeechActivities, putSpeechActivities } from '/@/api/demo/SpeechActivities';
+
+  export default defineComponent({
+    name: 'SpeechActivitiesModal',
+    components: { BasicModal, BasicForm },
+    emits: ['success', 'register'],
+    setup(_, { emit }) {
+      const isUpdate = ref(true);
+      const rowId = ref('');
+
+      const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
+        labelWidth: 100,
+        schemas: formSchema,
+        showActionButtonGroup: false,
+        actionColOptions: {
+          span: 23,
+        },
+      });
+
+      const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data) => {
+        resetFields();
+        setModalProps({ confirmLoading: false });
+        isUpdate.value = !!data?.isUpdate;
+
+        const record = data.record;
+
+        if (unref(isUpdate)) {
+          record.time = [dayjs(record.start_time, 'HH:mm'), dayjs(record.end_time, 'HH:mm')];
+          setFieldsValue({
+            ...record,
+          });
+        }
+      });
+
+      const getTitle = computed(() => (!unref(isUpdate) ? '新增' : '编辑'));
+
+      async function handleSubmit() {
+        try {
+          const values = await validate();
+          if (Array.isArray(values.time)) {
+            values.start_time = values.time[0].format('HH:mm');
+            values.end_time = values.time[1].format('HH:mm');
+          }
+
+          delete values.time;
+
+          setModalProps({ confirmLoading: true });
+          if (unref(isUpdate)) {
+            await putSpeechActivities(values);
+          } else {
+            delete values.id;
+            await postSpeechActivities(values);
+          }
+          closeModal();
+          emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });
+        } finally {
+          setModalProps({ confirmLoading: false });
+        }
+      }
+
+      return { registerModal, registerForm, getTitle, handleSubmit };
+    },
+  });
+</script>
+<style>
+  .ant-picker-dropdown-placement-bottomLeft {
+    top: 36px !important;
+  }
+</style>
