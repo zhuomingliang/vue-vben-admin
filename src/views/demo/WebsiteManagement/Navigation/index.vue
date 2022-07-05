@@ -6,7 +6,8 @@
       :beforeEditSubmit="beforeEditSubmit"
     >
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增 </a-button>
+        <a-button type="primary" @click="handleCreateMainMenu"> 新增一级导航栏 </a-button>
+        <a-button type="primary" @click="handleCreateSubMenu"> 新增二级导航栏 </a-button>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -20,6 +21,7 @@
       </template>
     </BasicTable>
     <NavigationModal @register="registerCreateNavigationModal" @success="handleSuccess" />
+    <NavigationModal2 @register="registerCreateNavigationModal2" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
@@ -36,14 +38,18 @@
 
   import { useModal } from '/@/components/Modal';
   import NavigationModal from './NavigationModal.vue';
+  import NavigationModal2 from './NavigationModal2.vue';
 
   import { columns, searchFormSchema } from './Navigation.data';
 
   export default defineComponent({
     name: 'Navigation',
-    components: { BasicTable, NavigationModal, TableAction },
+    components: { BasicTable, NavigationModal, NavigationModal2, TableAction },
     setup() {
       const [registerCreateNavigationModal, { openModal: openModalCreateNavigationModal }] =
+        useModal();
+
+      const [registerCreateNavigationModal2, { openModal: openModalCreateNavigationModal2 }] =
         useModal();
 
       const { createMessage } = useMessage();
@@ -69,17 +75,29 @@
         },
       });
 
-      function handleCreate() {
+      function handleCreateMainMenu() {
         openModalCreateNavigationModal(true, {
           isUpdate: false,
         });
       }
 
-      function handleEdit(record: Recordable) {
-        openModalCreateNavigationModal(true, {
-          record,
-          isUpdate: true,
+      function handleCreateSubMenu() {
+        openModalCreateNavigationModal2(true, {
+          isUpdate: false,
         });
+      }
+
+      function handleEdit(record: Recordable) {
+        if (record.sub_menu_id)
+          openModalCreateNavigationModal2(true, {
+            record,
+            isUpdate: true,
+          });
+        else
+          openModalCreateNavigationModal(true, {
+            record,
+            isUpdate: true,
+          });
       }
 
       async function handleDelete(record: Recordable) {
@@ -119,7 +137,9 @@
       return {
         registerTable,
         registerCreateNavigationModal,
-        handleCreate,
+        registerCreateNavigationModal2,
+        handleCreateMainMenu,
+        handleCreateSubMenu,
         handleEdit,
         handleDelete,
         handleSuccess,

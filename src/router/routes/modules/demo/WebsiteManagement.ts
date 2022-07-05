@@ -17,7 +17,7 @@ const DataManagement: AppRouteModule = {
       path: 'Navigation',
       name: 'Navigation',
       meta: {
-        title: '嘉宾信息',
+        title: '导航栏列表',
         ignoreKeepAlive: false,
         permission: 'Navigation',
       },

@@ -1,5 +1,6 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import { getMainMenu } from '/@/api/demo/Navigation';
 
 export const columns: BasicColumn[] = [
   {
@@ -44,36 +45,57 @@ export const columns: BasicColumn[] = [
 ];
 
 export const searchFormSchema: FormSchema[] = [
-  {
-    field: 'full_name',
-    label: '姓名',
-    component: 'Input',
-    colProps: { span: 4 },
-  },
-  {
-    field: 'phone',
-    label: '手机号',
-    component: 'Input',
-    colProps: { span: 6 },
-  },
+  // {
+  //   field: 'full_name',
+  //   label: '姓名',
+  //   component: 'Input',
+  //   colProps: { span: 4 },
+  // },
+  // {
+  //   field: 'phone',
+  //   label: '手机号',
+  //   component: 'Input',
+  //   colProps: { span: 6 },
+  // },
 ];
 
 export const formSchema: FormSchema[] = [
   {
-    field: 'id',
+    field: 'main_menu_id',
     label: 'ID',
     component: 'Input',
     show: false,
   },
   {
-    field: 'full_name',
-    label: '姓名',
+    field: 'main_nav',
+    label: '一级导航栏',
     required: true,
     component: 'Input',
   },
+];
+
+export const formSchema2: FormSchema[] = [
   {
-    field: 'phone',
-    label: '手机号',
+    field: 'sub_menu_id',
+    label: 'ID',
+    component: 'Input',
+    show: false,
+  },
+  {
+    label: '一级导航栏',
+    field: 'main_menu_id',
+    component: 'ApiSelect',
+    componentProps: {
+      api: getMainMenu,
+      labelField: 'name',
+      valueField: 'id',
+    },
+    colProps: { span: 20 },
+    required: true,
+  },
+  {
+    field: 'sub_nav',
+    label: '二级导航栏',
     required: true,
     component: 'Input',
   },

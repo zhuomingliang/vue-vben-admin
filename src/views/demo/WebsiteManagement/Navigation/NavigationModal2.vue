@@ -13,8 +13,8 @@
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { formSchema } from './Navigation.data';
-  import { postMainMenu, putMainMenu } from '/@/api/demo/Navigation';
+  import { formSchema2 } from './Navigation.data';
+  import { postSubMenu, putSubMenu } from '/@/api/demo/Navigation';
 
   export default defineComponent({
     name: 'NavigationModal',
@@ -26,7 +26,7 @@
 
       const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
         labelWidth: 100,
-        schemas: formSchema,
+        schemas: formSchema2,
         showActionButtonGroup: false,
         actionColOptions: {
           span: 23,
@@ -54,10 +54,10 @@
           const values = await validate();
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
-            await putMainMenu(values);
+            await putSubMenu(values);
           } else {
             delete values.id;
-            await postMainMenu(values);
+            await postSubMenu(values);
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });
