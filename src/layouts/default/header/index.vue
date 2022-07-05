@@ -30,9 +30,6 @@
       />
     </div>
     <!-- menu-end -->
-    <div style="width: 50%; color: #aaa; text-align: center">
-      当前启用家博会：<span style="color: #fb6b6b; font-weight: bold">{{ title }}</span>
-    </div>
 
     <!-- action  -->
     <div :class="`${prefixCls}-action`">
@@ -176,23 +173,6 @@
         return unref(getSplit) ? MenuModeEnum.HORIZONTAL : null;
       });
 
-      const title = ref('无');
-      async function fetch() {
-        const result = await getCurrentHomeDecorationExpo();
-        if (typeof result === 'object') {
-          title.value = result.title;
-        } else {
-          title.value = '无';
-        }
-      }
-      const emitter = mitt(events);
-
-      emitter.on('reload', fetch);
-
-      onMounted(() => {
-        fetch();
-      });
-
       return {
         prefixCls,
         getHeaderClass,
@@ -215,7 +195,6 @@
         getShowSettingButton,
         getShowSetting,
         getShowSearch,
-        title,
       };
     },
   });

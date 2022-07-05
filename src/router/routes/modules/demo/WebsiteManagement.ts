@@ -3,25 +3,25 @@ import type { AppRouteModule } from '/@/router/types';
 import { LAYOUT } from '/@/router/constant';
 
 const DataManagement: AppRouteModule = {
-  path: '/DataManagement',
-  name: 'DataManagement',
+  path: '/WebsiteManagement',
+  name: 'WebsiteManagement',
   component: LAYOUT,
-  redirect: '/DataManagement/GuestInformation',
+  redirect: '/WebsiteManagement/Navigation',
   meta: {
     orderNo: 2000,
-    icon: 'ion:md-contact',
-    title: '数据管理',
+    icon: 'ion:md-book',
+    title: '网站管理',
   },
   children: [
     {
-      path: 'GuestInformation',
-      name: 'GuestInformation',
+      path: 'Navigation',
+      name: 'Navigation',
       meta: {
         title: '嘉宾信息',
         ignoreKeepAlive: false,
-        permission: 'GuestInformation',
+        permission: 'Navigation',
       },
-      component: () => import('/@/views/demo/DataManagement/GuestInformation/index.vue'),
+      component: () => import('/@/views/demo/WebsiteManagement/Navigation/index.vue'),
     },
   ],
 };
