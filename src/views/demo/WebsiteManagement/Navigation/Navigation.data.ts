@@ -7,6 +7,7 @@ export const columns: BasicColumn[] = [
     title: '一级导航栏',
     dataIndex: 'main_nav',
     width: 120,
+    edit: true,
     customCell: (data) => {
       return { rowSpan: data['rowspan'] };
     },
@@ -20,7 +21,6 @@ export const columns: BasicColumn[] = [
       return { rowSpan: data['rowspan'] };
     },
   },
-
   {
     title: '二级导航栏',
     dataIndex: 'sub_nav',

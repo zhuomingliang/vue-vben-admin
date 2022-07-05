@@ -31,6 +31,7 @@
   import {
     getNavigation,
     deleteNavigation,
+    putMainMenu2,
     putMainOrder,
     putSubOrder,
   } from '/@/api/demo/Navigation';
@@ -123,6 +124,12 @@
           );
         } else if (key === 'sub_order') {
           putSubOrder({ sub_nav: record['sub_nav'], sub_order: value }).then(() =>
+            createMessage.success({
+              content: `更新成功`,
+            }),
+          );
+        } else if (key === 'main_nav') {
+          putMainMenu2({ main_nav: record['main_nav'], new_main_nav: value }).then(() =>
             createMessage.success({
               content: `更新成功`,
             }),
