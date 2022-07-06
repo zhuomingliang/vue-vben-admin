@@ -108,7 +108,7 @@ export const formSchema: FormSchema[] = [
     label: '一级导航栏',
     field: 'main_menu_id',
     component: 'ApiSelect',
-    componentProps: ({ formModel, formActionType }) => {
+    componentProps: ({ formModel }) => {
       return {
         api: getMainMenu,
         labelField: 'name',
