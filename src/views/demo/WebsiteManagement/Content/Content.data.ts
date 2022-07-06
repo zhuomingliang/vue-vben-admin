@@ -9,12 +9,12 @@ import { getMainMenu, getSubMenuByMainMenuId } from '/@/api/demo/Navigation';
 export const columns: BasicColumn[] = [
   {
     title: '一级导航栏',
-    dataIndex: 'main_menu_id',
+    dataIndex: 'main_menu',
     width: 120,
   },
   {
-    title: '一级导航栏',
-    dataIndex: 'sub_menu_id',
+    title: '二级导航栏',
+    dataIndex: 'sub_menu',
     width: 120,
   },
   {
@@ -115,16 +115,9 @@ export const formSchema: FormSchema[] = [
         valueField: 'id',
         placeholder: '请选择',
         onChange: (e: any) => {
-          const { updateSchema } = formActionType;
-
           if (e !== undefined) {
             formModel.sub_menu_id = undefined;
-            updateSchema({
-              field: 'sub_menu_id',
-              componentProps: {
-                params: { main_menu_id: e },
-              },
-            });
+            formModel.main_menu_id = e;
           }
         },
       };
@@ -136,12 +129,14 @@ export const formSchema: FormSchema[] = [
     field: 'sub_menu_id',
     label: '二级导航栏',
     component: 'ApiSelect',
-    componentProps: {
-      api: getSubMenuByMainMenuId,
-      params: { main_menu_id: 0 },
-      labelField: 'name',
-      valueField: 'id',
-      placeholder: '请选择',
+    componentProps: ({ formModel }) => {
+      return {
+        api: getSubMenuByMainMenuId,
+        params: { main_menu_id: formModel.main_menu_id },
+        labelField: 'name',
+        valueField: 'id',
+        placeholder: '请选择',
+      };
     },
     colProps: { span: 8 },
     required: true,
@@ -154,8 +149,8 @@ export const formSchema: FormSchema[] = [
     colProps: { span: 20 },
   },
   {
-    field: 'description',
-    label: '简介',
+    field: 'content',
+    label: '内容',
     required: false,
     component: 'Tinymce',
     colProps: { span: 20 },
