@@ -23,6 +23,16 @@ const DataManagement: AppRouteModule = {
       },
       component: () => import('/@/views/demo/WebsiteManagement/Navigation/index.vue'),
     },
+    {
+      path: 'Content',
+      name: 'Content',
+      meta: {
+        title: '内容管理',
+        ignoreKeepAlive: false,
+        permission: 'Content',
+      },
+      component: () => import('/@/views/demo/WebsiteManagement/Content/index.vue'),
+    },
   ],
 };
 
