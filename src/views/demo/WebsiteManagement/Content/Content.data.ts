@@ -2,7 +2,7 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
-import { putStatus } from '/@/api/demo/HomeDecorationExpo';
+import { putStatus } from '/@/api/demo/Content';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { getMainMenu, getSubMenuByMainMenuId } from '/@/api/demo/Navigation';
 
@@ -51,8 +51,8 @@ export const columns: BasicColumn[] = [
           const { createMessage } = useMessage();
           putStatus(record.id, newStatus)
             .then(() => {
-              //record.status = newStatus;
-              createMessage.success(`已成功修改状态`);
+              record.status = newStatus;
+              createMessage.success(`修改状态成功`);
             })
             .catch(() => {
               createMessage.error('修改状态失败');
