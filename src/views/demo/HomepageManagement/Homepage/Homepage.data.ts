@@ -1,6 +1,6 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
-import { getMainMenu } from '/@/api/demo/Navigation';
+import { getMainMenu, getSubMenuByMainMenuId } from '/@/api/demo/Navigation';
 
 export const columns: BasicColumn[] = [
   {
@@ -77,24 +77,44 @@ export const formSchema: FormSchema[] = [
         { label: '模块 8', value: '8' },
       ],
     },
+    colProps: { span: 12 },
   },
   {
     label: '一级导航栏',
     field: 'main_menu_id',
     component: 'ApiSelect',
-    componentProps: {
-      api: getMainMenu,
-      labelField: 'name',
-      valueField: 'id',
+    componentProps: ({ formModel }) => {
+      return {
+        api: getMainMenu,
+        labelField: 'name',
+        valueField: 'id',
+        placeholder: '请选择',
+        onChange: (e: any) => {
+          if (e !== undefined) {
+            formModel.sub_menu_id = undefined;
+            formModel.main_menu_id = e;
+          }
+        },
+      };
     },
-    colProps: { span: 20 },
+    colProps: { span: 16 },
     required: true,
   },
   {
-    field: 'sub_nav',
+    field: 'sub_menu_id',
     label: '二级导航栏',
+    component: 'ApiSelect',
+    componentProps: ({ formModel }) => {
+      return {
+        api: getSubMenuByMainMenuId,
+        params: { main_menu_id: formModel.main_menu_id },
+        labelField: 'name',
+        valueField: 'id',
+        placeholder: '请选择',
+      };
+    },
+    colProps: { span: 16 },
     required: true,
-    component: 'Input',
   },
   {
     field: 'status',
