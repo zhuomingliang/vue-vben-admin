@@ -10,7 +10,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '一级导航栏',
-    dataIndex: 'main_nav',
+    dataIndex: 'main_menu',
     width: 120,
     customCell: (data) => {
       return { rowSpan: data['rowspan'] };
@@ -18,12 +18,12 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '二级导航栏',
-    dataIndex: 'sub_nav',
+    dataIndex: 'sub_menu',
     width: 120,
   },
   {
     title: '顺序',
-    dataIndex: 'sub_order',
+    dataIndex: 'order',
     width: 120,
     edit: true,
   },
