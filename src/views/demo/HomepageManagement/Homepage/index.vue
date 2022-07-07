@@ -1,6 +1,10 @@
 <template>
   <div>
-    <BasicTable @register="registerTable">
+    <BasicTable
+      @register="registerTable"
+      @edit-end="handleEditEnd"
+      :beforeEditSubmit="beforeEditSubmit"
+    >
       <template #toolbar>
         <a-button type="primary" @click="handleCreate"> 新增 </a-button>
       </template>
@@ -22,7 +26,8 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getHomepage, deleteHomepage } from '/@/api/demo/Homepage';
+  import { getHomepage, deleteHomepage, putOrder } from '/@/api/demo/Homepage';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   import { useModal } from '/@/components/Modal';
   import HomepageModal from './HomepageModal.vue';
@@ -34,6 +39,7 @@
     components: { BasicTable, HomepageModal, TableAction },
     setup() {
       const [registerCreateHomepageModal, { openModal: openModalCreateHomepageModal }] = useModal();
+      const { createMessage } = useMessage();
 
       const [registerTable, { reload }] = useTable({
         title: '首页模块管理',
@@ -78,6 +84,28 @@
         reload();
       }
 
+      function handleEditEnd() {
+        handleSuccess();
+      }
+
+      function Save(key: string, record: object, value: any) {
+        if (key === 'order') {
+          putOrder({
+            module_id: record['module_id'],
+            sub_menu: record['sub_menu'],
+            order: value,
+          }).then(() =>
+            createMessage.success({
+              content: `更新成功`,
+            }),
+          );
+        }
+      }
+
+      async function beforeEditSubmit({ record, key, value }) {
+        return Save(key, record, value);
+      }
+
       return {
         registerTable,
         registerCreateHomepageModal,
@@ -85,6 +113,8 @@
         handleEdit,
         handleDelete,
         handleSuccess,
+        beforeEditSubmit,
+        handleEditEnd,
       };
     },
   });

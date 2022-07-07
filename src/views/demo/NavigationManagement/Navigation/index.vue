@@ -114,7 +114,6 @@
         handleSuccess();
       }
 
-      // 模拟将指定数据保存
       function Save(key: string, record: object, value: any) {
         if (key === 'main_order') {
           putMainOrder({ main_nav: record['main_nav'], main_order: value }).then(() =>

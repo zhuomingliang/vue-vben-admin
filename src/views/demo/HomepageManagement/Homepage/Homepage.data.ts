@@ -7,14 +7,14 @@ export const columns: BasicColumn[] = [
     title: '模块',
     dataIndex: 'module_id',
     width: 120,
+    customCell: (data) => {
+      return { rowSpan: data['rowspan'] };
+    },
   },
   {
     title: '一级导航栏',
     dataIndex: 'main_menu',
     width: 120,
-    customCell: (data) => {
-      return { rowSpan: data['rowspan'] };
-    },
   },
   {
     title: '二级导航栏',
