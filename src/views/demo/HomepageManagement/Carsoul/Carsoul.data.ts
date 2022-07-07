@@ -92,13 +92,8 @@ export const formSchema: FormSchema[] = [
     component: 'Select',
     componentProps: {
       options: [
-        { label: '模块 2', value: '2' },
-        { label: '模块 3', value: '3' },
-        { label: '模块 4', value: '4' },
+        { label: '模块 1', value: '1' },
         { label: '模块 5', value: '5' },
-        { label: '模块 6', value: '6' },
-        { label: '模块 7', value: '7' },
-        { label: '模块 8', value: '8' },
       ],
     },
     colProps: { span: 12 },
