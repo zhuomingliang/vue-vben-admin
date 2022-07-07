@@ -56,7 +56,7 @@ export const searchFormSchema: FormSchema[] = [
 
 export const formSchema: FormSchema[] = [
   {
-    field: 'sub_menu_id',
+    field: 'id',
     label: 'ID',
     component: 'Input',
     show: false,
