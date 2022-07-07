@@ -120,11 +120,13 @@ export const formSchema: FormSchema[] = [
     field: 'title',
     label: '标题',
     component: 'Input',
+    colProps: { span: 20 },
   },
   {
     field: 'link',
     label: '链接',
     component: 'Input',
+    colProps: { span: 20 },
   },
 
   {
