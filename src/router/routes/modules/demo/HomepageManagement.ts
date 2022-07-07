@@ -19,7 +19,7 @@ const DataManagement: AppRouteModule = {
       meta: {
         title: '首页模块管理',
         ignoreKeepAlive: false,
-        permission: '',
+        permission: 'Homepage',
       },
       component: () => import('/@/views/demo/HomepageManagement/Homepage/index.vue'),
     },
@@ -29,7 +29,7 @@ const DataManagement: AppRouteModule = {
       meta: {
         title: '首页轮播图管理',
         ignoreKeepAlive: false,
-        permission: '',
+        permission: 'Carsoul',
       },
       component: () => import('/@/views/demo/HomepageManagement/Carsoul/index.vue'),
     },
