@@ -29,7 +29,7 @@ const DataManagement: AppRouteModule = {
       meta: {
         title: '尾部导航栏',
         ignoreKeepAlive: false,
-        permission: '',
+        permission: 'TailNavigation',
       },
       component: () => import('/@/views/demo/NavigationManagement/TailNavigation/index.vue'),
     },
