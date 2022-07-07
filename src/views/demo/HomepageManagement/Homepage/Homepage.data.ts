@@ -4,17 +4,13 @@ import { getMainMenu } from '/@/api/demo/Navigation';
 
 export const columns: BasicColumn[] = [
   {
-    title: '一级导航栏',
-    dataIndex: 'main_nav',
+    title: '模块',
+    dataIndex: 'module_id',
     width: 120,
-    edit: true,
-    customCell: (data) => {
-      return { rowSpan: data['rowspan'] };
-    },
   },
   {
-    title: '顺序',
-    dataIndex: 'main_order',
+    title: '一级导航栏',
+    dataIndex: 'main_nav',
     width: 120,
     edit: true,
     customCell: (data) => {
@@ -67,6 +63,22 @@ export const formSchema: FormSchema[] = [
     show: false,
   },
   {
+    field: 'module_id',
+    label: '模块',
+    component: 'Select',
+    componentProps: {
+      options: [
+        { label: '模块 2', value: '2' },
+        { label: '模块 3', value: '3' },
+        { label: '模块 4', value: '4' },
+        { label: '模块 5', value: '5' },
+        { label: '模块 6', value: '6' },
+        { label: '模块 7', value: '7' },
+        { label: '模块 8', value: '8' },
+      ],
+    },
+  },
+  {
     label: '一级导航栏',
     field: 'main_menu_id',
     component: 'ApiSelect',
@@ -83,5 +95,17 @@ export const formSchema: FormSchema[] = [
     label: '二级导航栏',
     required: true,
     component: 'Input',
+  },
+  {
+    field: 'status',
+    label: '状态',
+    component: 'RadioButtonGroup',
+    defaultValue: false,
+    componentProps: {
+      options: [
+        { label: '启用', value: true },
+        { label: '停用', value: false },
+      ],
+    },
   },
 ];
