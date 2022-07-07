@@ -23,6 +23,16 @@ const DataManagement: AppRouteModule = {
       },
       component: () => import('/@/views/demo/HomepageManagement/Homepage/index.vue'),
     },
+    {
+      path: 'Carsoul',
+      name: 'Carsoul',
+      meta: {
+        title: '首页轮播图管理',
+        ignoreKeepAlive: false,
+        permission: '',
+      },
+      component: () => import('/@/views/demo/HomepageManagement/Carsoul/index.vue'),
+    },
   ],
 };
 
