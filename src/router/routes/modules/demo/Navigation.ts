@@ -3,35 +3,35 @@ import type { AppRouteModule } from '/@/router/types';
 import { LAYOUT } from '/@/router/constant';
 
 const DataManagement: AppRouteModule = {
-  path: '/WebsiteManagement',
-  name: 'WebsiteManagement',
+  path: '/NavigationManagement',
+  name: 'NavigationManagement',
   component: LAYOUT,
-  redirect: '/WebsiteManagement/Navigation',
+  redirect: '/NavigationManagement/Navigation',
   meta: {
     orderNo: 2000,
     icon: 'ion:md-book',
-    title: '网站管理',
+    title: '导航栏管理',
   },
   children: [
     {
       path: 'Navigation',
       name: 'Navigation',
       meta: {
-        title: '导航栏列表',
+        title: '头部导航栏',
         ignoreKeepAlive: false,
         permission: 'Navigation',
       },
-      component: () => import('/@/views/demo/WebsiteManagement/Navigation/index.vue'),
+      component: () => import('/@/views/demo/NavigationManagement/Navigation/index.vue'),
     },
     {
-      path: 'Content',
-      name: 'Content',
+      path: 'TailNavigation',
+      name: 'TailNavigation',
       meta: {
-        title: '内容管理',
+        title: '尾部导航栏',
         ignoreKeepAlive: false,
-        permission: 'Content',
+        permission: '',
       },
-      component: () => import('/@/views/demo/WebsiteManagement/Content/index.vue'),
+      component: () => import('/@/views/demo/NavigationManagement/TailNavigation/index.vue'),
     },
   ],
 };

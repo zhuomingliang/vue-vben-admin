@@ -2,29 +2,19 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
-import { putStatus } from '/@/api/demo/Content';
+import { putStatus } from '/@/api/demo/TailNavigation';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { getMainMenu, getSubMenuByMainMenuId } from '/@/api/demo/Navigation';
 
 export const columns: BasicColumn[] = [
   {
-    title: '一级导航栏',
-    dataIndex: 'main_menu',
-    width: 120,
-  },
-  {
-    title: '二级导航栏',
-    dataIndex: 'sub_menu',
-    width: 120,
-  },
-  {
     title: '标题',
     dataIndex: 'title',
-    width: 120,
+    width: 150,
   },
   // {
   //   title: '内容',
-  //   dataIndex: 'content3',
+  //   dataIndex: 'TailNavigation3',
   //   width: 240,
   //   customRender: ({ value }) => {
   //     return h('div', {
@@ -35,7 +25,7 @@ export const columns: BasicColumn[] = [
   {
     title: '状态',
     dataIndex: 'status',
-    width: 80,
+    width: 60,
     customRender: ({ record }) => {
       if (!Reflect.has(record, 'pendingStatus')) {
         record.pendingStatus = false;
@@ -67,12 +57,12 @@ export const columns: BasicColumn[] = [
   {
     title: '新增时间',
     dataIndex: 'created_at',
-    width: 100,
+    width: 80,
   },
   {
     title: '更新时间',
     dataIndex: 'updated_at',
-    width: 100,
+    width: 80,
   },
 ];
 
@@ -103,43 +93,6 @@ export const formSchema: FormSchema[] = [
     label: 'ID',
     component: 'Input',
     show: false,
-  },
-  {
-    label: '一级导航栏',
-    field: 'main_menu_id',
-    component: 'ApiSelect',
-    componentProps: ({ formModel }) => {
-      return {
-        api: getMainMenu,
-        labelField: 'name',
-        valueField: 'id',
-        placeholder: '请选择',
-        onChange: (e: any) => {
-          if (e !== undefined) {
-            formModel.sub_menu_id = undefined;
-            formModel.main_menu_id = e;
-          }
-        },
-      };
-    },
-    colProps: { span: 8 },
-    required: true,
-  },
-  {
-    field: 'sub_menu_id',
-    label: '二级导航栏',
-    component: 'ApiSelect',
-    componentProps: ({ formModel }) => {
-      return {
-        api: getSubMenuByMainMenuId,
-        params: { main_menu_id: formModel.main_menu_id },
-        labelField: 'name',
-        valueField: 'id',
-        placeholder: '请选择',
-      };
-    },
-    colProps: { span: 8 },
-    required: true,
   },
   {
     field: 'title',
