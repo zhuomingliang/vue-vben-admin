@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreateSubMenu"> 新增二级导航栏 </a-button>
+        <a-button type="primary" @click="handleCreate"> 新增 </a-button>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -36,7 +36,7 @@
       const [registerCreateHomepageModal, { openModal: openModalCreateHomepageModal }] = useModal();
 
       const [registerTable, { reload }] = useTable({
-        title: '导航栏列表',
+        title: '首页模块管理',
         api: getHomepage,
         columns,
         formConfig: {
@@ -56,7 +56,7 @@
         },
       });
 
-      function handleCreateSubMenu() {
+      function handleCreate() {
         openModalCreateHomepageModal(true, {
           isUpdate: false,
         });
@@ -78,21 +78,13 @@
         reload();
       }
 
-      function handleEditEnd() {
-        handleSuccess();
-      }
-
       return {
         registerTable,
         registerCreateHomepageModal,
-        registerCreateHomepageModal,
-        handleCreateMainMenu,
-        handleCreateSubMenu,
+        handleCreate,
         handleEdit,
         handleDelete,
         handleSuccess,
-        handleEditEnd,
-        beforeEditSubmit,
       };
     },
   });

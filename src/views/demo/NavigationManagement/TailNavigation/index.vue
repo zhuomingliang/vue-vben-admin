@@ -43,7 +43,7 @@
     setup() {
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
-        title: '内容列表',
+        title: '尾部导航栏',
         api: getTailNavigation,
         columns,
         formConfig: {

@@ -17,7 +17,7 @@ const DataManagement: AppRouteModule = {
       path: 'Homepage',
       name: 'Homepage',
       meta: {
-        title: '内容列表',
+        title: '首页模块管理',
         ignoreKeepAlive: false,
         permission: '',
       },
