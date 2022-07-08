@@ -41,6 +41,14 @@
         const record = data.record;
 
         if (unref(isUpdate)) {
+          if (typeof record.image === 'string') {
+            const image = record.image;
+            if (image !== '') {
+              record.image = image.split(',');
+            } else {
+              record.image = [];
+            }
+          }
           setFieldsValue({
             ...record,
           });

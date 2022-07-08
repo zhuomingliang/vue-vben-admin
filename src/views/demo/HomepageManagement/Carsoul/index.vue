@@ -36,7 +36,7 @@
       const [registerCreateCarsoulModal, { openModal: openModalCreateCarsoulModal }] = useModal();
 
       const [registerTable, { reload }] = useTable({
-        title: '首页模块管理',
+        title: '首页轮播图管理',
         api: getCarsoul,
         columns,
         formConfig: {

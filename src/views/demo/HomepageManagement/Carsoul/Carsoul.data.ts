@@ -22,7 +22,7 @@ export const columns: BasicColumn[] = [
     customRender: ({ value }) => {
       let images = value;
 
-      if (typeof value === 'string') images = value.replace(/^\{(.*)\}$/, '$1').split(',');
+      if (typeof value === 'string') images = value.split(',');
 
       const result: any[] = [];
 
