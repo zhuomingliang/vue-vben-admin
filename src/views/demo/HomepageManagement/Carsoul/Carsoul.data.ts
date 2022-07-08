@@ -17,7 +17,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '图片',
-    dataIndex: 'pictures',
+    dataIndex: 'image',
     width: 120,
     customRender: ({ value }) => {
       let images = value;
@@ -81,7 +81,7 @@ export const searchFormSchema: FormSchema[] = [
 
 export const formSchema: FormSchema[] = [
   {
-    field: 'sub_menu_id',
+    field: 'id',
     label: 'ID',
     component: 'Input',
     show: false,
@@ -99,7 +99,7 @@ export const formSchema: FormSchema[] = [
     colProps: { span: 12 },
   },
   {
-    field: 'pictures',
+    field: 'image',
     label: '图片',
     required: false,
     component: 'Upload',
