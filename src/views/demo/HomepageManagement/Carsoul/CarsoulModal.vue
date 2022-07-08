@@ -11,6 +11,7 @@
 </template>
 <script lang="ts">
   import { defineComponent, ref, computed, unref } from 'vue';
+
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './Carsoul.data';
@@ -38,9 +39,9 @@
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
 
-        const record = data.record;
-
         if (unref(isUpdate)) {
+          const record = data.record;
+
           if (typeof record.image === 'string') {
             const image = record.image;
             if (image !== '') {
@@ -74,7 +75,12 @@
         }
       }
 
-      return { registerModal, registerForm, getTitle, handleSubmit };
+      return {
+        registerModal,
+        registerForm,
+        getTitle,
+        handleSubmit,
+      };
     },
   });
 </script>

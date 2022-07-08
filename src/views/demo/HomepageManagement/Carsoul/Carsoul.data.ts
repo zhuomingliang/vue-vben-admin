@@ -1,8 +1,10 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { uploadImage } from '/@/api/demo/Upload';
-import { h } from 'vue';
+import { h, ref, unref } from 'vue';
 import { Image } from 'ant-design-vue';
+import { getSearch } from '/@/api/demo/Content';
+import { useDebounceFn } from '@vueuse/core';
 
 export const columns: BasicColumn[] = [
   {
@@ -78,6 +80,7 @@ export const searchFormSchema: FormSchema[] = [
   //   colProps: { span: 6 },
   // },
 ];
+const keyword = ref('');
 
 export const formSchema: FormSchema[] = [
   {
@@ -97,6 +100,7 @@ export const formSchema: FormSchema[] = [
       ],
     },
     colProps: { span: 12 },
+    required: true,
   },
   {
     field: 'image',
@@ -116,12 +120,27 @@ export const formSchema: FormSchema[] = [
     label: '标题',
     component: 'Input',
     colProps: { span: 20 },
+    required: true,
   },
   {
     field: 'link',
     label: '链接',
-    component: 'Input',
+    component: 'ApiSelect',
     colProps: { span: 20 },
+    componentProps: ({ formModel }) => {
+      keyword.value = formModel.link;
+      return {
+        api: getSearch,
+        params: { keyword: unref(keyword) },
+        labelField: 'title',
+        valueField: 'id',
+        placeholder: '请选择',
+        filterOption: false,
+        OnSearch: useDebounceFn((value: string) => (keyword.value = value), 500),
+        showSearch: true,
+      };
+    },
+    required: true,
   },
 
   {
