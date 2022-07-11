@@ -6,6 +6,9 @@
       :beforeEditSubmit="beforeEditSubmit"
     >
       <template #toolbar>
+        <span style="color: red; display: inline-block; width: 100%; margin-left: 30px">
+          每个模块仅限添加 2 个二级导航栏在首页显示
+        </span>
         <a-button type="primary" @click="handleCreate"> 新增 </a-button>
         <a-button type="primary" @click="handleShowHomepageModulePicture">
           查看首页模块图

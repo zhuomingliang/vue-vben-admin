@@ -6,25 +6,40 @@
     @ok="handleSubmit"
     width="550px"
   >
-    <BasicForm @register="registerForm" />
+    <BasicForm @register="registerForm">
+      <template #remoteSearch="{ model, field }">
+        <ApiSelect
+          :api="getSearch"
+          showSearch
+          v-model:value="model[field]"
+          :filterOption="false"
+          labelField="title"
+          valueField="id"
+          :params="searchParams"
+          @search="onSearch"
+        />
+      </template>
+    </BasicForm>
   </BasicModal>
 </template>
 <script lang="ts">
   import { defineComponent, ref, computed, unref } from 'vue';
 
   import { BasicModal, useModalInner } from '/@/components/Modal';
-  import { BasicForm, useForm } from '/@/components/Form/index';
+  import { BasicForm, useForm, ApiSelect } from '/@/components/Form/index';
   import { formSchema } from './Carsoul.data';
   import { postCarsoul, putCarsoul } from '/@/api/demo/Carsoul';
+  import { getSearch } from '/@/api/demo/Content';
+  import { useDebounceFn } from '@vueuse/core';
 
   export default defineComponent({
     name: 'CarsoulModal',
-    components: { BasicModal, BasicForm },
+    components: { BasicModal, BasicForm, ApiSelect },
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const rowId = ref('');
-
+      const keyword = ref('');
       const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
         labelWidth: 100,
         schemas: formSchema,
@@ -41,7 +56,7 @@
 
         if (unref(isUpdate)) {
           const record = data.record;
-
+          keyword.value = record.link;
           if (typeof record.image === 'string') {
             const image = record.image;
             if (image !== '') {
@@ -74,11 +89,20 @@
           setModalProps({ confirmLoading: false });
         }
       }
+      const searchParams = computed<Recordable>(() => {
+        return { keyword: unref(keyword) };
+      });
 
+      function onSearch(value: string) {
+        keyword.value = value;
+      }
       return {
         registerModal,
         registerForm,
         getTitle,
+        getSearch,
+        searchParams,
+        onSearch: useDebounceFn(onSearch, 300),
         handleSubmit,
       };
     },

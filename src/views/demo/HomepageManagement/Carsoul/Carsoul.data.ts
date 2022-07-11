@@ -1,13 +1,13 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { uploadImage } from '/@/api/demo/Upload';
-import { h, ref, unref } from 'vue';
+import { h } from 'vue';
 import { Image } from 'ant-design-vue';
-import { getSearch } from '/@/api/demo/Content';
-import { useDebounceFn } from '@vueuse/core';
 import { Switch } from 'ant-design-vue';
 import { putStatus } from '/@/api/demo/Carsoul';
 import { useMessage } from '/@/hooks/web/useMessage';
+import { isNumber } from '/@/utils/is';
+
 export const columns: BasicColumn[] = [
   {
     title: '模块',
@@ -114,7 +114,6 @@ export const searchFormSchema: FormSchema[] = [
   //   colProps: { span: 6 },
   // },
 ];
-const keyword = ref('');
 
 export const formSchema: FormSchema[] = [
   {
@@ -157,23 +156,44 @@ export const formSchema: FormSchema[] = [
     required: true,
   },
   {
+    field: 'type',
+    label: '类型',
+    component: 'Select',
+    componentProps: ({ formModel, formActionType }) => {
+      if (isNumber(formModel.link)) formModel.type = 1;
+      else formModel.type = 2;
+
+      return {
+        options: [
+          { label: '站内文章', value: 1, key: 1 },
+          { label: '外部链接', value: 2, key: 2 },
+        ],
+        placeholder: '请选择',
+        onChange: (e: any) => {
+          const { updateSchema } = formActionType;
+
+          if (e === 2)
+            updateSchema({
+              field: 'link',
+              component: 'Input',
+              slot: undefined,
+            });
+          else if (e === 1)
+            updateSchema({
+              field: 'link',
+              component: 'ApiSelect',
+              slot: 'remoteSearch',
+            });
+        },
+      };
+    },
+  },
+  {
     field: 'link',
     label: '链接',
     component: 'ApiSelect',
     colProps: { span: 20 },
-    componentProps: ({ formModel }) => {
-      keyword.value = formModel.link;
-      return {
-        api: getSearch,
-        params: { keyword: unref(keyword) },
-        labelField: 'title',
-        valueField: 'id',
-        placeholder: '请选择',
-        filterOption: false,
-        OnSearch: useDebounceFn((value: string) => (keyword.value = value), 500),
-        showSearch: true,
-      };
-    },
+    slot: 'remoteSearch',
     required: true,
   },
 
