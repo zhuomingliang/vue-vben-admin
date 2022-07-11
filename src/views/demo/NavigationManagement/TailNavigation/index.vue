@@ -1,6 +1,10 @@
 <template>
   <div>
-    <BasicTable @register="registerTable">
+    <BasicTable
+      @register="registerTable"
+      @edit-end="handleEditEnd"
+      :beforeEditSubmit="beforeEditSubmit"
+    >
       <template #toolbar>
         <a-button type="primary" @click="handleCreate"> 新增 </a-button>
       </template>
@@ -30,7 +34,8 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getTailNavigation, deleteTailNavigation } from '/@/api/demo/TailNavigation';
+  import { getTailNavigation, deleteTailNavigation, putOrder } from '/@/api/demo/TailNavigation';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   import { useModal } from '/@/components/Modal';
   import TailNavigationModal from './TailNavigationModal.vue';
@@ -84,7 +89,28 @@
       function handleSuccess() {
         reload();
       }
+      function handleEditEnd() {
+        reload();
+      }
+      const { createMessage } = useMessage();
 
+      function Save(key: string, record: object, value: any) {
+        if (key === 'order') {
+          putOrder({
+            module_id: record['module_id'],
+            title: record['title'],
+            order: value,
+          }).then(() =>
+            createMessage.success({
+              content: `更新成功`,
+            }),
+          );
+        }
+      }
+
+      async function beforeEditSubmit({ record, key, value }) {
+        return Save(key, record, value);
+      }
       return {
         registerTable,
         registerModal,
@@ -92,6 +118,8 @@
         handleEdit,
         handleDelete,
         handleSuccess,
+        beforeEditSubmit,
+        handleEditEnd,
       };
     },
   });

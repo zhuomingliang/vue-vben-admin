@@ -5,7 +5,9 @@ import { h, ref, unref } from 'vue';
 import { Image } from 'ant-design-vue';
 import { getSearch } from '/@/api/demo/Content';
 import { useDebounceFn } from '@vueuse/core';
-
+import { Switch } from 'ant-design-vue';
+import { putStatus } from '/@/api/demo/Carsoul';
+import { useMessage } from '/@/hooks/web/useMessage';
 export const columns: BasicColumn[] = [
   {
     title: '模块',
@@ -50,9 +52,41 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '顺序',
-    dataIndex: 'sub_order',
+    dataIndex: 'order',
     width: 120,
     edit: true,
+  },
+  {
+    title: '状态',
+    dataIndex: 'status',
+    width: 60,
+    customRender: ({ record }) => {
+      if (!Reflect.has(record, 'pendingStatus')) {
+        record.pendingStatus = false;
+      }
+      return h(Switch, {
+        checked: record.status === true,
+        checkedChildren: '已启用',
+        unCheckedChildren: '已禁用',
+        loading: record.pendingStatus,
+        onChange(checked: boolean) {
+          record.pendingStatus = true;
+          const newStatus = checked ? true : false;
+          const { createMessage } = useMessage();
+          putStatus(record.id, newStatus)
+            .then(() => {
+              record.status = newStatus;
+              createMessage.success(`修改状态成功`);
+            })
+            .catch(() => {
+              createMessage.error('修改状态失败');
+            })
+            .finally(() => {
+              record.pendingStatus = false;
+            });
+        },
+      });
+    },
   },
   {
     title: '新增时间',

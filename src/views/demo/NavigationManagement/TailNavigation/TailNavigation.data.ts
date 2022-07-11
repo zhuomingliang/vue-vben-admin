@@ -4,7 +4,6 @@ import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
 import { putStatus } from '/@/api/demo/TailNavigation';
 import { useMessage } from '/@/hooks/web/useMessage';
-import { getMainMenu, getSubMenuByMainMenuId } from '/@/api/demo/Navigation';
 
 export const columns: BasicColumn[] = [
   {
@@ -22,6 +21,12 @@ export const columns: BasicColumn[] = [
   //     });
   //   },
   // },
+  {
+    title: '顺序',
+    dataIndex: 'order',
+    width: 120,
+    edit: true,
+  },
   {
     title: '状态',
     dataIndex: 'status',

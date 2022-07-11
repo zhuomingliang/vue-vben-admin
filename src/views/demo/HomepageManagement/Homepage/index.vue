@@ -7,6 +7,9 @@
     >
       <template #toolbar>
         <a-button type="primary" @click="handleCreate"> 新增 </a-button>
+        <a-button type="primary" @click="handleShowHomepageModulePicture">
+          查看首页模块图
+        </a-button>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -20,6 +23,7 @@
       </template>
     </BasicTable>
     <HomepageModal @register="registerCreateHomepageModal" @success="handleSuccess" />
+    <ModulePictureModal @register="registerModulePictureModal" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
@@ -31,14 +35,17 @@
 
   import { useModal } from '/@/components/Modal';
   import HomepageModal from './HomepageModal.vue';
+  import ModulePictureModal from '../ModulePictureModal.vue';
 
   import { columns, searchFormSchema } from './Homepage.data';
 
   export default defineComponent({
     name: 'Homepage',
-    components: { BasicTable, HomepageModal, TableAction },
+    components: { BasicTable, HomepageModal, ModulePictureModal, TableAction },
     setup() {
       const [registerCreateHomepageModal, { openModal: openModalCreateHomepageModal }] = useModal();
+      const [registerModulePictureModal, { openModal: openModalModulePictureModal }] = useModal();
+
       const { createMessage } = useMessage();
 
       const [registerTable, { reload }] = useTable({
@@ -49,7 +56,7 @@
           labelWidth: 120,
           schemas: searchFormSchema,
         },
-        useSearchForm: true,
+        useSearchForm: false,
         showTableSetting: true,
         bordered: true,
         showIndexColumn: false,
@@ -66,6 +73,10 @@
         openModalCreateHomepageModal(true, {
           isUpdate: false,
         });
+      }
+
+      function handleShowHomepageModulePicture() {
+        openModalModulePictureModal(true);
       }
 
       function handleEdit(record: Recordable) {
@@ -85,7 +96,7 @@
       }
 
       function handleEditEnd() {
-        handleSuccess();
+        reload();
       }
 
       function Save(key: string, record: object, value: any) {
@@ -109,6 +120,8 @@
       return {
         registerTable,
         registerCreateHomepageModal,
+        registerModulePictureModal,
+        handleShowHomepageModulePicture,
         handleCreate,
         handleEdit,
         handleDelete,

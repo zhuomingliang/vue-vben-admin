@@ -114,16 +114,4 @@ export const formSchema: FormSchema[] = [
     colProps: { span: 16 },
     required: true,
   },
-  {
-    field: 'status',
-    label: '状态',
-    component: 'RadioButtonGroup',
-    defaultValue: false,
-    componentProps: {
-      options: [
-        { label: '启用', value: true },
-        { label: '停用', value: false },
-      ],
-    },
-  },
 ];

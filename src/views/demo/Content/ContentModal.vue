@@ -38,6 +38,9 @@
 
       const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data) => {
         resetFields();
+        setFieldsValue({
+          content: '',
+        });
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
 
