@@ -10,7 +10,7 @@ export function uploadImage(
 ) {
   return defHttp.uploadFile(
     {
-      url: '/basic-api/Upload/Image',
+      url: '/Upload/Image',
       onUploadProgress,
       timeout: 0,
     },

@@ -42,7 +42,7 @@
     "@vueuse/core": "^8.1.1",
     "@vueuse/shared": "^8.1.1",
     "@zxcvbn-ts/core": "^2.0.1",
-    "ant-design-vue": "3.2.1",
+    "ant-design-vue": "3.2.10",
     "axios": "^0.26.1",
     "codemirror": "^5.65.2",
     "cropperjs": "^1.5.12",
