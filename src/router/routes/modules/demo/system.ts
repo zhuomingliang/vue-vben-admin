@@ -36,17 +36,16 @@ const system: AppRouteModule = {
       },
       component: () => import('/@/views/demo/system/account/AccountDetail.vue'),
     },
-    {
-      path: 'role',
-      name: 'RoleManagement',
-      meta: {
-        title: t('routes.demo.system.role'),
-        ignoreKeepAlive: true,
-        permission: 'role',
-      },
-      component: () => import('/@/views/demo/system/role/index.vue'),
-    },
-
+    // {
+    //   path: 'role',
+    //   name: 'RoleManagement',
+    //   meta: {
+    //     title: t('routes.demo.system.role'),
+    //     ignoreKeepAlive: true,
+    //     permission: 'role',
+    //   },
+    //   component: () => import('/@/views/demo/system/role/index.vue'),
+    // },
     {
       path: 'menu',
       name: 'MenuManagement',

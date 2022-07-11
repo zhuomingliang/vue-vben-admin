@@ -138,8 +138,9 @@ export const formSchema: FormSchema[] = [
   {
     field: 'image',
     label: '图片',
-    required: false,
+    required: true,
     component: 'Upload',
+    helpMessage: '请上传相应模块的图片尺寸大小，模块1：600px*410px，模块5：200px*70px',
     componentProps: {
       api: uploadImage,
       multiple: false,

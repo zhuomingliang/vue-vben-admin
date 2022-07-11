@@ -59,11 +59,12 @@
         title: '导航栏列表',
         api: getNavigation,
         columns,
+        pagination: false,
         formConfig: {
           labelWidth: 120,
           schemas: searchFormSchema,
         },
-        useSearchForm: true,
+        useSearchForm: false,
         showTableSetting: true,
         bordered: true,
         showIndexColumn: false,

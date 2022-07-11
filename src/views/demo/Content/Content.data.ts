@@ -22,6 +22,11 @@ export const columns: BasicColumn[] = [
     dataIndex: 'title',
     width: 150,
   },
+  {
+    title: '点击量',
+    dataIndex: 'views',
+    width: 80,
+  },
   // {
   //   title: '内容',
   //   dataIndex: 'content3',
