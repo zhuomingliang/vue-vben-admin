@@ -7,6 +7,9 @@
     >
       <template #toolbar>
         <a-button type="primary" @click="handleCreate"> 新增 </a-button>
+        <a-button type="primary" @click="handleShowHomepageModulePicture">
+          查看首页模块图
+        </a-button>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -33,7 +36,7 @@
   import CarsoulModal from './CarsoulModal.vue';
 
   import { columns, searchFormSchema } from './Carsoul.data';
-
+  import { createImgPreview } from '/@/components/Preview/index';
   export default defineComponent({
     name: 'Carsoul',
     components: { BasicTable, CarsoulModal, TableAction },
@@ -48,7 +51,7 @@
           labelWidth: 120,
           schemas: searchFormSchema,
         },
-        useSearchForm: true,
+        useSearchForm: false,
         showTableSetting: true,
         bordered: true,
         showIndexColumn: false,
@@ -60,7 +63,11 @@
           fixed: undefined,
         },
       });
+      function handleShowHomepageModulePicture() {
+        const imgList: string[] = ['/image/module.png'];
 
+        createImgPreview({ imageList: imgList, defaultWidth: 700 });
+      }
       function handleCreate() {
         openModalCreateCarsoulModal(true, {
           isUpdate: false,
@@ -108,6 +115,7 @@
       return {
         registerTable,
         registerCreateCarsoulModal,
+        handleShowHomepageModulePicture,
         handleCreate,
         handleEdit,
         handleDelete,

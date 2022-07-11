@@ -23,7 +23,6 @@
       </template>
     </BasicTable>
     <HomepageModal @register="registerCreateHomepageModal" @success="handleSuccess" />
-    <ModulePictureModal @register="registerModulePictureModal" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
@@ -35,16 +34,14 @@
 
   import { useModal } from '/@/components/Modal';
   import HomepageModal from './HomepageModal.vue';
-  import ModulePictureModal from '../ModulePictureModal.vue';
 
   import { columns, searchFormSchema } from './Homepage.data';
-
+  import { createImgPreview } from '/@/components/Preview/index';
   export default defineComponent({
     name: 'Homepage',
-    components: { BasicTable, HomepageModal, ModulePictureModal, TableAction },
+    components: { BasicTable, HomepageModal, TableAction },
     setup() {
       const [registerCreateHomepageModal, { openModal: openModalCreateHomepageModal }] = useModal();
-      const [registerModulePictureModal, { openModal: openModalModulePictureModal }] = useModal();
 
       const { createMessage } = useMessage();
 
@@ -76,7 +73,8 @@
       }
 
       function handleShowHomepageModulePicture() {
-        openModalModulePictureModal(true);
+        const imgList: string[] = ['/image/module.png'];
+        createImgPreview({ imageList: imgList, defaultWidth: 700 });
       }
 
       function handleEdit(record: Recordable) {
@@ -120,7 +118,6 @@
       return {
         registerTable,
         registerCreateHomepageModal,
-        registerModulePictureModal,
         handleShowHomepageModulePicture,
         handleCreate,
         handleEdit,
