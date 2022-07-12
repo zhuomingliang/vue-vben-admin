@@ -12,3 +12,7 @@ export const putSubMenu = (params: any) => defHttp.put({ url: '/Navigation/SubMe
 export const putMainOrder = (params: any) => defHttp.put({ url: '/Navigation/MainOrder', params });
 export const putSubOrder = (params: any) => defHttp.put({ url: '/Navigation/SubOrder', params });
 export const deleteNavigation = (id: any) => defHttp.delete({ url: '/Navigation', params: { id } });
+export const putMainMenuStatus = (id: number, status: boolean) =>
+  defHttp.put({ url: '/Navigation/MainMenuStatus', params: { id, status } });
+export const putSubMenuStatus = (id: number, status: boolean) =>
+  defHttp.put({ url: '/Navigation/SubMenuStatus', params: { id, status } });
