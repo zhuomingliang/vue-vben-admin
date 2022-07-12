@@ -13,6 +13,9 @@ export const columns: BasicColumn[] = [
     title: '模块',
     dataIndex: 'module_id',
     width: 120,
+    customCell: (data) => {
+      return { rowSpan: data['rowspan'] };
+    },
   },
   {
     title: '标题',
