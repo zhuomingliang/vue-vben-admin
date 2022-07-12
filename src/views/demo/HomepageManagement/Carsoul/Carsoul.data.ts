@@ -56,7 +56,7 @@ export const columns: BasicColumn[] = [
   {
     title: '顺序',
     dataIndex: 'order',
-    width: 30,
+    width: 40,
     edit: true,
   },
   {
