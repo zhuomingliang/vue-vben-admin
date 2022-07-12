@@ -24,7 +24,7 @@ export const columns: BasicColumn[] = [
   {
     title: '顺序',
     dataIndex: 'order',
-    width: 120,
+    width: 30,
     edit: true,
   },
   {
