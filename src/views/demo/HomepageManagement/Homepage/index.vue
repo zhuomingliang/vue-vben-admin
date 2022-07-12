@@ -52,6 +52,7 @@
         title: '首页模块管理',
         api: getHomepage,
         columns,
+        pagination: false,
         formConfig: {
           labelWidth: 120,
           schemas: searchFormSchema,

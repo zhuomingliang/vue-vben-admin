@@ -68,6 +68,8 @@
           setFieldsValue({
             ...record,
           });
+        } else {
+          keyword.value = '';
         }
       });
 
