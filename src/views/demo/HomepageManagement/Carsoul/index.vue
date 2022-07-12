@@ -55,6 +55,7 @@
         title: '首页轮播图管理',
         api: getCarsoul,
         columns,
+        pagination: false,
         formConfig: {
           labelWidth: 120,
           schemas: searchFormSchema,
