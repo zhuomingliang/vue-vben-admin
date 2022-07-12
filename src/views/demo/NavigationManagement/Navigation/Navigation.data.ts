@@ -20,6 +20,9 @@ export const columns: BasicColumn[] = [
     dataIndex: 'main_order',
     width: 120,
     edit: true,
+    customCell: (data) => {
+      return { rowSpan: data['rowspan'] };
+    },
   },
   {
     title: '状态',
