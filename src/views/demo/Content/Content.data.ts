@@ -3,6 +3,8 @@ import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
 import { putStatus } from '/@/api/demo/Content';
+import { putHot } from '/@/api/demo/Content';
+
 import { useMessage } from '/@/hooks/web/useMessage';
 import { getMainMenu, getSubMenuByMainMenuId } from '/@/api/demo/Navigation';
 
@@ -57,6 +59,38 @@ export const columns: BasicColumn[] = [
           putStatus(record.id, newStatus)
             .then(() => {
               record.status = newStatus;
+              createMessage.success(`修改状态成功`);
+            })
+            .catch(() => {
+              createMessage.error('修改状态失败');
+            })
+            .finally(() => {
+              record.pendingStatus = false;
+            });
+        },
+      });
+    },
+  },
+  {
+    title: '是否热门',
+    dataIndex: 'hot',
+    width: 60,
+    customRender: ({ record }) => {
+      if (!Reflect.has(record, 'pendingStatus')) {
+        record.pendingStatus = false;
+      }
+      return h(Switch, {
+        checked: record.hot === true,
+        checkedChildren: '是',
+        unCheckedChildren: '否',
+        loading: record.pendingStatus,
+        onChange(checked: boolean) {
+          record.pendingStatus = true;
+          const newStatus = checked ? true : false;
+          const { createMessage } = useMessage();
+          putHot(record.id, newStatus)
+            .then(() => {
+              record.hot = newStatus;
               createMessage.success(`修改状态成功`);
             })
             .catch(() => {
