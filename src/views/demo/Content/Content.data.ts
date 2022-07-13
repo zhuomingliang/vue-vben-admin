@@ -72,7 +72,7 @@ export const columns: BasicColumn[] = [
     },
   },
   {
-    title: '是否热门',
+    title: '热门新闻',
     dataIndex: 'hot',
     width: 60,
     customRender: ({ record }) => {
