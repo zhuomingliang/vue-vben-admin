@@ -20,6 +20,11 @@ export const columns: BasicColumn[] = [
     width: 80,
   },
   {
+    title: '来源',
+    dataIndex: 'from',
+    width: 100,
+  },
+  {
     title: '标题',
     dataIndex: 'title',
     width: 150,
@@ -214,6 +219,13 @@ export const formSchema: FormSchema[] = [
     },
     colProps: { span: 8 },
     required: true,
+  },
+  {
+    field: 'from',
+    label: '来源',
+    required: false,
+    component: 'Input',
+    colProps: { span: 20 },
   },
   {
     field: 'title',
