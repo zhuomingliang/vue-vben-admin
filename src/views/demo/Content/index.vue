@@ -1,6 +1,17 @@
 <template>
-  <div>
-    <BasicTable @register="registerTable">
+  <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
+    <div class="m-4 mr-0 overflow-hidden bg-white w-1/5 xl:w-1/6">
+      <BasicTree
+        title="导航栏列表"
+        toolbar
+        search
+        :clickRowToExpand="false"
+        :treeData="treeData"
+        :fieldNames="{ key: 'id', title: 'nav' }"
+        @select="handleSelect"
+      />
+    </div>
+    <BasicTable @register="registerTable" class="w-4/5 xl:w-5/6" :searchInfo="searchInfo">
       <template #toolbar>
         <a-button type="primary" @click="handleCreate"> 新增 </a-button>
       </template>
@@ -24,13 +35,14 @@
       </template>
     </BasicTable>
     <ContentModal @register="registerModal" @success="handleSuccess" />
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-
+  import { defineComponent, ref, reactive, onMounted } from 'vue';
+  import { PageWrapper } from '/@/components/Page';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getContent, deleteContent } from '/@/api/demo/Content';
+  import { getNavList, getContent, deleteContent } from '/@/api/demo/Content';
+  import { BasicTree, TreeItem } from '/@/components/Tree';
 
   import { useModal } from '/@/components/Modal';
   import ContentModal from './ContentModal.vue';
@@ -39,8 +51,11 @@
 
   export default defineComponent({
     name: 'Content',
-    components: { BasicTable, ContentModal, TableAction },
+    components: { PageWrapper, BasicTree, BasicTable, ContentModal, TableAction },
     setup() {
+      const treeData = ref<TreeItem[]>([]);
+      const searchInfo = reactive<Recordable>({});
+
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
         title: '内容列表',
@@ -62,6 +77,18 @@
           fixed: undefined,
         },
       });
+
+      async function fetch() {
+        treeData.value = (await getNavList()) as unknown as TreeItem[];
+      }
+
+      function handleSelect(keys) {
+        let ids = keys[0].split('-');
+
+        searchInfo.main_menu_id = ids[0];
+        searchInfo.sub_menu_id = ids[1];
+        reload();
+      }
 
       function handleCreate() {
         openModal(true, {
@@ -85,9 +112,16 @@
         reload();
       }
 
+      onMounted(() => {
+        fetch();
+      });
+
       return {
         registerTable,
         registerModal,
+        treeData,
+        searchInfo,
+        handleSelect,
         handleCreate,
         handleEdit,
         handleDelete,
