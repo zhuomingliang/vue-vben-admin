@@ -46,6 +46,14 @@
 
         const record = { ...data.record };
         if (unref(isUpdate)) {
+          if (typeof record.attachments === 'string') {
+            const attachments = record.attachments.replace(/^\{(.*)\}$/, '$1');
+            if (attachments !== '') {
+              record.attachments = attachments.split(',');
+            } else {
+              record.attachments = [];
+            }
+          }
           setFieldsValue({
             ...record,
           });
