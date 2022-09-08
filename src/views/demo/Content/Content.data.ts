@@ -23,12 +23,18 @@ export const columns: BasicColumn[] = [
   {
     title: '来源',
     dataIndex: 'from',
-    width: 100,
+    width: 80,
   },
   {
     title: '标题',
     dataIndex: 'title',
     width: 150,
+  },
+  {
+    title: '顺序',
+    dataIndex: 'order',
+    width: 80,
+    edit: true,
   },
   {
     title: '点击量',
@@ -48,15 +54,15 @@ export const columns: BasicColumn[] = [
   {
     title: '状态',
     dataIndex: 'status',
-    width: 60,
+    width: 40,
     customRender: ({ record }) => {
       if (!Reflect.has(record, 'pendingStatus')) {
         record.pendingStatus = false;
       }
       return h(Switch, {
         checked: record.status === true,
-        checkedChildren: '已启用',
-        unCheckedChildren: '已禁用',
+        checkedChildren: '启用',
+        unCheckedChildren: '禁用',
         loading: record.pendingStatus,
         onChange(checked: boolean) {
           record.pendingStatus = true;
@@ -80,7 +86,7 @@ export const columns: BasicColumn[] = [
   {
     title: '热门',
     dataIndex: 'hot',
-    width: 60,
+    width: 40,
     customRender: ({ record }) => {
       if (!Reflect.has(record, 'pendingStatus')) {
         record.pendingStatus = false;
@@ -238,7 +244,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'attachments',
     label: '附件',
-    required: true,
+    required: false,
     component: 'Upload',
     componentProps: {
       api: uploadFile,

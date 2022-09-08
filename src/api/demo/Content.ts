@@ -8,5 +8,8 @@ export const putContent = (params: any) => defHttp.put({ url: '/Content', params
 export const deleteContent = (id: any) => defHttp.delete({ url: '/Content', params: { id } });
 export const putStatus = (id: number, status: boolean) =>
   defHttp.put({ url: '/Content/Status', params: { id, status } });
+
 export const putHot = (id: number, hot: boolean) =>
   defHttp.put({ url: '/Content/Hot', params: { id, hot } });
+
+export const putOrder = (params: any) => defHttp.put({ url: '/Content/Order', params });

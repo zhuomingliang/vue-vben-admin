@@ -11,7 +11,13 @@
         @select="handleSelect"
       />
     </div>
-    <BasicTable @register="registerTable" class="w-4/5 xl:w-5/6" :searchInfo="searchInfo">
+    <BasicTable
+      @register="registerTable"
+      @edit-end="handleSuccess"
+      :beforeEditSubmit="beforeEditSubmit"
+      class="w-4/5 xl:w-5/6"
+      :searchInfo="searchInfo"
+    >
       <template #toolbar>
         <a-button type="primary" @click="handleCreate"> 新增 </a-button>
       </template>
@@ -43,11 +49,13 @@
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { getNavList, getContent, deleteContent } from '/@/api/demo/Content';
   import { BasicTree, TreeItem } from '/@/components/Tree';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   import { useModal } from '/@/components/Modal';
   import ContentModal from './ContentModal.vue';
 
   import { columns, searchFormSchema } from './Content.data';
+  import { putOrder } from '/@/api/demo/Content';
 
   export default defineComponent({
     name: 'Content',
@@ -55,6 +63,7 @@
     setup() {
       const treeData = ref<TreeItem[]>([]);
       const searchInfo = reactive<Recordable>({});
+      const { createMessage } = useMessage();
 
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
@@ -108,6 +117,21 @@
         reload();
       }
 
+      function Save(key: string, record: object, value: any) {
+        if (key === 'order') {
+          putOrder({ title: record['title'], created_at: record['created_at'], order: value }).then(
+            () =>
+              createMessage.success({
+                content: `更新成功`,
+              }),
+          );
+        }
+      }
+
+      async function beforeEditSubmit({ record, key, value }) {
+        return Save(key, record, value);
+      }
+
       function handleSuccess() {
         reload();
       }
@@ -126,6 +150,7 @@
         handleEdit,
         handleDelete,
         handleSuccess,
+        beforeEditSubmit,
       };
     },
   });
