@@ -1,16 +1,16 @@
 <template>
   <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
-    <div class="m-4 mr-0 overflow-hidden bg-white w-1/5 xl:w-1/6">
-      <BasicTree
-        title="导航栏列表"
-        toolbar
-        search
-        :clickRowToExpand="false"
-        :treeData="treeData"
-        :fieldNames="{ key: 'id', title: 'nav' }"
-        @select="handleSelect"
-      />
-    </div>
+    <BasicTree
+      title="导航栏列表"
+      toolbar
+      search
+      :expandedKeys="['0']"
+      :clickRowToExpand="false"
+      :treeData="treeData"
+      :fieldNames="{ key: 'id', title: 'nav' }"
+      @select="handleSelect"
+      class="m-4 mr-0 overflow-hidden bg-white w-1/5 xl:w-1/6"
+    />
     <BasicTable
       @register="registerTable"
       @edit-end="handleSuccess"
@@ -92,10 +92,16 @@
       }
 
       function handleSelect(keys) {
+        if (typeof keys[0] === 'undefined') {
+          return;
+        }
+
         let ids = keys[0].split('-');
 
         searchInfo.main_menu_id = ids[0];
         searchInfo.sub_menu_id = ids[1];
+        searchInfo.third_menu_id = ids[2];
+
         reload();
       }
 

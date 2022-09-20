@@ -16,3 +16,5 @@ export const putMainMenuStatus = (id: number, status: boolean) =>
   defHttp.put({ url: '/Navigation/MainMenuStatus', params: { id, status } });
 export const putSubMenuStatus = (id: number, status: boolean) =>
   defHttp.put({ url: '/Navigation/SubMenuStatus', params: { id, status } });
+export const putThirdMenuStatus = (id: number, status: boolean) =>
+  defHttp.put({ url: '/Navigation/ThirdMenuStatus', params: { id, status } });

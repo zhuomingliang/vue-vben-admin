@@ -3,30 +3,22 @@ import { FormSchema } from '/@/components/Table';
 import { getMainMenu } from '/@/api/demo/Navigation';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
-import { putMainMenuStatus, putSubMenuStatus } from '/@/api/demo/Navigation';
+import { putMainMenuStatus, putSubMenuStatus, putThirdMenuStatus } from '/@/api/demo/Navigation';
 import { useMessage } from '/@/hooks/web/useMessage';
 export const columns: BasicColumn[] = [
   {
-    title: '一级导航栏',
-    dataIndex: 'main_nav',
+    title: '导航栏',
+    dataIndex: 'nav',
     width: 120,
-    edit: true,
-    customCell: (data) => {
-      return { rowSpan: data['rowspan'] };
-    },
   },
   {
     title: '顺序',
-    dataIndex: 'main_order',
+    dataIndex: 'order',
     width: 60,
-    edit: true,
-    customCell: (data) => {
-      return { rowSpan: data['rowspan'] };
-    },
   },
   {
     title: '状态',
-    dataIndex: 'main_status',
+    dataIndex: 'status',
     width: 60,
     customCell: (data) => {
       return { rowSpan: data['rowspan'] };
@@ -36,7 +28,7 @@ export const columns: BasicColumn[] = [
         record.pendingStatus = false;
       }
       return h(Switch, {
-        checked: record.main_status === true,
+        checked: record.status === true,
         checkedChildren: '已启用',
         unCheckedChildren: '已禁用',
         loading: record.pendingStatus,
@@ -44,61 +36,43 @@ export const columns: BasicColumn[] = [
           record.pendingStatus = true;
           const newStatus = checked ? true : false;
           const { createMessage } = useMessage();
-          putMainMenuStatus(record.main_menu_id, newStatus)
-            .then(() => {
-              record.main_status = newStatus;
-              createMessage.success(`修改状态成功`);
-            })
-            .catch(() => {
-              createMessage.error('修改状态失败');
-            })
-            .finally(() => {
-              record.pendingStatus = false;
-            });
-        },
-      });
-    },
-  },
-  {
-    title: '二级导航栏',
-    dataIndex: 'sub_nav',
-    width: 120,
-  },
-  {
-    title: '顺序',
-    dataIndex: 'sub_order',
-    width: 60,
-    edit: true,
-  },
-  {
-    title: '状态',
-    dataIndex: 'sub_status',
-    width: 60,
-    customRender: ({ record }) => {
-      if (record.sub_menu_id === null) return null;
-      if (!Reflect.has(record, 'pendingStatus')) {
-        record.pendingStatus = false;
-      }
-      return h(Switch, {
-        checked: record.sub_status === true,
-        checkedChildren: '已启用',
-        unCheckedChildren: '已禁用',
-        loading: record.pendingStatus,
-        onChange(checked: boolean) {
-          record.pendingStatus = true;
-          const newStatus = checked ? true : false;
-          const { createMessage } = useMessage();
-          putSubMenuStatus(record.sub_menu_id, newStatus)
-            .then(() => {
-              record.sub_status = newStatus;
-              createMessage.success(`修改状态成功`);
-            })
-            .catch(() => {
-              createMessage.error('修改状态失败');
-            })
-            .finally(() => {
-              record.pendingStatus = false;
-            });
+          if (typeof record.main_menu_id !== 'undefined') {
+            putMainMenuStatus(record.main_menu_id, newStatus)
+              .then(() => {
+                record.status = newStatus;
+                createMessage.success(`修改状态成功`);
+              })
+              .catch(() => {
+                createMessage.error('修改状态失败');
+              })
+              .finally(() => {
+                record.pendingStatus = false;
+              });
+          } else if (typeof record.sub_menu_id !== 'undefined') {
+            putSubMenuStatus(record.sub_menu_id, newStatus)
+              .then(() => {
+                record.status = newStatus;
+                createMessage.success(`修改状态成功`);
+              })
+              .catch(() => {
+                createMessage.error('修改状态失败');
+              })
+              .finally(() => {
+                record.pendingStatus = false;
+              });
+          } else if (typeof record.third_menu_id !== 'undefined') {
+            putThirdMenuStatus(record.third_menu_id, newStatus)
+              .then(() => {
+                record.status = newStatus;
+                createMessage.success(`修改状态成功`);
+              })
+              .catch(() => {
+                createMessage.error('修改状态失败');
+              })
+              .finally(() => {
+                record.pendingStatus = false;
+              });
+          }
         },
       });
     },

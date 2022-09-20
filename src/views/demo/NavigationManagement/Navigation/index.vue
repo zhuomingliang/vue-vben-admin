@@ -1,9 +1,21 @@
 <template>
-  <div>
+  <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
+    <BasicTree
+      title="导航栏列表"
+      toolbar
+      search
+      :expandedKeys="['0']"
+      :clickRowToExpand="false"
+      :treeData="treeData"
+      :fieldNames="{ key: 'id', title: 'nav' }"
+      @select="handleSelect"
+      class="m-4 mr-0 overflow-hidden bg-white w-1/5 xl:w-1/6"
+    />
     <BasicTable
       @register="registerTable"
-      @edit-end="handleEditEnd"
-      :beforeEditSubmit="beforeEditSubmit"
+      class="w-4/5 xl:w-5/6"
+      style="padding: 16px"
+      :searchInfo="searchInfo"
     >
       <template #toolbar>
         <a-button type="primary" @click="handleCreateMainMenu"> 新增一级导航栏 </a-button>
@@ -22,20 +34,17 @@
     </BasicTable>
     <NavigationModal @register="registerCreateNavigationModal" @success="handleSuccess" />
     <NavigationModal2 @register="registerCreateNavigationModal2" @success="handleSuccess" />
-  </div>
+  </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, ref, reactive, onMounted } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import {
-    getNavigation,
-    deleteNavigation,
-    putMainMenu2,
-    putMainOrder,
-    putSubOrder,
-  } from '/@/api/demo/Navigation';
-  import { useMessage } from '/@/hooks/web/useMessage';
+  import { getNavigation, deleteNavigation } from '/@/api/demo/Navigation';
+
+  import { getNavList } from '/@/api/demo/Content';
+  import { BasicTree, TreeItem } from '/@/components/Tree';
+  import { PageWrapper } from '/@/components/Page';
 
   import { useModal } from '/@/components/Modal';
   import NavigationModal from './NavigationModal.vue';
@@ -45,7 +54,14 @@
 
   export default defineComponent({
     name: 'Navigation',
-    components: { BasicTable, NavigationModal, NavigationModal2, TableAction },
+    components: {
+      PageWrapper,
+      BasicTree,
+      BasicTable,
+      NavigationModal,
+      NavigationModal2,
+      TableAction,
+    },
     setup() {
       const [registerCreateNavigationModal, { openModal: openModalCreateNavigationModal }] =
         useModal();
@@ -53,7 +69,8 @@
       const [registerCreateNavigationModal2, { openModal: openModalCreateNavigationModal2 }] =
         useModal();
 
-      const { createMessage } = useMessage();
+      const treeData = ref<TreeItem[]>([]);
+      const searchInfo = reactive<Recordable>({});
 
       const [registerTable, { reload }] = useTable({
         title: '导航栏列表',
@@ -111,35 +128,27 @@
         reload();
       }
 
-      function handleEditEnd() {
-        handleSuccess();
-      }
-
-      function Save(key: string, record: object, value: any) {
-        if (key === 'main_order') {
-          putMainOrder({ main_nav: record['main_nav'], main_order: value }).then(() =>
-            createMessage.success({
-              content: `更新成功`,
-            }),
-          );
-        } else if (key === 'sub_order') {
-          putSubOrder({ sub_nav: record['sub_nav'], sub_order: value }).then(() =>
-            createMessage.success({
-              content: `更新成功`,
-            }),
-          );
-        } else if (key === 'main_nav') {
-          putMainMenu2({ main_nav: record['main_nav'], new_main_nav: value }).then(() =>
-            createMessage.success({
-              content: `更新成功`,
-            }),
-          );
+      function handleSelect(keys) {
+        if (typeof keys[0] === 'undefined') {
+          return;
         }
+
+        let ids = keys[0].split('-');
+
+        searchInfo.main_menu_id = ids[0];
+        searchInfo.sub_menu_id = ids[1];
+        searchInfo.third_menu_id = ids[2];
+
+        reload();
       }
 
-      async function beforeEditSubmit({ record, key, value }) {
-        return Save(key, record, value);
+      async function fetch() {
+        treeData.value = (await getNavList()) as unknown as TreeItem[];
       }
+
+      onMounted(() => {
+        fetch();
+      });
 
       return {
         registerTable,
@@ -150,8 +159,9 @@
         handleEdit,
         handleDelete,
         handleSuccess,
-        handleEditEnd,
-        beforeEditSubmit,
+        treeData,
+        handleSelect,
+        searchInfo,
       };
     },
   });
