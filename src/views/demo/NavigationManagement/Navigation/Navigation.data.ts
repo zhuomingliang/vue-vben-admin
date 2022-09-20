@@ -1,6 +1,6 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
-import { getMainMenu } from '/@/api/demo/Navigation';
+import { getMainMenu, getSubMenuByMainMenuId } from '/@/api/demo/Navigation';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
 import { putMainMenuStatus, putSubMenuStatus, putThirdMenuStatus } from '/@/api/demo/Navigation';
@@ -112,10 +112,16 @@ export const formSchema: FormSchema[] = [
     show: false,
   },
   {
-    field: 'main_nav',
+    field: 'nav',
     label: '一级导航栏',
     required: true,
     component: 'Input',
+  },
+  {
+    field: 'order',
+    label: '顺序',
+    required: true,
+    component: 'InputNumber',
   },
 ];
 
@@ -139,9 +145,73 @@ export const formSchema2: FormSchema[] = [
     required: true,
   },
   {
-    field: 'sub_nav',
+    field: 'nav',
     label: '二级导航栏',
     required: true,
     component: 'Input',
+  },
+  {
+    field: 'order',
+    label: '顺序',
+    required: true,
+    component: 'InputNumber',
+  },
+];
+
+export const formSchema3: FormSchema[] = [
+  {
+    field: 'third_menu_id',
+    label: 'ID',
+    component: 'Input',
+    show: false,
+  },
+  {
+    label: '一级导航栏',
+    field: 'main_menu_id',
+    component: 'ApiSelect',
+    componentProps: ({ formModel }) => {
+      return {
+        api: getMainMenu,
+        labelField: 'name',
+        valueField: 'id',
+        placeholder: '请选择',
+        onChange: (e: any) => {
+          if (e !== undefined) {
+            formModel.sub_menu_id = undefined;
+            formModel.main_menu_id = e;
+          }
+        },
+      };
+    },
+    colProps: { span: 16 },
+    required: true,
+  },
+  {
+    field: 'sub_menu_id',
+    label: '二级导航栏',
+    component: 'ApiSelect',
+    componentProps: ({ formModel }) => {
+      return {
+        api: getSubMenuByMainMenuId,
+        params: { main_menu_id: formModel.main_menu_id },
+        labelField: 'name',
+        valueField: 'id',
+        placeholder: '请选择',
+      };
+    },
+    colProps: { span: 16 },
+    required: true,
+  },
+  {
+    field: 'nav',
+    label: '三级导航栏',
+    required: true,
+    component: 'Input',
+  },
+  {
+    field: 'order',
+    label: '顺序',
+    required: true,
+    component: 'InputNumber',
   },
 ];

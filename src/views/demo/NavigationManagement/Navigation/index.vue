@@ -5,6 +5,7 @@
       toolbar
       search
       :expandedKeys="['0']"
+      :selectedKeys="['0']"
       :clickRowToExpand="false"
       :treeData="treeData"
       :fieldNames="{ key: 'id', title: 'nav' }"
@@ -18,8 +19,7 @@
       :searchInfo="searchInfo"
     >
       <template #toolbar>
-        <a-button type="primary" @click="handleCreateMainMenu"> 新增一级导航栏 </a-button>
-        <a-button type="primary" @click="handleCreateSubMenu"> 新增二级导航栏 </a-button>
+        <a-button type="primary" @click="handleCreateMenu"> 新增导航栏 </a-button>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -34,6 +34,7 @@
     </BasicTable>
     <NavigationModal @register="registerCreateNavigationModal" @success="handleSuccess" />
     <NavigationModal2 @register="registerCreateNavigationModal2" @success="handleSuccess" />
+    <NavigationModal3 @register="registerCreateNavigationModal3" @success="handleSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -49,6 +50,7 @@
   import { useModal } from '/@/components/Modal';
   import NavigationModal from './NavigationModal.vue';
   import NavigationModal2 from './NavigationModal2.vue';
+  import NavigationModal3 from './NavigationModal3.vue';
 
   import { columns, searchFormSchema } from './Navigation.data';
 
@@ -60,6 +62,7 @@
       BasicTable,
       NavigationModal,
       NavigationModal2,
+      NavigationModal3,
       TableAction,
     },
     setup() {
@@ -69,8 +72,11 @@
       const [registerCreateNavigationModal2, { openModal: openModalCreateNavigationModal2 }] =
         useModal();
 
+      const [registerCreateNavigationModal3, { openModal: openModalCreateNavigationModal3 }] =
+        useModal();
+
       const treeData = ref<TreeItem[]>([]);
-      const searchInfo = reactive<Recordable>({});
+      const searchInfo = reactive<Recordable>({ main_menu_id: 0 });
 
       const [registerTable, { reload }] = useTable({
         title: '导航栏列表',
@@ -94,20 +100,37 @@
         },
       });
 
-      function handleCreateMainMenu() {
-        openModalCreateNavigationModal(true, {
-          isUpdate: false,
-        });
-      }
-
-      function handleCreateSubMenu() {
-        openModalCreateNavigationModal2(true, {
-          isUpdate: false,
-        });
+      function handleCreateMenu() {
+        let record = {};
+        if (searchInfo.main_menu_id === 0) {
+          openModalCreateNavigationModal(true, {
+            isUpdate: false,
+          });
+        } else if (searchInfo.sub_menu_id >= 0) {
+          record = {
+            main_menu_id: parseInt(searchInfo.main_menu_id),
+            sub_menu_id: parseInt(searchInfo.sub_menu_id),
+          };
+          openModalCreateNavigationModal3(true, {
+            record,
+            isUpdate: false,
+          });
+        } else if (searchInfo.main_menu_id >= 0) {
+          record = { main_menu_id: parseInt(searchInfo.main_menu_id) };
+          openModalCreateNavigationModal2(true, {
+            record,
+            isUpdate: false,
+          });
+        }
       }
 
       function handleEdit(record: Recordable) {
-        if (record.sub_menu_id)
+        if (record.third_menu_id)
+          openModalCreateNavigationModal3(true, {
+            record,
+            isUpdate: true,
+          });
+        else if (record.sub_menu_id)
           openModalCreateNavigationModal2(true, {
             record,
             isUpdate: true,
@@ -154,8 +177,8 @@
         registerTable,
         registerCreateNavigationModal,
         registerCreateNavigationModal2,
-        handleCreateMainMenu,
-        handleCreateSubMenu,
+        registerCreateNavigationModal3,
+        handleCreateMenu,
         handleEdit,
         handleDelete,
         handleSuccess,

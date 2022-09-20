@@ -39,12 +39,11 @@
         isUpdate.value = !!data?.isUpdate;
 
         const record = data.record;
-
-        if (unref(isUpdate)) {
-          setFieldsValue({
-            ...record,
-          });
-        }
+        //if (unref(isUpdate)) {
+        setFieldsValue({
+          ...record,
+        });
+        //}
       });
 
       const getTitle = computed(() => (!unref(isUpdate) ? '新增' : '编辑'));

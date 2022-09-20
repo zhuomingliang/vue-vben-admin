@@ -9,6 +9,9 @@ export const putMainMenu = (params: any) => defHttp.put({ url: '/Navigation/Main
 export const putMainMenu2 = (params: any) => defHttp.put({ url: '/Navigation/MainMenu2', params });
 export const postSubMenu = (params: any) => defHttp.post({ url: '/Navigation/SubMenu', params });
 export const putSubMenu = (params: any) => defHttp.put({ url: '/Navigation/SubMenu', params });
+export const postThirdMenu = (params: any) =>
+  defHttp.post({ url: '/Navigation/ThirdMenu', params });
+export const putThirdMenu = (params: any) => defHttp.put({ url: '/Navigation/ThirdMenu', params });
 export const putMainOrder = (params: any) => defHttp.put({ url: '/Navigation/MainOrder', params });
 export const putSubOrder = (params: any) => defHttp.put({ url: '/Navigation/SubOrder', params });
 export const deleteNavigation = (id: any) => defHttp.delete({ url: '/Navigation', params: { id } });
