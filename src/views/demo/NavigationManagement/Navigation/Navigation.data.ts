@@ -36,8 +36,9 @@ export const columns: BasicColumn[] = [
           record.pendingStatus = true;
           const newStatus = checked ? true : false;
           const { createMessage } = useMessage();
-          if (typeof record.main_menu_id !== 'undefined') {
-            putMainMenuStatus(record.main_menu_id, newStatus)
+          console.log(record);
+          if (typeof record.third_menu_id !== 'undefined') {
+            putThirdMenuStatus(record.third_menu_id, newStatus)
               .then(() => {
                 record.status = newStatus;
                 createMessage.success(`修改状态成功`);
@@ -60,8 +61,8 @@ export const columns: BasicColumn[] = [
               .finally(() => {
                 record.pendingStatus = false;
               });
-          } else if (typeof record.third_menu_id !== 'undefined') {
-            putThirdMenuStatus(record.third_menu_id, newStatus)
+          } else if (typeof record.main_menu_id !== 'undefined') {
+            putMainMenuStatus(record.main_menu_id, newStatus)
               .then(() => {
                 record.status = newStatus;
                 createMessage.success(`修改状态成功`);
