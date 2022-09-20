@@ -88,7 +88,7 @@
       });
 
       async function fetch() {
-        treeData.value = (await getNavList()) as unknown as TreeItem[];
+        treeData.value = (await getNavList(1)) as unknown as TreeItem[];
       }
 
       function handleSelect(keys) {

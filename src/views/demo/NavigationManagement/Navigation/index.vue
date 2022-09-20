@@ -165,7 +165,7 @@
       }
 
       async function fetch() {
-        treeData.value = (await getNavList()) as unknown as TreeItem[];
+        treeData.value = (await getNavList(0)) as unknown as TreeItem[];
       }
 
       onMounted(() => {

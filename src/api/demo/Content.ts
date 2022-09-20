@@ -1,6 +1,7 @@
 import { defHttp } from '/@/utils/http/axios';
 
-export const getNavList = () => defHttp.get({ url: '/Navigation/NavList' });
+export const getNavList = (show_third: number) =>
+  defHttp.get({ url: '/Navigation/NavList', params: { show_third } });
 export const getContent = (params: any) => defHttp.get({ url: '/Content', params });
 export const getSearch = (params: any) => defHttp.get({ url: '/Content/Search', params });
 export const postContent = (params: any) => defHttp.post({ url: '/Content', params });
