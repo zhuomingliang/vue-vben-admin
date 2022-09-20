@@ -214,5 +214,6 @@ export const formSchema3: FormSchema[] = [
     label: '顺序',
     required: true,
     component: 'InputNumber',
+    defaultValue: 1,
   },
 ];
