@@ -101,13 +101,12 @@
       });
 
       function handleCreateMenu() {
-        let record = {};
-        if (searchInfo.main_menu_id === 0) {
+        if (searchInfo.main_menu_id == 0) {
           openModalCreateNavigationModal(true, {
             isUpdate: false,
           });
         } else if (searchInfo.sub_menu_id >= 0) {
-          record = {
+          let record = {
             main_menu_id: parseInt(searchInfo.main_menu_id),
             sub_menu_id: parseInt(searchInfo.sub_menu_id),
           };
@@ -116,7 +115,7 @@
             isUpdate: false,
           });
         } else if (searchInfo.main_menu_id >= 0) {
-          record = { main_menu_id: parseInt(searchInfo.main_menu_id) };
+          let record = { main_menu_id: parseInt(searchInfo.main_menu_id) };
           openModalCreateNavigationModal2(true, {
             record,
             isUpdate: false,
