@@ -7,7 +7,11 @@ import { uploadFile } from '/@/api/demo/Upload';
 import { putHot } from '/@/api/demo/Content';
 
 import { useMessage } from '/@/hooks/web/useMessage';
-import { getMainMenu, getSubMenuByMainMenuId } from '/@/api/demo/Navigation';
+import {
+  getMainMenu,
+  getSubMenuByMainMenuId,
+  getThirdMenuBySubMenuId,
+} from '/@/api/demo/Navigation';
 
 export const columns: BasicColumn[] = [
   // {
@@ -215,16 +219,44 @@ export const formSchema: FormSchema[] = [
     field: 'sub_menu_id',
     label: '二级导航栏',
     component: 'ApiSelect',
-    componentProps: ({ formModel }) => {
+    componentProps: ({ formActionType, formModel }) => {
       return {
         api: getSubMenuByMainMenuId,
         params: { main_menu_id: formModel.main_menu_id },
         labelField: 'name',
         valueField: 'id',
         placeholder: '请选择',
+        onChange: (e: any) => {
+          if (e !== undefined) {
+            formModel.third_menu_id = undefined;
+            formModel.sub_menu_id = e;
+          }
+          const { updateSchema } = formActionType;
+          updateSchema({ field: 'third_menu_id', ifShow: true, show: false });
+        },
       };
     },
     colProps: { span: 8 },
+    required: true,
+  },
+  {
+    field: 'third_menu_id',
+    label: '三级导航栏',
+    component: 'ApiSelect',
+    componentProps: ({ schema, formModel }) => {
+      return {
+        api: getThirdMenuBySubMenuId,
+        params: { sub_menu_id: formModel.sub_menu_id },
+        labelField: 'name',
+        valueField: 'id',
+        placeholder: '请选择',
+        onOptionsChange: (e: any) => {
+          schema.ifShow = () => !!formModel.third_menu_id || !!e.length;
+          schema.show = true;
+        },
+      };
+    },
+    colProps: { span: 12 },
     required: true,
   },
   {

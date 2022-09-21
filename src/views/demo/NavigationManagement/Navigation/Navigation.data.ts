@@ -123,6 +123,7 @@ export const formSchema: FormSchema[] = [
     label: '顺序',
     required: true,
     component: 'InputNumber',
+    defaultValue: 1,
   },
 ];
 
@@ -156,6 +157,7 @@ export const formSchema2: FormSchema[] = [
     label: '顺序',
     required: true,
     component: 'InputNumber',
+    defaultValue: 1,
   },
 ];
 

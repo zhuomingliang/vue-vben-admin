@@ -4,6 +4,8 @@ export const getNavigation = (params: any) => defHttp.get({ url: '/Navigation', 
 export const getMainMenu = (params: any) => defHttp.get({ url: '/Navigation/MainMenu', params });
 export const getSubMenuByMainMenuId = (params: any) =>
   defHttp.get({ url: '/Navigation/SubMenuByMainMenuId', params });
+export const getThirdMenuBySubMenuId = (params: any) =>
+  defHttp.get({ url: '/Navigation/ThirdMenuBySubMenuId', params });
 export const postMainMenu = (params: any) => defHttp.post({ url: '/Navigation/MainMenu', params });
 export const putMainMenu = (params: any) => defHttp.put({ url: '/Navigation/MainMenu', params });
 export const putMainMenu2 = (params: any) => defHttp.put({ url: '/Navigation/MainMenu2', params });
