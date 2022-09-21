@@ -27,7 +27,7 @@
       const isUpdate = ref(true);
       const rowId = ref('');
 
-      const [registerForm, { setFieldsValue, resetFields, validate }] = useForm({
+      const [registerForm, { setFieldsValue, resetFields, updateSchema, validate }] = useForm({
         labelWidth: 100,
         schemas: formSchema,
         showActionButtonGroup: false,
@@ -56,6 +56,11 @@
           }
           setFieldsValue({
             ...record,
+          });
+        } else {
+          updateSchema({
+            field: 'third_menu_id',
+            show: false,
           });
         }
       });
