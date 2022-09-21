@@ -11,7 +11,7 @@
         <ApiSelect
           :api="getSearch"
           showSearch
-          v-model:value="model[field]"
+          :value="model[field]"
           :filterOption="false"
           labelField="title"
           valueField="id"

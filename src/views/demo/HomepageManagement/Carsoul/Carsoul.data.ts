@@ -165,18 +165,21 @@ export const formSchema: FormSchema[] = [
     component: 'Select',
     componentProps: ({ formModel, formActionType }) => {
       if (isNumber(formModel.link)) formModel.type = 1;
+      else if (typeof formModel.link !== 'undefined' && formModel.link.charAt() == '/')
+        formModel.type = 3;
       else formModel.type = 2;
 
       return {
         options: [
           { label: '站内文章', value: 1, key: 1 },
+          { label: '站内链接', value: 3, key: 3 },
           { label: '外部链接', value: 2, key: 2 },
         ],
         placeholder: '请选择',
         onChange: (e: any) => {
           const { updateSchema } = formActionType;
 
-          if (e === 2)
+          if (e >= 2)
             updateSchema({
               field: 'link',
               component: 'Input',
