@@ -13,6 +13,16 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
+    title: '公司',
+    dataIndex: 'company',
+    width: 120,
+  },
+  {
+    title: '职位',
+    dataIndex: 'position',
+    width: 120,
+  },
+  {
     title: '添加渠道',
     dataIndex: 'from',
     width: 120,
