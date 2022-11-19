@@ -40,7 +40,7 @@
       const [registerImportProjectModal, { openModal: openModalImportProjectModal }] = useModal();
 
       const [registerTable, { reload }] = useTable({
-        title: '用户列表',
+        title: '项目列表',
         api: getProject,
         columns,
         formConfig: {
