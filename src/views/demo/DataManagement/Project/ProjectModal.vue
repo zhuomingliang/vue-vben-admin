@@ -1,11 +1,5 @@
 <template>
-  <BasicModal
-    v-bind="$attrs"
-    @register="registerModal"
-    :title="getTitle"
-    @ok="handleSubmit"
-    width="55%"
-  >
+  <BasicModal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
     <BasicForm @register="registerForm" />
   </BasicModal>
 </template>
@@ -13,15 +7,11 @@
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { formSchema } from './HomeDecorationExpo.data';
-  import { postIssue, putIssue } from '../../../../api/demo/Issue';
-  import dayjs from 'dayjs';
-  import { useComponentRegister } from '/@/components/Form';
-  import { Tinymce } from '/@/components/Tinymce';
+  import { formSchema } from './project.data';
+  import { postProject, putProject } from '/@/api/demo/project';
 
-  useComponentRegister('Tinymce', Tinymce);
   export default defineComponent({
-    name: 'HomeDecorationExpoModal',
+    name: 'ProjectModal',
     components: { BasicModal, BasicForm },
     emits: ['success', 'register'],
     setup(_, { emit }) {
@@ -42,14 +32,9 @@
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
 
-        const record = { ...data.record };
-        if (unref(isUpdate)) {
-          if (typeof record.daterange === 'string') {
-            record.daterange = record.daterange.replace(/^\[(.*)\)$/, '$1').split(',');
-            record.daterange[0] = dayjs(record.daterange[0]);
-            record.daterange[1] = dayjs(record.daterange[1]).subtract(1, 'day');
-          }
+        const record = data.record;
 
+        if (unref(isUpdate)) {
           setFieldsValue({
             ...record,
           });
@@ -61,16 +46,12 @@
       async function handleSubmit() {
         try {
           const values = await validate();
-          const data = { ...values };
-          data.daterange = [];
-          data.daterange[0] = values.daterange[0].format('YYYY-MM-DD');
-          data.daterange[1] = values.daterange[1].format('YYYY-MM-DD');
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
-            await putIssue(data);
+            await putProject(values);
           } else {
             delete values.id;
-            await postIssue(data);
+            await postProject(values);
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });

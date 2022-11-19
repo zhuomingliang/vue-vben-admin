@@ -31,7 +31,7 @@
   import mitt from '/@/utils/mitt';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getHomeDecorationExpo, deleteHomeDecorationExpo } from '/@/api/demo/HomeDecorationExpo';
+  import { getIssue, deleteIssue } from '../../../../api/demo/Issue';
 
   import { useModal } from '/@/components/Modal';
   import HomeDecorationExpoModal from './HomeDecorationExpoModal.vue';
@@ -46,7 +46,7 @@
       const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
         title: '家博会',
-        api: getHomeDecorationExpo,
+        api: getIssue,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -81,7 +81,7 @@
       }
 
       async function handleDelete(record: Recordable) {
-        await deleteHomeDecorationExpo(record.id);
+        await deleteIssue(record.id);
         reload();
       }
 

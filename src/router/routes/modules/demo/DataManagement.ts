@@ -17,11 +17,21 @@ const DataManagement: AppRouteModule = {
       path: 'GuestInformation',
       name: 'GuestInformation',
       meta: {
-        title: '嘉宾信息',
+        title: '用户管理',
         ignoreKeepAlive: false,
         permission: 'GuestInformation',
       },
       component: () => import('/@/views/demo/DataManagement/GuestInformation/index.vue'),
+    },
+    {
+      path: 'Project',
+      name: 'Project',
+      meta: {
+        title: '项目管理',
+        ignoreKeepAlive: false,
+        permission: 'Project',
+      },
+      component: () => import('/@/views/demo/DataManagement/Project/index.vue'),
     },
   ],
 };

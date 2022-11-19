@@ -16,32 +16,32 @@
         />
       </template>
     </BasicTable>
-    <GuestModal @register="registerCreateGuestModal" @success="handleSuccess" />
-    <ImportGuestModal @register="registerImportGuestModal" @success="handleSuccess" />
+    <ProjectModal @register="registerCreateProjectModal" @success="handleSuccess" />
+    <ImportProjectModal @register="registerImportProjectModal" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getGuest, deleteGuest } from '/@/api/demo/guest';
+  import { getProject, deleteProject } from '/@/api/demo/project';
 
   import { useModal } from '/@/components/Modal';
-  import GuestModal from './GuestModal.vue';
-  import ImportGuestModal from './ImportGuestModal.vue';
+  import ProjectModal from './ProjectModal.vue';
+  import ImportProjectModal from './ImportProjectModal.vue';
 
-  import { columns, searchFormSchema } from './guest.data';
+  import { columns, searchFormSchema } from './project.data';
 
   export default defineComponent({
-    name: 'Guest',
-    components: { BasicTable, GuestModal, ImportGuestModal, TableAction },
+    name: 'Project',
+    components: { BasicTable, ProjectModal, ImportProjectModal, TableAction },
     setup() {
-      const [registerCreateGuestModal, { openModal: openModalCreateGuestModal }] = useModal();
-      const [registerImportGuestModal, { openModal: openModalImportGuestModal }] = useModal();
+      const [registerCreateProjectModal, { openModal: openModalCreateProjectModal }] = useModal();
+      const [registerImportProjectModal, { openModal: openModalImportProjectModal }] = useModal();
 
       const [registerTable, { reload }] = useTable({
         title: '用户列表',
-        api: getGuest,
+        api: getProject,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -61,26 +61,26 @@
       });
 
       function handleCreate() {
-        openModalCreateGuestModal(true, {
+        openModalCreateProjectModal(true, {
           isUpdate: false,
         });
       }
 
       function handleImport() {
-        openModalImportGuestModal(true, {
+        openModalImportProjectModal(true, {
           isUpdate: false,
         });
       }
 
       function handleEdit(record: Recordable) {
-        openModalCreateGuestModal(true, {
+        openModalCreateProjectModal(true, {
           record,
           isUpdate: true,
         });
       }
 
       async function handleDelete(record: Recordable) {
-        await deleteGuest(record.id);
+        await deleteProject(record.id);
         reload();
       }
 
@@ -90,8 +90,8 @@
 
       return {
         registerTable,
-        registerCreateGuestModal,
-        registerImportGuestModal,
+        registerCreateProjectModal,
+        registerImportProjectModal,
         handleCreate,
         handleImport,
         handleEdit,

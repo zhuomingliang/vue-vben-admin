@@ -31,7 +31,7 @@
     </div>
     <!-- menu-end -->
     <div style="width: 50%; color: #aaa; text-align: center">
-      当前启用家博会：<span style="color: #fb6b6b; font-weight: bold">{{ title }}</span>
+      当前启用评分期：<span style="color: #fb6b6b; font-weight: bold">{{ title }}</span>
     </div>
 
     <!-- action  -->
@@ -83,7 +83,7 @@
 
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
   import { useLocale } from '/@/locales/useLocale';
-  import { getCurrentHomeDecorationExpo } from '/@/api/demo/HomeDecorationExpo';
+  import { getCurrentIssue } from '/@/api/demo/Issue';
   import { events } from '/@/views/demo/InformationManagement/HomeDecorationExpo/HomeDecorationExpo.data';
   import mitt from '/@/utils/mitt';
 
@@ -178,7 +178,7 @@
 
       const title = ref('无');
       async function fetch() {
-        const result = await getCurrentHomeDecorationExpo();
+        const result = await getCurrentIssue();
         if (typeof result === 'object') {
           title.value = result.title;
         } else {

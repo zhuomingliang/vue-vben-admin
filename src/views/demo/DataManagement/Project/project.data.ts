@@ -3,23 +3,24 @@ import { FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
-    title: '姓名',
-    dataIndex: 'full_name',
+    title: '县（市、区）',
+    dataIndex: 'area',
     width: 120,
+    customCell: (data) => {
+      return { rowSpan: data['rowspan'] };
+    },
   },
   {
-    title: '手机号',
-    dataIndex: 'phone',
+    title: '排序',
+    dataIndex: 'order',
     width: 120,
+    customCell: (data) => {
+      return { rowSpan: data['rowspan'] };
+    },
   },
   {
-    title: '新增时间',
-    dataIndex: 'created_at',
-    width: 120,
-  },
-  {
-    title: '更新时间',
-    dataIndex: 'updated_at',
+    title: '项目名称',
+    dataIndex: 'project_name',
     width: 120,
   },
 ];

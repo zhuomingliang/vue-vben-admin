@@ -2,7 +2,7 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
-import { putStatus } from '/@/api/demo/HomeDecorationExpo';
+import { putStatus } from '../../../../api/demo/Issue';
 import { useMessage } from '/@/hooks/web/useMessage';
 import dayjs from 'dayjs';
 import { EventType, EventHandlerList } from '/@/utils/mitt';
