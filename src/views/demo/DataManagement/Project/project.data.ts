@@ -1,5 +1,3 @@
-import { h } from 'vue';
-import { Row, Col } from 'ant-design-vue';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { getAllAreaList } from '/@/api/demo/area';
@@ -7,42 +5,24 @@ import { getAllAreaList } from '/@/api/demo/area';
 export const columns: BasicColumn[] = [
   {
     title: '县（市、区）',
-    dataIndex: 'area',
-    width: 120,
+    dataIndex: 'area_name',
+    width: 80,
     customCell: (data) => {
       return { rowSpan: data['rowspan'] };
     },
   },
   {
     title: '排序',
-    dataIndex: 'order',
-    width: 120,
+    dataIndex: 'area_order',
+    width: 40,
     customCell: (data) => {
       return { rowSpan: data['rowspan'] };
     },
   },
   {
     title: '项目名称',
-    dataIndex: 'projects',
-    width: 120,
-    customRender: ({ value }) => {
-      const projects = JSON.parse(value);
-      const result: any[] = [];
-
-      if (Array.isArray(projects)) {
-        if (projects.length > 0) {
-          projects.forEach((row) => {
-            result.push(h(Row, {}, () => [h(Col, { span: 12 }, () => row)]));
-          });
-        }
-      }
-
-      if (result.length > 0) {
-        return h('div', { class: 'projects' }, result);
-      }
-
-      return null;
-    },
+    dataIndex: 'project',
+    width: 240,
   },
 ];
 

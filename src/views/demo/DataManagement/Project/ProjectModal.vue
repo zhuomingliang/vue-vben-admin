@@ -30,7 +30,6 @@
         :key="index"
         v-bind="index === 0 ? formItemLayout : formItemLayoutWithOutLabel"
         :label="index === 0 ? '项目' : ''"
-        :class="project.class"
         :name="['projects', index, 'project']"
         :rules="[{ required: true, message: '请输入项目名称' }]"
       >
@@ -40,10 +39,10 @@
           placeholder="请输入项目名称"
           style="width: 88%; margin-right: 8px"
         />
-        <MinusCircleOutlined @click="removeStorey(index)" v-if="formData.projects.length > 1" />
+        <MinusCircleOutlined @click="removeProject(index)" v-if="formData.projects.length > 1" />
       </FormItem>
-      <FormItem v-show="formData.projects.length < 3" v-bind="formItemLayoutWithOutLabel">
-        <Button type="dashed" block @click="addStorey">
+      <FormItem v-bind="formItemLayoutWithOutLabel" v-if="!isUpdate">
+        <Button type="dashed" block @click="addProject" style="width: 88%; margin-right: 8px">
           <PlusOutlined />
           新增
         </Button>
@@ -52,12 +51,13 @@
   </BasicModal>
 </template>
 <script lang="ts">
-  import { defineComponent, ref, computed, unref, reactive } from 'vue';
+  import { defineComponent, ref, computed, unref, reactive, onMounted } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { Form, Select, Input, InputNumber, Button } from 'ant-design-vue';
   import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
 
   import { postProject, putProject } from '/@/api/demo/project';
+  import { getAllAreaList } from '/@/api/demo/area';
 
   const FormItem = Form.Item;
 
@@ -86,30 +86,23 @@
         projects: [
           {
             project: '',
-            class: '',
           },
         ],
       };
       const formData = reactive({ ...formInit });
 
-      const addStorey = () => {
+      const addProject = () => {
         if (formData.projects.length < 3)
           formData.projects.push({
             project: '',
-            class: 'enter-x',
           });
       };
 
-      const removeStorey = (index: number) => {
+      const removeProject = (index: number) => {
         if (formData.projects.length > 0) {
           formData.projects.splice(index, 1);
         }
       };
-
-      const areas = [
-        { label: 'Beijing', value: 'Beijing' },
-        { label: 'Shanghai', value: 'Shanghai' },
-      ];
 
       const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data) => {
         const form = unref(formRef);
@@ -119,23 +112,11 @@
 
         const record = data.record;
         formData.projects = [...formInit.projects];
-
         if (unref(isUpdate)) {
-          const projects = JSON.parse(record.projects);
-          if (Array.isArray(projects)) {
-            formData.projects = projects.map(function (storey: any, index: any) {
-              if (index == 0) {
-                storey.label = '楼层信息';
-              } else {
-                storey.label = '　';
-              }
-              return storey;
-            });
-          }
-
           formData.id = record.id;
           formData.area_id = record.area_id;
-          formData.order = record.order;
+          formData.order = record.area_order;
+          formData.projects = [{ project: record.project }];
         }
       });
 
@@ -176,6 +157,22 @@
           sm: { span: 18, offset: 6 },
         },
       };
+
+      const areas = ref([]);
+
+      async function fetch() {
+        const data = await getAllAreaList();
+        const r = [] as any;
+        data.map((area: any) => {
+          r.push({ label: area.name, value: area.id });
+        });
+        areas.value = r;
+      }
+
+      onMounted(() => {
+        fetch();
+      });
+
       return {
         formRef,
         formData,
@@ -183,10 +180,11 @@
         formItemLayoutWithOutLabel,
         areas,
         registerModal,
-        addStorey,
-        removeStorey,
+        addProject,
+        removeProject,
         getTitle,
         handleSubmit,
+        isUpdate,
       };
     },
   });

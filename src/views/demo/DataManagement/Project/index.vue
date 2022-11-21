@@ -102,7 +102,7 @@
   });
 </script>
 <style>
-  .projects > div {
+  .projects > div:not(:last-child) {
     border-bottom: 1px solid #eee;
   }
 </style>
