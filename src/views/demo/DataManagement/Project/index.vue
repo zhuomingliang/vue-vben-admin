@@ -12,6 +12,14 @@
               icon: 'clarity:note-edit-line',
               onClick: handleEdit.bind(null, record),
             },
+            {
+              icon: 'ant-design:delete-outlined',
+              color: 'error',
+              popConfirm: {
+                title: '是否确认删除',
+                confirm: handleDelete.bind(null, record),
+              },
+            },
           ]"
         />
       </template>
