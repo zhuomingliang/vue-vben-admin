@@ -101,3 +101,8 @@
     },
   });
 </script>
+<style>
+  .projects > div {
+    border-bottom: 1px solid #eee;
+  }
+</style>
