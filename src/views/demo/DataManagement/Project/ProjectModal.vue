@@ -41,7 +41,10 @@
         />
         <MinusCircleOutlined @click="removeProject(index)" v-if="formData.projects.length > 1" />
       </FormItem>
-      <FormItem v-bind="formItemLayoutWithOutLabel" v-if="!isUpdate">
+      <FormItem
+        v-bind="formItemLayoutWithOutLabel"
+        v-show="formData.projects.length < 3 && !isUpdate"
+      >
         <Button type="dashed" block @click="addProject" style="width: 88%; margin-right: 8px">
           <PlusOutlined />
           新增
