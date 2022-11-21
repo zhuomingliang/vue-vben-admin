@@ -33,6 +33,16 @@ const DataManagement: AppRouteModule = {
       },
       component: () => import('/@/views/demo/DataManagement/Project/index.vue'),
     },
+    {
+      path: 'ProjectScore',
+      name: 'ProjectScore',
+      meta: {
+        title: '项目评分汇总',
+        ignoreKeepAlive: false,
+        permission: 'ProjectScore/getIndex',
+      },
+      component: () => import('/@/views/demo/DataManagement/ProjectScore/index.vue'),
+    },
   ],
 };
 

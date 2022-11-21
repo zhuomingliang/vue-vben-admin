@@ -12,44 +12,34 @@
               icon: 'clarity:note-edit-line',
               onClick: handleEdit.bind(null, record),
             },
-            {
-              icon: 'ant-design:delete-outlined',
-              color: 'error',
-              popConfirm: {
-                title: '是否确认删除',
-                confirm: handleDelete.bind(null, record),
-              },
-            },
           ]"
         />
       </template>
     </BasicTable>
     <ProjectModal @register="registerCreateProjectModal" @success="handleSuccess" />
-    <ImportProjectModal @register="registerImportProjectModal" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getProject, deleteProject } from '/@/api/demo/project';
+  import { getProjectScore, deleteProject } from '/@/api/demo/project';
 
   import { useModal } from '/@/components/Modal';
   import ProjectModal from './ProjectModal.vue';
-  import ImportProjectModal from '../Project/ImportProjectModal.vue';
 
   import { columns, searchFormSchema } from './project.data';
 
   export default defineComponent({
     name: 'Project',
-    components: { BasicTable, ProjectModal, ImportProjectModal, TableAction },
+    components: { BasicTable, ProjectModal, TableAction },
     setup() {
       const [registerCreateProjectModal, { openModal: openModalCreateProjectModal }] = useModal();
       const [registerImportProjectModal, { openModal: openModalImportProjectModal }] = useModal();
 
       const [registerTable, { reload }] = useTable({
-        title: '项目评分汇总',
-        api: getProject,
+        title: '项目列表',
+        api: getProjectScore,
         columns,
         formConfig: {
           labelWidth: 120,
