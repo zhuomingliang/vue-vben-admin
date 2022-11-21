@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BasicTable @register="registerTable">
+    <BasicTable @register="registerTable" :pagination="false">
       <template #toolbar>
         <a-button type="primary" @click="handleCreate"> 新增 </a-button>
         <a-button type="primary" @click="handleImport"> 导入 </a-button>
