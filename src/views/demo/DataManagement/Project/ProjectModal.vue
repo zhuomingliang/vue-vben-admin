@@ -1,18 +1,12 @@
 <template>
   <BasicModal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
-    <Form
-      class="p-4"
-      :model="formData"
-      ref="formRef"
-      :label-col="labelCol"
-      :wrapper-col="wrapperCol"
-      :colon="false"
-    >
+    <Form class="p-4" :model="formData" ref="formRef" :colon="false">
       <FormItem name="id" label="Id" style="display: none">
         <Input size="middle" v-model:value="formData.id" />
       </FormItem>
       <FormItem
         name="area_id"
+        v-bind="formItemLayout"
         label="县（市、区）"
         :rules="[{ required: true, message: '县（市、区）' }]"
       >
@@ -23,27 +17,32 @@
           :options="areas"
         />
       </FormItem>
-      <FormItem name="order" label="排序" :rules="[{ required: true, message: '请输入排序' }]">
+      <FormItem
+        name="order"
+        v-bind="formItemLayout"
+        label="排序"
+        :rules="[{ required: true, message: '请输入排序' }]"
+      >
         <InputNumber size="middle" v-model:value="formData.order" placeholder="请输入排序" />
       </FormItem>
-      <Space
+      <FormItem
         v-for="(project, index) in formData.projects"
         :key="index"
-        style="display: flex"
-        align="baseline"
+        v-bind="index === 0 ? formItemLayout : formItemLayoutWithOutLabel"
+        :label="index === 0 ? '项目' : ''"
+        :class="project.class"
+        :name="['projects', index, 'project']"
+        :rules="[{ required: true, message: '请输入项目名称' }]"
       >
-        <FormItem
-          :class="project.class"
-          :name="['projects', index, 'project']"
-          :label="project.label"
-          :rules="[{ required: true, message: '请输入项目名称' }]"
-        >
-          <Input size="middle" v-model:value="project.project" placeholder="请输入项目名称" />
-        </FormItem>
-
-        <MinusCircleOutlined @click="removeStorey(index)" />
-      </Space>
-      <FormItem v-show="formData.projects.length < 3">
+        <Input
+          size="middle"
+          v-model:value="project.project"
+          placeholder="请输入项目名称"
+          style="width: 88%; margin-right: 8px"
+        />
+        <MinusCircleOutlined @click="removeStorey(index)" v-if="formData.projects.length > 1" />
+      </FormItem>
+      <FormItem v-show="formData.projects.length < 3" v-bind="formItemLayoutWithOutLabel">
         <Button type="dashed" block @click="addStorey">
           <PlusOutlined />
           新增
@@ -55,7 +54,7 @@
 <script lang="ts">
   import { defineComponent, ref, computed, unref, reactive } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
-  import { Form, Select, Input, InputNumber, Button, Space } from 'ant-design-vue';
+  import { Form, Select, Input, InputNumber, Button } from 'ant-design-vue';
   import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
 
   import { postProject, putProject } from '/@/api/demo/project';
@@ -67,7 +66,6 @@
     components: {
       BasicModal,
       Form,
-      Space,
       FormItem,
       Select,
       Input,
@@ -87,7 +85,6 @@
         order: 1,
         projects: [
           {
-            label: '项目',
             project: '',
             class: '',
           },
@@ -98,14 +95,13 @@
       const addStorey = () => {
         if (formData.projects.length < 3)
           formData.projects.push({
-            label: '　',
             project: '',
             class: 'enter-x',
           });
       };
 
       const removeStorey = (index: number) => {
-        if (index > 0) {
+        if (formData.projects.length > 0) {
           formData.projects.splice(index, 1);
         }
       };
@@ -164,11 +160,27 @@
         }
       }
 
+      const formItemLayout = {
+        labelCol: {
+          xs: { span: 24 },
+          sm: { span: 6 },
+        },
+        wrapperCol: {
+          xs: { span: 24 },
+          sm: { span: 18 },
+        },
+      };
+      const formItemLayoutWithOutLabel = {
+        wrapperCol: {
+          xs: { span: 24, offset: 0 },
+          sm: { span: 18, offset: 6 },
+        },
+      };
       return {
-        labelCol: { style: { width: '100px' } },
-        wrapperCol: { span: 24 },
         formRef,
         formData,
+        formItemLayout,
+        formItemLayoutWithOutLabel,
         areas,
         registerModal,
         addStorey,
