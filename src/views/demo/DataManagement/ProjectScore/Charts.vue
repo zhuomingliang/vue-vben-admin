@@ -16,6 +16,9 @@
   import { defineComponent, PropType, ref, Ref, onMounted, watch } from 'vue';
   import { RadioButtonGroup } from '/@/components/Form';
   import { useECharts } from '/@/hooks/web/useECharts';
+  import { getProjectScore } from '/@/api/demo/project';
+
+  import { getAreaScore } from '/@/api/demo/project';
 
   export default defineComponent({
     components: { RadioButtonGroup },
@@ -32,47 +35,21 @@
     setup() {
       const chartRef = ref<HTMLDivElement | null>(null);
       const radio = ref(0);
+
       const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
-      const dataAll = [
-        9.76, 9.64, 9.32, 9.31, 9.3, 9.23, 9.11, 8.82, 8.74, 8.55, 8.44, 8.25, 8.12, 8.11, 8.01,
-        7.9, 7.87, 7.84, 7.45, 7.3,
-      ];
 
       watch(
         () => radio.value,
         (value) => {
-          console.log(value);
-          if (value === 0) setBar0();
-          else setBar1();
+          if (value === 0) fetchAreaScore();
+          else fetchProjectScore();
         },
         {
           immediate: false,
         },
       );
-      const yAxisData = [
-        '原因1原因1',
-        '实打实大丰收第三方水电费水电费水电费水电费水电费水电费水电费水电费是的发生的水电费',
-        '原因3',
-        '原因4',
-        '原因5',
-        '原因6',
-        '原因7',
-        '原因8',
-        '原因9',
-        '原因10',
-        '原因1原因1',
-        '原因2',
-        '原因3',
-        '原因4',
-        '原因5',
-        '原因6',
-        '原因7',
-        '原因8',
-        '原因9',
-        '原因10',
-      ];
 
-      function setBar0() {
+      function setAreaScore(data: any) {
         setOptions({
           backgroundColor: '#fff',
           tooltip: {
@@ -81,29 +58,7 @@
           grid: { left: '1%', right: '1%', top: '5%', bottom: '1%', containLabel: true },
           xAxis: {
             type: 'category',
-            data: [
-              '原因1原因1原因1',
-              '原因1原因1原原因11原因1',
-              '原因3',
-              '原因4',
-              '原因5',
-              '原因6',
-              '原因7',
-              '原因8',
-              '原因9',
-              '原因10',
-              '原因1原因1原因1',
-              '原因2',
-              '原因3',
-              '原因4',
-              '原因5',
-              '原因6',
-              '原因7',
-              '原因8',
-              '原因9',
-              '原因10',
-            ],
-            interval: 1,
+            data: data.label,
             axisTick: { show: false },
             axisLabel: { show: true, rotate: 90, overflow: 'break', width: '120' },
             splitLine: { show: false },
@@ -119,10 +74,7 @@
           series: [
             {
               type: 'bar',
-              data: [
-                9.76, 9.64, 9.32, 9.31, 9.3, 9.23, 9.11, 8.82, 8.74, 8.55, 8.44, 8.25, 8.12, 8.11,
-                8.01, 7.9, 7.87, 7.84, 7.45, 7.3,
-              ],
+              data: data.value,
               itemStyle: { color: '#62C6BA' },
               label: { show: true, position: 'top', color: '#62C6BA' },
             },
@@ -132,7 +84,7 @@
           },
         });
       }
-      function setBar1() {
+      function setProjectScore(data: any) {
         setOptions({
           backgroundColor: '#fff',
           grid: [
@@ -170,7 +122,7 @@
             {
               gridIndex: 0,
               interval: 0,
-              data: yAxisData.reverse(),
+              data: data[0].label,
               axisTick: { show: false },
               axisLabel: { show: true, overflow: 'break', width: '150' },
               splitLine: { show: false },
@@ -179,7 +131,7 @@
             {
               gridIndex: 1,
               interval: 0,
-              data: yAxisData.reverse(),
+              data: data[1].label,
               axisTick: { show: false },
               axisLabel: { show: true, overflow: 'break', width: '150' },
               splitLine: { show: false },
@@ -188,7 +140,7 @@
             {
               gridIndex: 2,
               interval: 0,
-              data: yAxisData.reverse(),
+              data: data[2].label,
               axisTick: { show: false },
               axisLabel: { show: true, overflow: 'break', width: '150' },
               splitLine: { show: false },
@@ -203,7 +155,7 @@
               barWidth: '33%',
               itemStyle: { color: '#60A4E3' },
               label: { show: true, position: 'right', color: '#60A4E3' },
-              data: dataAll.sort(),
+              data: data[0].value,
             },
             {
               type: 'bar',
@@ -212,7 +164,7 @@
               barWidth: '33%',
               itemStyle: { color: '#60A4E3' },
               label: { show: true, position: 'right', color: '#60A4E3' },
-              data: dataAll.sort(),
+              data: data[1].value,
             },
             {
               type: 'bar',
@@ -221,14 +173,40 @@
               barWidth: '33%',
               itemStyle: { color: '#60A4E3' },
               label: { show: true, position: 'right', color: '#60A4E3' },
-              data: dataAll.sort(),
+              data: data[2].value,
             },
           ],
         });
       }
+
+      async function fetchAreaScore() {
+        const data = await getAreaScore();
+        setAreaScore(data);
+      }
+
+      async function fetchProjectScore() {
+        const labels: Array<String> = [];
+        const values: Array<Number> = [];
+        const r: Array<Object> = [];
+
+        const data = await getProjectScore();
+
+        data.map((v: any) => {
+          labels.push(v.project);
+          values.push(v.project_score);
+        });
+
+        r.push({ label: labels.slice(0, 20), value: values.slice(0, 20) });
+        r.push({ label: labels.slice(21, 40), value: values.slice(21, 40) });
+        r.push({ label: labels.slice(41, 60), value: values.slice(41, 60) });
+
+        setProjectScore(r);
+      }
+
       onMounted(() => {
-        setBar0();
+        fetchAreaScore();
       });
+
       return { radio, chartRef };
     },
   });

@@ -2,7 +2,10 @@ import { defHttp } from '/@/utils/http/axios';
 import { UploadFileParams } from '/#/axios';
 
 export const getProject = (params: any) => defHttp.get({ url: '/Project', params });
-export const getProjectScore = (params: any) => defHttp.get({ url: '/ProjectScore', params });
+export const getProjectScore = (params?: any) => defHttp.get({ url: '/ProjectScore', params });
+export const getAreaScore = (params?: any) =>
+  defHttp.get({ url: '/ProjectScore/AreaScore', params });
+
 export const getProjectScoreDetail = (params: any) =>
   defHttp.get({ url: '/ProjectScore/Detail', params });
 
