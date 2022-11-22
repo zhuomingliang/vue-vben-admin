@@ -1,41 +1,36 @@
 <template>
   <div>
     <BasicTable @register="registerTable" :pagination="false">
-      <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增 </a-button>
-        <a-button type="primary" @click="handleImport"> 导入 </a-button>
-      </template>
       <template #action="{ record }">
         <TableAction
           :actions="[
             {
-              icon: 'clarity:note-edit-line',
-              onClick: handleEdit.bind(null, record),
+              icon: 'clarity:view-columns-line',
+              onClick: handleDetail.bind(null, record),
             },
           ]"
         />
       </template>
     </BasicTable>
-    <ProjectModal @register="registerCreateProjectModal" @success="handleSuccess" />
+    <ProjectDrawer @register="registerProjectDrawer" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getProjectScore, deleteProject } from '/@/api/demo/project';
+  import { getProjectScore } from '/@/api/demo/project';
 
-  import { useModal } from '/@/components/Modal';
-  import ProjectModal from './ProjectModal.vue';
+  import { useDrawer } from '/@/components/Drawer';
+  import ProjectDrawer from './ProjectDrawer.vue';
 
   import { columns, searchFormSchema } from './project.data';
 
   export default defineComponent({
     name: 'Project',
-    components: { BasicTable, ProjectModal, TableAction },
+    components: { BasicTable, ProjectDrawer, TableAction },
     setup() {
-      const [registerCreateProjectModal, { openModal: openModalCreateProjectModal }] = useModal();
-      const [registerImportProjectModal, { openModal: openModalImportProjectModal }] = useModal();
+      const [registerProjectDrawer, { openDrawer }] = useDrawer();
 
       const [registerTable, { reload }] = useTable({
         title: '项目列表',
@@ -58,28 +53,11 @@
         },
       });
 
-      function handleCreate() {
-        openModalCreateProjectModal(true, {
-          isUpdate: false,
-        });
-      }
-
-      function handleImport() {
-        openModalImportProjectModal(true, {
-          isUpdate: false,
-        });
-      }
-
-      function handleEdit(record: Recordable) {
-        openModalCreateProjectModal(true, {
+      function handleDetail(record: Recordable) {
+        openDrawer(true, {
           record,
           isUpdate: true,
         });
-      }
-
-      async function handleDelete(record: Recordable) {
-        await deleteProject(record.id);
-        reload();
       }
 
       function handleSuccess() {
@@ -88,12 +66,8 @@
 
       return {
         registerTable,
-        registerCreateProjectModal,
-        registerImportProjectModal,
-        handleCreate,
-        handleImport,
-        handleEdit,
-        handleDelete,
+        registerProjectDrawer,
+        handleDetail,
         handleSuccess,
       };
     },
