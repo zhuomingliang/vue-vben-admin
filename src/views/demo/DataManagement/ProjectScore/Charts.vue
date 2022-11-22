@@ -43,7 +43,7 @@
         () => radio.value,
         (value) => {
           console.log(value);
-          if (value === 0) setBar0;
+          if (value === 0) setBar0();
           else setBar1();
         },
         {
@@ -52,7 +52,7 @@
       );
       const yAxisData = [
         '原因1原因1',
-        '原因1原因1原因',
+        '原因1原因1原因原因1原因1原原因11原因1原因1原因1原原因11原因1',
         '原因3',
         '原因4',
         '原因5',
@@ -75,6 +75,7 @@
 
       function setBar0() {
         setOptions({
+          backgroundColor: '#0f375f',
           tooltip: {
             formatter: '{b} ({c})',
           },
@@ -105,7 +106,7 @@
             ],
             interval: 1,
             axisTick: { show: false },
-            axisLabel: { show: true, rotate: 90, overflow: 'break', width: '150' },
+            axisLabel: { show: true, rotate: 90, overflow: 'break', width: '120' },
             splitLine: { show: false },
             axisLine: { show: true, lineStyle: { color: '#6173a3' } },
           },
@@ -136,9 +137,9 @@
         setOptions({
           backgroundColor: '#0f375f',
           grid: [
-            { left: '12%', top: '7%', width: '10%', height: '90%' },
-            { left: '38%', top: '7%', width: '10%', height: '90%' },
-            { left: '66%', top: '7%', width: '10%', height: '90%' },
+            { left: '12%', top: '7%', width: '15%', height: '90%' },
+            { left: '38%', top: '7%', width: '15%', height: '90%' },
+            { left: '66%', top: '7%', width: '15%', height: '90%' },
           ],
           tooltip: {
             formatter: '{b} ({c})',
