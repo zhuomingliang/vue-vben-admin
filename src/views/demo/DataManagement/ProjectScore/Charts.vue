@@ -14,7 +14,6 @@
 </template>
 <script lang="ts">
   import { defineComponent, PropType, ref, Ref, onMounted, watch } from 'vue';
-
   import { RadioButtonGroup } from '/@/components/Form';
   import { useECharts } from '/@/hooks/web/useECharts';
 
