@@ -52,7 +52,7 @@
       );
       const yAxisData = [
         '原因1原因1',
-        '原因1原因1原因原因1原因1原原因11原因1原因1原因1原原因11原因1',
+        '实打实大丰收第三方水电费水电费水电费水电费水电费水电费水电费水电费是的发生的水电费',
         '原因3',
         '原因4',
         '原因5',
@@ -191,7 +191,7 @@
               interval: 0,
               data: yAxisData.reverse(),
               axisTick: { show: false },
-              axisLabel: { show: true, overflow: 'break', width: '100' },
+              axisLabel: { show: true, overflow: 'break', width: '150' },
               splitLine: { show: false },
               axisLine: { show: true, lineStyle: { color: '#60A4E3' } },
             },
