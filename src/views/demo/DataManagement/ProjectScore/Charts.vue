@@ -13,12 +13,13 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, ref, Ref, onMounted, watch } from 'vue';
+  import { defineComponent, PropType, unref, ref, Ref, onMounted, watch } from 'vue';
   import { RadioButtonGroup } from '/@/components/Form';
   import { useECharts } from '/@/hooks/web/useECharts';
   import { getProjectScore } from '/@/api/demo/project';
 
   import { getAreaScore } from '/@/api/demo/project';
+  import { useIntervalFn } from '@vueuse/core';
 
   export default defineComponent({
     components: { RadioButtonGroup },
@@ -203,8 +204,14 @@
         setProjectScore(r);
       }
 
+      function fetch() {
+        const select = unref(radio);
+        if (select === 0) fetchAreaScore();
+        else fetchProjectScore();
+      }
       onMounted(() => {
         fetchAreaScore();
+        useIntervalFn(fetch, 3000);
       });
 
       return { radio, chartRef };
