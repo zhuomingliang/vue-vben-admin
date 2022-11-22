@@ -75,7 +75,7 @@
 
       function setBar0() {
         setOptions({
-          backgroundColor: '#0f375f',
+          backgroundColor: '#fff',
           tooltip: {
             formatter: '{b} ({c})',
           },
@@ -108,14 +108,14 @@
             axisTick: { show: false },
             axisLabel: { show: true, rotate: 90, overflow: 'break', width: '120' },
             splitLine: { show: false },
-            axisLine: { show: true, lineStyle: { color: '#6173a3' } },
+            axisLine: { show: true, lineStyle: { color: '#62C6BA' } },
           },
           yAxis: {
             type: 'value',
             axisTick: { show: false },
             axisLabel: { show: false },
             splitLine: { show: false },
-            axisLine: { show: true, lineStyle: { color: '#6173a3' } },
+            axisLine: { show: true, lineStyle: { color: '#62C6BA' } },
           },
           series: [
             {
@@ -124,8 +124,8 @@
                 9.76, 9.64, 9.32, 9.31, 9.3, 9.23, 9.11, 8.82, 8.74, 8.55, 8.44, 8.25, 8.12, 8.11,
                 8.01, 7.9, 7.87, 7.84, 7.45, 7.3,
               ],
-              itemStyle: { color: '#86c9f4' },
-              label: { show: true, position: 'top', color: '#9EA7C4' },
+              itemStyle: { color: '#62C6BA' },
+              label: { show: true, position: 'top', color: '#62C6BA' },
             },
           ],
           legend: {
@@ -135,7 +135,7 @@
       }
       function setBar1() {
         setOptions({
-          backgroundColor: '#0f375f',
+          backgroundColor: '#fff',
           grid: [
             { left: '12%', top: '7%', width: '15%', height: '90%' },
             { left: '38%', top: '7%', width: '15%', height: '90%' },
@@ -175,16 +175,16 @@
               axisTick: { show: false },
               axisLabel: { show: true, overflow: 'break', width: '150' },
               splitLine: { show: false },
-              axisLine: { show: true, lineStyle: { color: '#6173a3' } },
+              axisLine: { show: true, lineStyle: { color: '#60A4E3' } },
             },
             {
               gridIndex: 1,
               interval: 0,
               data: yAxisData.reverse(),
               axisTick: { show: false },
-              axisLabel: { show: true, overflow: 'break', width: '100' },
+              axisLabel: { show: true, overflow: 'break', width: '150' },
               splitLine: { show: false },
-              axisLine: { show: true, lineStyle: { color: '#6173a3' } },
+              axisLine: { show: true, lineStyle: { color: '#60A4E3' } },
             },
             {
               gridIndex: 2,
@@ -193,7 +193,7 @@
               axisTick: { show: false },
               axisLabel: { show: true, overflow: 'break', width: '100' },
               splitLine: { show: false },
-              axisLine: { show: true, lineStyle: { color: '#6173a3' } },
+              axisLine: { show: true, lineStyle: { color: '#60A4E3' } },
             },
           ],
           series: [
@@ -202,8 +202,8 @@
               xAxisIndex: 0,
               yAxisIndex: 0,
               barWidth: '33%',
-              itemStyle: { color: '#86c9f4' },
-              label: { show: true, position: 'right', color: '#9EA7C4' },
+              itemStyle: { color: '#60A4E3' },
+              label: { show: true, position: 'right', color: '#60A4E3' },
               data: dataAll.sort(),
             },
             {
@@ -211,8 +211,8 @@
               xAxisIndex: 1,
               yAxisIndex: 1,
               barWidth: '33%',
-              itemStyle: { color: '#86c9f4' },
-              label: { show: true, position: 'right', color: '#9EA7C4' },
+              itemStyle: { color: '#60A4E3' },
+              label: { show: true, position: 'right', color: '#60A4E3' },
               data: dataAll.sort(),
             },
             {
@@ -220,8 +220,8 @@
               xAxisIndex: 2,
               yAxisIndex: 2,
               barWidth: '33%',
-              itemStyle: { color: '#86c9f4' },
-              label: { show: true, position: 'right', color: '#9EA7C4' },
+              itemStyle: { color: '#60A4E3' },
+              label: { show: true, position: 'right', color: '#60A4E3' },
               data: dataAll.sort(),
             },
           ],
