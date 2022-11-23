@@ -70,7 +70,7 @@
             axisTick: { show: false },
             axisLabel: { show: true, overflow: 'break', width: '120' },
             splitLine: { show: false },
-            axisLine: { show: true, lineStyle: { color: '#62C6BA' } },
+            axisLine: { show: true },
             animationDuration: 300,
             animationDurationUpdate: 300,
           },
@@ -79,7 +79,7 @@
             axisTick: { show: false },
             axisLabel: { show: false },
             splitLine: { show: false },
-            axisLine: { show: true, lineStyle: { color: '#62C6BA' } },
+            axisLine: { show: true },
           },
           series: [
             {
@@ -87,7 +87,7 @@
               type: 'bar',
               data: data.value,
               itemStyle: { color: '#62C6BA' },
-              label: { show: true, position: 'top', color: '#62C6BA', valueAnimation: true },
+              label: { show: true, position: 'top', valueAnimation: true },
             },
           ],
           legend: {
@@ -119,9 +119,9 @@
         setOptions({
           backgroundColor: '#fff',
           grid: [
-            { left: '12%', top: '7%', width: '15%', height: '90%' },
-            { left: '38%', top: '7%', width: '15%', height: '90%' },
-            { left: '66%', top: '7%', width: '15%', height: '90%' },
+            { left: '16%', top: '7%', width: '15%', height: '90%' },
+            { left: '42%', top: '7%', width: '15%', height: '90%' },
+            { left: '70%', top: '7%', width: '15%', height: '90%' },
           ],
           tooltip: {
             formatter: '{b} ({c})',
@@ -158,7 +158,7 @@
               axisTick: { show: false },
               axisLabel: { show: true, overflow: 'break', width: '150' },
               splitLine: { show: false },
-              axisLine: { show: true, lineStyle: { color: '#60A4E3' } },
+              axisLine: { show: true },
               animationDuration: 300,
               animationDurationUpdate: 300,
             },
@@ -170,7 +170,7 @@
               axisTick: { show: false },
               axisLabel: { show: true, overflow: 'break', width: '150' },
               splitLine: { show: false },
-              axisLine: { show: true, lineStyle: { color: '#60A4E3' } },
+              axisLine: { show: true },
               animationDuration: 300,
               animationDurationUpdate: 300,
             },
@@ -182,7 +182,7 @@
               axisTick: { show: false },
               axisLabel: { show: true, overflow: 'break', width: '150' },
               splitLine: { show: false },
-              axisLine: { show: true, lineStyle: { color: '#60A4E3' } },
+              axisLine: { show: true },
               animationDuration: 300,
               animationDurationUpdate: 300,
             },
@@ -196,7 +196,7 @@
               barWidth: '33%',
               itemStyle: { color: '#60A4E3' },
               data: data[0].value,
-              label: { show: true, position: 'right', color: '#60A4E3' },
+              label: { show: true, position: 'right' },
             },
             {
               realtimeSort: true,
@@ -206,7 +206,7 @@
               barWidth: '33%',
               itemStyle: { color: '#60A4E3' },
               data: data[1].value,
-              label: { show: true, position: 'right', color: '#60A4E3' },
+              label: { show: true, position: 'right' },
             },
             {
               realtimeSort: true,
@@ -216,7 +216,7 @@
               barWidth: '33%',
               itemStyle: { color: '#60A4E3' },
               data: data[2].value,
-              label: { show: true, position: 'right', color: '#60A4E3' },
+              label: { show: true, position: 'right' },
             },
           ],
         });
