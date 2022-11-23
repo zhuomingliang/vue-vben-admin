@@ -68,7 +68,7 @@
             type: 'category',
             data: data.label,
             axisTick: { show: false },
-            axisLabel: { show: true, rotate: 90, overflow: 'break', width: '120' },
+            axisLabel: { show: true, overflow: 'break', width: '120' },
             splitLine: { show: false },
             axisLine: { show: true, lineStyle: { color: '#62C6BA' } },
             animationDuration: 300,
