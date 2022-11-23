@@ -14,4 +14,4 @@ export const putProject = (params: any) => defHttp.put({ url: '/Project', params
 export const deleteProject = (id: any) => defHttp.delete({ url: '/Project', params: { id } });
 
 export const postImportProject = (params: UploadFileParams) =>
-  defHttp.uploadFile({ url: '/basic-api/Project/Import' }, params);
+  defHttp.uploadFile({ url: '/Project/Import' }, params);

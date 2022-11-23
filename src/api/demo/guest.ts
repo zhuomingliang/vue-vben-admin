@@ -8,4 +8,4 @@ export const deleteGuest = (id: any) =>
   defHttp.delete({ url: '/GuestInformation', params: { id } });
 
 export const postImportGuest = (params: UploadFileParams) =>
-  defHttp.uploadFile({ url: '/basic-api/GuestInformation/Import' }, params);
+  defHttp.uploadFile({ url: '/GuestInformation/Import' }, params);
