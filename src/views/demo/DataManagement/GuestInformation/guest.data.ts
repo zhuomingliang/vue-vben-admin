@@ -55,7 +55,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'phone',
     label: '手机号',
-    required: true,
+    required: false,
     component: 'Input',
   },
 ];

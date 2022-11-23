@@ -63,7 +63,7 @@
           tooltip: {
             formatter: '{b} ({c})',
           },
-          grid: { left: '1%', right: '1%', top: '5%', bottom: '1%', containLabel: true },
+          grid: { left: '1%', right: '1%', top: '7%', bottom: '2%', containLabel: true },
           xAxis: {
             type: 'category',
             data: data.label,
