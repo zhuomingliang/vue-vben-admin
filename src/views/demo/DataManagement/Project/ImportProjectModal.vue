@@ -23,9 +23,9 @@
         </Upload>
         <span
           ><a
-            href="/muban/GusetInformation.xlsx"
+            href="/muban/Project.xlsx"
             style="margin-top: 10rem; color: red"
-            download="嘉宾信息.xlsx"
+            download="项目模板.xlsx"
           >
             模板下载
           </a></span

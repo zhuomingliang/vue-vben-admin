@@ -6,7 +6,8 @@
           { label: '按县（市、区）', value: 0 },
           { label: '按项目', value: 1 },
         ]"
-        v-model:value="radio"
+        :value="radio"
+        @change="(e) => (radio = e.target ? e.target.value : e)"
       />
     </div>
     <div ref="chartRef" :style="{ height, width }"></div>

@@ -25,7 +25,7 @@
           ><a
             href="/muban/GusetInformation.xlsx"
             style="margin-top: 10rem; color: red"
-            download="嘉宾信息.xlsx"
+            download="用户模板.xlsx"
           >
             模板下载
           </a></span
