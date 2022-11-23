@@ -23,7 +23,7 @@
         </Upload>
         <span
           ><a
-            href="/muban/GusetInformation.xlsx"
+            href="/muban/GuestInformation.xlsx"
             style="margin-top: 10rem; color: red"
             download="用户模板.xlsx"
           >
