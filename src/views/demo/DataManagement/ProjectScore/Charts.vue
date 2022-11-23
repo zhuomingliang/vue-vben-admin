@@ -17,7 +17,7 @@
   import { defineComponent, PropType, unref, ref, Ref, onMounted, watch } from 'vue';
   import { RadioButtonGroup } from '/@/components/Form';
   import { useECharts } from '/@/hooks/web/useECharts';
-  import { getProjectScore } from '/@/api/demo/project';
+  import { getProjectScoreRank } from '/@/api/demo/project';
 
   import { getAreaScore } from '/@/api/demo/project';
   import { useIntervalFn } from '@vueuse/core';
@@ -38,13 +38,19 @@
       const chartRef = ref<HTMLDivElement | null>(null);
       const radio = ref(0);
 
-      const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
-
+      const { getInstance, setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
+      let isFirstSetArea = 1;
+      let isFirstSetProject = 1;
       watch(
         () => radio.value,
         (value) => {
-          if (value === 0) fetchAreaScore();
-          else fetchProjectScore();
+          if (value === 0) {
+            isFirstSetArea = 1;
+            fetchAreaScore();
+          } else {
+            isFirstSetProject = 1;
+            fetchProjectScore();
+          }
         },
         {
           immediate: false,
@@ -65,6 +71,8 @@
             axisLabel: { show: true, rotate: 90, overflow: 'break', width: '120' },
             splitLine: { show: false },
             axisLine: { show: true, lineStyle: { color: '#62C6BA' } },
+            animationDuration: 300,
+            animationDurationUpdate: 300,
           },
           yAxis: {
             type: 'value',
@@ -75,17 +83,38 @@
           },
           series: [
             {
+              realtimeSort: true,
               type: 'bar',
               data: data.value,
               itemStyle: { color: '#62C6BA' },
-              label: { show: true, position: 'top', color: '#62C6BA' },
+              label: { show: true, position: 'top', color: '#62C6BA', valueAnimation: true },
             },
           ],
           legend: {
             show: true,
           },
+          animationDuration: 0,
+          animationDurationUpdate: 3000,
+          animationEasing: 'linear',
+          animationEasingUpdate: 'linear',
         });
       }
+
+      function setAreaScoreData(data: any) {
+        getInstance()?.setOption({
+          xAxis: {
+            type: 'category',
+            data: data.label,
+          },
+          series: [
+            {
+              type: 'bar',
+              data: data.value,
+            },
+          ],
+        });
+      }
+
       function setProjectScore(data: any) {
         setOptions({
           backgroundColor: '#fff',
@@ -124,58 +153,103 @@
             {
               gridIndex: 0,
               interval: 0,
+              inverse: true,
               data: data[0].label,
               axisTick: { show: false },
               axisLabel: { show: true, overflow: 'break', width: '150' },
               splitLine: { show: false },
               axisLine: { show: true, lineStyle: { color: '#60A4E3' } },
+              animationDuration: 300,
+              animationDurationUpdate: 300,
             },
             {
               gridIndex: 1,
               interval: 0,
+              inverse: true,
               data: data[1].label,
               axisTick: { show: false },
               axisLabel: { show: true, overflow: 'break', width: '150' },
               splitLine: { show: false },
               axisLine: { show: true, lineStyle: { color: '#60A4E3' } },
+              animationDuration: 300,
+              animationDurationUpdate: 300,
             },
             {
               gridIndex: 2,
               interval: 0,
+              inverse: true,
               data: data[2].label,
               axisTick: { show: false },
               axisLabel: { show: true, overflow: 'break', width: '150' },
               splitLine: { show: false },
               axisLine: { show: true, lineStyle: { color: '#60A4E3' } },
+              animationDuration: 300,
+              animationDurationUpdate: 300,
             },
           ],
           series: [
             {
+              realtimeSort: true,
               type: 'bar',
               xAxisIndex: 0,
               yAxisIndex: 0,
               barWidth: '33%',
               itemStyle: { color: '#60A4E3' },
-              label: { show: true, position: 'right', color: '#60A4E3' },
               data: data[0].value,
+              label: { show: true, position: 'right', color: '#60A4E3' },
             },
             {
+              realtimeSort: true,
               type: 'bar',
               xAxisIndex: 1,
               yAxisIndex: 1,
               barWidth: '33%',
               itemStyle: { color: '#60A4E3' },
-              label: { show: true, position: 'right', color: '#60A4E3' },
               data: data[1].value,
+              label: { show: true, position: 'right', color: '#60A4E3' },
             },
             {
+              realtimeSort: true,
               type: 'bar',
               xAxisIndex: 2,
               yAxisIndex: 2,
               barWidth: '33%',
               itemStyle: { color: '#60A4E3' },
-              label: { show: true, position: 'right', color: '#60A4E3' },
               data: data[2].value,
+              label: { show: true, position: 'right', color: '#60A4E3' },
+            },
+          ],
+        });
+      }
+
+      function setProjectScoreData(data: any) {
+        getInstance()?.setOption({
+          yAxis: [
+            {
+              data: data[0].label,
+            },
+            {
+              data: data[1].label,
+            },
+            {
+              data: data[2].label,
+            },
+          ],
+          series: [
+            {
+              type: 'bar',
+              data: data[0].value,
+              label: { valueAnimation: true },
+            },
+            {
+              type: 'bar',
+              data: data[1].value,
+              label: { valueAnimation: true },
+            },
+            {
+              type: 'bar',
+              data: data[2].value,
+              label: { valueAnimation: true },
             },
           ],
         });
@@ -183,7 +257,10 @@
 
       async function fetchAreaScore() {
         const data = await getAreaScore();
-        setAreaScore(data);
+        if (isFirstSetArea) {
+          isFirstSetArea = 0;
+          setAreaScore(data);
+        } else setAreaScoreData(data);
       }
 
       async function fetchProjectScore() {
@@ -191,7 +268,7 @@
         const values: Array<Number> = [];
         const r: Array<Object> = [];
 
-        const data = await getProjectScore();
+        const data = await getProjectScoreRank();
 
         data.map((v: any) => {
           labels.push(v.project);
@@ -202,7 +279,10 @@
         r.push({ label: labels.slice(21, 40), value: values.slice(21, 40) });
         r.push({ label: labels.slice(41, 60), value: values.slice(41, 60) });
 
-        setProjectScore(r);
+        if (isFirstSetProject) {
+          isFirstSetProject = 0;
+          setProjectScore(r);
+        } else setProjectScoreData(r);
       }
 
       function fetch() {

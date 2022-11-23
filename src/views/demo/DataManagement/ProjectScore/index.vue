@@ -33,7 +33,7 @@
       const [registerProjectDrawer, { openDrawer }] = useDrawer();
 
       const [registerTable, { reload }] = useTable({
-        title: '项目列表',
+        title: '项目评分汇总',
         api: getProjectScore,
         columns,
         formConfig: {
