@@ -302,7 +302,7 @@
 <style scoped>
   .button {
     z-index: 9999;
-    position: fixed;
+    position: absolute;
     margin-top: 5px;
     margin-left: 5px;
   }

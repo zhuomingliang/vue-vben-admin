@@ -24,6 +24,11 @@ export const columns: BasicColumn[] = [
     width: 240,
   },
   {
+    title: '参评人数/总人数',
+    dataIndex: 'progress',
+    width: 60,
+  },
+  {
     title: '项目得分',
     dataIndex: 'project_score',
     width: 60,
