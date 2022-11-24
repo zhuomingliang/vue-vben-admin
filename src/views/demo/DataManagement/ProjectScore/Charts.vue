@@ -93,10 +93,6 @@
           legend: {
             show: true,
           },
-          animationDuration: 0,
-          animationDurationUpdate: 3000,
-          animationEasing: 'linear',
-          animationEasingUpdate: 'linear',
         });
       }
 
