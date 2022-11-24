@@ -119,9 +119,9 @@
         setOptions({
           backgroundColor: '#fff',
           grid: [
-            { left: '16%', top: '7%', width: '15%', height: '90%' },
-            { left: '42%', top: '7%', width: '15%', height: '90%' },
-            { left: '70%', top: '7%', width: '15%', height: '90%' },
+            { left: '14%', top: '7%', width: '15%', height: '90%' },
+            { left: '43%', top: '7%', width: '15%', height: '90%' },
+            { left: '71%', top: '7%', width: '15%', height: '90%' },
           ],
           tooltip: {
             formatter: '{b} ({c})',
