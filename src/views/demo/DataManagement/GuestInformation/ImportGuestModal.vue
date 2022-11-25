@@ -20,16 +20,14 @@
             <UploadOutlined />
             选择文件
           </Button>
-        </Upload>
-        <span
-          ><a
+          <a
             href="/muban/GuestInformation.xlsx"
             style="margin-top: 10rem; color: red"
             download="用户模板.xlsx"
           >
             模板下载
-          </a></span
-        >
+          </a>
+        </Upload>
       </FormItem>
     </Form>
   </BasicModal>
