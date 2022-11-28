@@ -82,12 +82,12 @@ export const columns: BasicColumn[] = [
       const result: any[] = [];
       if (Array.isArray(project_score)) {
         if (project_score.length > 0) {
-          // result.push(
-          //   h(Row, {}, () => [
-          //     h(Col, { span: 12 }, () => '项目'),
-          //     h(Col, { span: 12 }, () => '得分'),
-          //   ]),
-          // );
+          result.push(
+            h(Row, {}, () => [
+              h(Col, { span: 12 }, () => '项目'),
+              h(Col, { span: 12 }, () => '得分'),
+            ]),
+          );
           project_score.forEach((row) => {
             result.push(
               h(Row, {}, () => [
