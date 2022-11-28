@@ -34,6 +34,16 @@ const DataManagement: AppRouteModule = {
       component: () => import('/@/views/demo/DataManagement/Project/index.vue'),
     },
     {
+      path: 'GuestScore',
+      name: 'GuestScore',
+      meta: {
+        title: '用户评分列表',
+        ignoreKeepAlive: false,
+        permission: 'Project',
+      },
+      component: () => import('/@/views/demo/DataManagement/GuestScore/index.vue'),
+    },
+    {
       path: 'ProjectScore',
       name: 'ProjectScore',
       meta: {
