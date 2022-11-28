@@ -84,7 +84,7 @@ export const columns: BasicColumn[] = [
         if (project_score.length > 0) {
           result.push(
             h(Row, {}, () => [
-              h(Col, { span: 12 }, () => '项目'),
+              h(Col, { span: 12 }, () => '评分人'),
               h(Col, { span: 12 }, () => '得分'),
             ]),
           );
