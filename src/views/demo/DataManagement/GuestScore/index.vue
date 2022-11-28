@@ -37,7 +37,7 @@
       const searchInfo = reactive<Recordable>({});
 
       const [registerTable, { reload }] = useTable({
-        title: '用户评分列表',
+        title: '用户评分数据列表',
         api: getProjectScoreByGuest,
         columns,
         formConfig: {
@@ -82,3 +82,8 @@
     },
   });
 </script>
+<style>
+  .project_info > div:not(:last-child) {
+    border-bottom: 1px solid #eee;
+  }
+</style>

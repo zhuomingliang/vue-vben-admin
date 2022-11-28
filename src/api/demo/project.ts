@@ -10,7 +10,8 @@ export const getAreaScoreRank = (params?: any) =>
 
 export const getProjectScoreByGuest = (params?: any) =>
   defHttp.get({ url: '/ProjectScore/ByGuest', params });
-
+export const getGuestScoreByProject = (params?: any) =>
+  defHttp.get({ url: '/ProjectScore/ByProject', params });
 export const getAreaScore = (params?: any) =>
   defHttp.get({ url: '/ProjectScore/AreaScore', params });
 

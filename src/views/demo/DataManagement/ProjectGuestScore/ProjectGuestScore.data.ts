@@ -1,27 +1,110 @@
+import { h } from 'vue';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import { Row, Col } from 'ant-design-vue';
 
 export const columns: BasicColumn[] = [
   {
-    title: '来源',
-    dataIndex: 'from',
-    width: 80,
-  },
-  {
-    title: '标题',
-    dataIndex: 'title',
+    title: '项目 1',
+    dataIndex: 'score2',
     width: 150,
+    customRender: ({ value }) => {
+      if (value === null) return null;
+      const project_score = JSON.parse(value);
+      const result: any[] = [];
+      if (Array.isArray(project_score)) {
+        if (project_score.length > 0) {
+          result.push(
+            h(Row, {}, () => [
+              h(Col, { span: 12 }, () => '评分人'),
+              h(Col, { span: 12 }, () => '得分'),
+            ]),
+          );
+          project_score.forEach((row) => {
+            result.push(
+              h(Row, {}, () => [
+                h(Col, { span: 12 }, () => row.full_name),
+                h(Col, { span: 12 }, () => row.score),
+              ]),
+            );
+          });
+        }
+      }
+
+      if (result.length > 0) {
+        return h('div', { class: 'guest_info' }, result);
+      }
+
+      return null;
+    },
   },
   {
-    title: '顺序',
-    dataIndex: 'order',
-    width: 80,
-    edit: true,
+    title: '项目 2',
+    dataIndex: 'score6',
+    width: 150,
+    customRender: ({ value }) => {
+      if (value === null) return null;
+      const project_score = JSON.parse(value);
+      const result: any[] = [];
+      if (Array.isArray(project_score)) {
+        if (project_score.length > 0) {
+          result.push(
+            h(Row, {}, () => [
+              h(Col, { span: 12 }, () => '评分人'),
+              h(Col, { span: 12 }, () => '得分'),
+            ]),
+          );
+          project_score.forEach((row) => {
+            result.push(
+              h(Row, {}, () => [
+                h(Col, { span: 12 }, () => row.full_name),
+                h(Col, { span: 12 }, () => row.score),
+              ]),
+            );
+          });
+        }
+      }
+
+      if (result.length > 0) {
+        return h('div', { class: 'guest_info' }, result);
+      }
+
+      return null;
+    },
   },
   {
-    title: '点击量',
-    dataIndex: 'views',
-    width: 80,
+    title: '项目 3',
+    dataIndex: 'score2',
+    width: 150,
+    customRender: ({ value }) => {
+      if (value === null) return null;
+      const project_score = JSON.parse(value);
+      const result: any[] = [];
+      if (Array.isArray(project_score)) {
+        if (project_score.length > 0) {
+          // result.push(
+          //   h(Row, {}, () => [
+          //     h(Col, { span: 12 }, () => '项目'),
+          //     h(Col, { span: 12 }, () => '得分'),
+          //   ]),
+          // );
+          project_score.forEach((row) => {
+            result.push(
+              h(Row, {}, () => [
+                h(Col, { span: 12 }, () => row.full_name),
+                h(Col, { span: 12 }, () => row.score),
+              ]),
+            );
+          });
+        }
+      }
+
+      if (result.length > 0) {
+        return h('div', { class: 'guest_info' }, result);
+      }
+
+      return null;
+    },
   },
 ];
 
