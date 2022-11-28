@@ -7,10 +7,16 @@
       :expandedKeys="['0']"
       :clickRowToExpand="false"
       :treeData="treeData"
+      @select="handleSelect"
       :fieldNames="{ key: 'id', title: 'name' }"
       class="m-4 mr-0 overflow-hidden bg-white w-1/5 xl:w-1/6"
     />
-    <BasicTable @register="registerTable" @edit-end="handleSuccess" class="w-4/5 xl:w-5/6" />
+    <BasicTable
+      @register="registerTable"
+      @edit-end="handleSuccess"
+      :searchInfo="searchInfo"
+      class="w-4/5 xl:w-5/6"
+    />
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -38,18 +44,21 @@
           labelWidth: 120,
           schemas: searchFormSchema,
         },
-        useSearchForm: true,
+        useSearchForm: false,
         showTableSetting: true,
         bordered: true,
         showIndexColumn: false,
-        actionColumn: {
-          width: 80,
-          title: '操作',
-          dataIndex: 'action',
-          slots: { customRender: 'action' },
-          fixed: undefined,
-        },
       });
+
+      function handleSelect(keys) {
+        if (typeof keys[0] === 'undefined') {
+          return;
+        }
+
+        searchInfo.area_id = keys[0];
+
+        reload();
+      }
 
       async function fetch() {
         treeData.value = (await getAllAreaList()) as unknown as TreeItem[];
@@ -67,6 +76,7 @@
         registerTable,
         treeData,
         searchInfo,
+        handleSelect,
         handleSuccess,
       };
     },

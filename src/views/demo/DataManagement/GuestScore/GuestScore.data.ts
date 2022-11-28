@@ -3,25 +3,31 @@ import { FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
-    title: '来源',
-    dataIndex: 'from',
+    title: '评分人',
+    dataIndex: 'full_name',
     width: 80,
+    customCell: (data) => {
+      return { rowSpan: data['rowspan'] };
+    },
   },
   {
-    title: '标题',
-    dataIndex: 'title',
+    title: '项目',
+    dataIndex: 'project',
     width: 150,
   },
   {
-    title: '顺序',
-    dataIndex: 'order',
+    title: '得分',
+    dataIndex: 'score',
     width: 80,
     edit: true,
   },
   {
-    title: '点击量',
-    dataIndex: 'views',
+    title: '平均得分',
+    dataIndex: 'avg_score',
     width: 80,
+    customCell: (data) => {
+      return { rowSpan: data['rowspan'] };
+    },
   },
 ];
 
