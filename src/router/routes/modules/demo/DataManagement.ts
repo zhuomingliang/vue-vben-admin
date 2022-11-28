@@ -44,6 +44,26 @@ const DataManagement: AppRouteModule = {
       component: () => import('/@/views/demo/DataManagement/ProjectScore/index.vue'),
     },
     {
+      path: 'ProjectScoreRank',
+      name: 'ProjectScoreRank',
+      meta: {
+        title: '项目评分排行',
+        ignoreKeepAlive: false,
+        permission: 'ProjectScore/getIndex',
+      },
+      component: () => import('/@/views/demo/DataManagement/ProjectScoreRank/index.vue'),
+    },
+    {
+      path: 'AreaScoreRank',
+      name: 'AreaScoreRank',
+      meta: {
+        title: '区域评分排行',
+        ignoreKeepAlive: false,
+        permission: 'ProjectScore/getIndex',
+      },
+      component: () => import('/@/views/demo/DataManagement/AreaScoreRank/index.vue'),
+    },
+    {
       path: 'ProjectScoreCharts',
       name: 'ProjectScoreCharts',
       meta: {
