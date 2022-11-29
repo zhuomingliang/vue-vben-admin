@@ -16,15 +16,17 @@ export const columns: BasicColumn[] = [
         if (project_score.length > 0) {
           result.push(
             h(Row, { align: 'middle' }, () => [
-              h(Col, { span: 12 }, () => '评分人'),
-              h(Col, { span: 12 }, () => '得分'),
+              h(Col, { span: 8 }, () => '序号'),
+              h(Col, { span: 8 }, () => '评分人'),
+              h(Col, { span: 8 }, () => '得分'),
             ]),
           );
           project_score.forEach((row) => {
             result.push(
               h(Row, { align: 'middle' }, () => [
-                h(Col, { span: 12 }, () => row.full_name),
-                h(Col, { span: 12 }, () => row.score),
+                h(Col, { span: 8 }, () => row.id),
+                h(Col, { span: 8 }, () => row.full_name),
+                h(Col, { span: 8 }, () => row.score),
               ]),
             );
           });
@@ -50,15 +52,17 @@ export const columns: BasicColumn[] = [
         if (project_score.length > 0) {
           result.push(
             h(Row, { align: 'middle' }, () => [
-              h(Col, { span: 12 }, () => '评分人'),
-              h(Col, { span: 12 }, () => '得分'),
+              h(Col, { span: 8 }, () => '序号'),
+              h(Col, { span: 8 }, () => '评分人'),
+              h(Col, { span: 8 }, () => '得分'),
             ]),
           );
           project_score.forEach((row) => {
             result.push(
               h(Row, { align: 'middle' }, () => [
-                h(Col, { span: 12 }, () => row.full_name),
-                h(Col, { span: 12 }, () => row.score),
+                h(Col, { span: 8 }, () => row.id),
+                h(Col, { span: 8 }, () => row.full_name),
+                h(Col, { span: 8 }, () => row.score),
               ]),
             );
           });
@@ -84,15 +88,17 @@ export const columns: BasicColumn[] = [
         if (project_score.length > 0) {
           result.push(
             h(Row, { align: 'middle' }, () => [
-              h(Col, { span: 12 }, () => '评分人'),
-              h(Col, { span: 12 }, () => '得分'),
+              h(Col, { span: 8 }, () => '序号'),
+              h(Col, { span: 8 }, () => '评分人'),
+              h(Col, { span: 8 }, () => '得分'),
             ]),
           );
           project_score.forEach((row) => {
             result.push(
               h(Row, { align: 'middle' }, () => [
-                h(Col, { span: 12 }, () => row.full_name),
-                h(Col, { span: 12 }, () => row.score),
+                h(Col, { span: 8 }, () => row.id),
+                h(Col, { span: 8 }, () => row.full_name),
+                h(Col, { span: 8 }, () => row.score),
               ]),
             );
           });

@@ -17,6 +17,7 @@
       @edit-end="handleSuccess"
       :searchInfo="searchInfo"
       class="w-4/5 xl:w-5/6"
+      style="padding: 16px"
     />
   </PageWrapper>
 </template>
