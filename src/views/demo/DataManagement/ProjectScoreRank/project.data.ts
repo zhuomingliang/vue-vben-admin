@@ -2,13 +2,15 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
+  // {
+  //   title: '序号',
+  //   dataIndex: 'id',
+  //   width: 80,
+  // },
   {
     title: '县（市、区）',
     dataIndex: 'area_name',
     width: 80,
-    customCell: (data) => {
-      return { rowSpan: data['rowspan'] };
-    },
   },
   {
     title: '项目名称',

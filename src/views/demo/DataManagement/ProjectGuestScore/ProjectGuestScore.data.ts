@@ -9,20 +9,20 @@ export const columns: BasicColumn[] = [
     dataIndex: 'score2',
     width: 150,
     customRender: ({ value }) => {
-      if (value === null) return null;
+      if (value === undefined || value === null) return null;
       const project_score = JSON.parse(value);
       const result: any[] = [];
       if (Array.isArray(project_score)) {
         if (project_score.length > 0) {
           result.push(
-            h(Row, {}, () => [
+            h(Row, { align: 'middle' }, () => [
               h(Col, { span: 12 }, () => '评分人'),
               h(Col, { span: 12 }, () => '得分'),
             ]),
           );
           project_score.forEach((row) => {
             result.push(
-              h(Row, {}, () => [
+              h(Row, { align: 'middle' }, () => [
                 h(Col, { span: 12 }, () => row.full_name),
                 h(Col, { span: 12 }, () => row.score),
               ]),
@@ -43,20 +43,20 @@ export const columns: BasicColumn[] = [
     dataIndex: 'score6',
     width: 150,
     customRender: ({ value }) => {
-      if (value === null) return null;
+      if (value === undefined || value === null) return null;
       const project_score = JSON.parse(value);
       const result: any[] = [];
       if (Array.isArray(project_score)) {
         if (project_score.length > 0) {
           result.push(
-            h(Row, {}, () => [
+            h(Row, { align: 'middle' }, () => [
               h(Col, { span: 12 }, () => '评分人'),
               h(Col, { span: 12 }, () => '得分'),
             ]),
           );
           project_score.forEach((row) => {
             result.push(
-              h(Row, {}, () => [
+              h(Row, { align: 'middle' }, () => [
                 h(Col, { span: 12 }, () => row.full_name),
                 h(Col, { span: 12 }, () => row.score),
               ]),
@@ -77,20 +77,20 @@ export const columns: BasicColumn[] = [
     dataIndex: 'score2',
     width: 150,
     customRender: ({ value }) => {
-      if (value === null) return null;
+      if (value === undefined || value === null) return null;
       const project_score = JSON.parse(value);
       const result: any[] = [];
       if (Array.isArray(project_score)) {
         if (project_score.length > 0) {
           result.push(
-            h(Row, {}, () => [
+            h(Row, { align: 'middle' }, () => [
               h(Col, { span: 12 }, () => '评分人'),
               h(Col, { span: 12 }, () => '得分'),
             ]),
           );
           project_score.forEach((row) => {
             result.push(
-              h(Row, {}, () => [
+              h(Row, { align: 'middle' }, () => [
                 h(Col, { span: 12 }, () => row.full_name),
                 h(Col, { span: 12 }, () => row.score),
               ]),

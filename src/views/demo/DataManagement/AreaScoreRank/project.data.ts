@@ -2,6 +2,11 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
+  // {
+  //   title: '序号',
+  //   dataIndex: 'area_id',
+  //   width: 80,
+  // },
   {
     title: '县（市、区）',
     dataIndex: 'area_name',

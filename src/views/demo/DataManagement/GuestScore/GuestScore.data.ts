@@ -24,7 +24,7 @@ export const columns: BasicColumn[] = [
     dataIndex: 'project_score',
     width: 320,
     customRender: ({ value }) => {
-      if (value === null) return null;
+      if (value === undefined || value === null) return null;
       const project_score = JSON.parse(value);
       const result: any[] = [];
       if (Array.isArray(project_score)) {
@@ -37,7 +37,7 @@ export const columns: BasicColumn[] = [
           // );
           project_score.forEach((row) => {
             result.push(
-              h(Row, {}, () => [
+              h(Row, { align: 'middle' }, () => [
                 h(Col, { span: 12 }, () => row.project),
                 h(Col, { span: 12 }, () => row.score),
               ]),

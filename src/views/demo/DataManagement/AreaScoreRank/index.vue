@@ -23,7 +23,7 @@
         useSearchForm: false,
         showTableSetting: true,
         bordered: true,
-        showIndexColumn: false,
+        showIndexColumn: true,
       });
 
       function handleSuccess() {

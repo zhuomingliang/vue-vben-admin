@@ -9,6 +9,7 @@
       :treeData="treeData"
       :fieldNames="{ key: 'id', title: 'name' }"
       @select="handleSelect"
+      :selectedKeys="[1]"
       class="m-4 mr-0 overflow-hidden bg-white w-1/5 xl:w-1/6"
     />
     <BasicTable
@@ -35,6 +36,7 @@
     setup() {
       const treeData = ref<TreeItem[]>([]);
       const searchInfo = reactive<Recordable>({});
+      searchInfo.area_id = 1;
 
       const [registerTable, { setColumns, setTableData }] = useTable({
         title: '项目评分数据列表',
@@ -82,6 +84,7 @@
 
       onMounted(() => {
         fetch();
+        fetchScore();
       });
 
       return {
@@ -94,6 +97,10 @@
   });
 </script>
 <style>
+  .guest_info > div {
+    height: 40px;
+  }
+
   .guest_info > div:not(:last-child) {
     border-bottom: 1px solid #eee;
   }
