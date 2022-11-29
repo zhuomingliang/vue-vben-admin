@@ -38,8 +38,8 @@ export const columns: BasicColumn[] = [
           project_score.forEach((row) => {
             result.push(
               h(Row, { align: 'middle' }, () => [
-                h(Col, { span: 12 }, () => row.project),
-                h(Col, { span: 12 }, () => row.score),
+                h(Col, { span: 16 }, () => row.project),
+                h(Col, { span: 8 }, () => row.score),
               ]),
             );
           });
