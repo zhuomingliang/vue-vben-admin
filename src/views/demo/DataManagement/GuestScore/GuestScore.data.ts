@@ -1,7 +1,5 @@
-import { h } from 'vue';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
-import { Row, Col } from 'ant-design-vue';
 export const columns: BasicColumn[] = [
   {
     title: '序号',
@@ -20,38 +18,14 @@ export const columns: BasicColumn[] = [
     },
   },
   {
-    title: '项目得分',
-    dataIndex: 'project_score',
-    width: 320,
-    customRender: ({ value }) => {
-      if (value === undefined || value === null) return null;
-      const project_score = JSON.parse(value);
-      const result: any[] = [];
-      if (Array.isArray(project_score)) {
-        if (project_score.length > 0) {
-          // result.push(
-          //   h(Row, {}, () => [
-          //     h(Col, { span: 12 }, () => '项目'),
-          //     h(Col, { span: 12 }, () => '得分'),
-          //   ]),
-          // );
-          project_score.forEach((row) => {
-            result.push(
-              h(Row, { align: 'middle' }, () => [
-                h(Col, { span: 16 }, () => row.project),
-                h(Col, { span: 8 }, () => row.score),
-              ]),
-            );
-          });
-        }
-      }
-
-      if (result.length > 0) {
-        return h('div', { class: 'project_info' }, result);
-      }
-
-      return null;
-    },
+    title: '项目名称',
+    dataIndex: 'project',
+    width: 240,
+  },
+  {
+    title: '项目评分',
+    dataIndex: 'score',
+    width: 80,
   },
   {
     title: '平均分',
