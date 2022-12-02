@@ -12,6 +12,7 @@
                 title: '是否确认提醒',
                 confirm: handleWarning.bind(null, record),
               },
+              ifShow: record.score_status == 0,
             },
           ]"
         />

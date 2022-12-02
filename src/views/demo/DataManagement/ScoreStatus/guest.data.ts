@@ -41,6 +41,18 @@ export const searchFormSchema: FormSchema[] = [
     component: 'Input',
     colProps: { span: 6 },
   },
+  {
+    field: 'score_status',
+    label: '是否完成评分',
+    component: 'Select',
+    componentProps: {
+      options: [
+        { label: '是', value: 1 },
+        { label: '否', value: 0 },
+      ],
+    },
+    colProps: { span: 4 },
+  },
 ];
 
 export const formSchema: FormSchema[] = [
