@@ -37,7 +37,7 @@ const DataManagement: AppRouteModule = {
       path: 'GuestScore',
       name: 'GuestScore',
       meta: {
-        title: '用户评分数据列表',
+        title: '评分列表（按用户）',
         ignoreKeepAlive: false,
         permission: 'Project',
       },
@@ -47,7 +47,7 @@ const DataManagement: AppRouteModule = {
       path: 'ProjectGuestScore',
       name: 'ProjectGuestScore',
       meta: {
-        title: '项目评分数据列表',
+        title: '评分列表（按项目）',
         ignoreKeepAlive: false,
         permission: 'Project',
       },
@@ -57,7 +57,7 @@ const DataManagement: AppRouteModule = {
       path: 'ProjectScore',
       name: 'ProjectScore',
       meta: {
-        title: '项目评分汇总',
+        title: '评分数据汇总',
         ignoreKeepAlive: false,
         permission: 'ProjectScore/getIndex',
       },
@@ -67,7 +67,7 @@ const DataManagement: AppRouteModule = {
       path: 'ProjectScoreRank',
       name: 'ProjectScoreRank',
       meta: {
-        title: '项目评分排行',
+        title: '项目得分情况',
         ignoreKeepAlive: false,
         permission: 'ProjectScore/getIndex',
       },
@@ -77,7 +77,7 @@ const DataManagement: AppRouteModule = {
       path: 'AreaScoreRank',
       name: 'AreaScoreRank',
       meta: {
-        title: '区域评分排行',
+        title: '县（市、区）得分情况',
         ignoreKeepAlive: false,
         permission: 'ProjectScore/getIndex',
       },
@@ -87,7 +87,7 @@ const DataManagement: AppRouteModule = {
       path: 'ProjectScoreCharts',
       name: 'ProjectScoreCharts',
       meta: {
-        title: '项目评分图表',
+        title: '评分汇总（图表）',
         ignoreKeepAlive: false,
         permission: 'ProjectScore/getIndex',
       },

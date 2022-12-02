@@ -14,7 +14,7 @@
     components: { BasicTable },
     setup() {
       const [registerTable, { reload }] = useTable({
-        title: '项目评分排行',
+        title: '项目得分情况',
         api: getProjectScoreRank,
         columns,
         formConfig: {

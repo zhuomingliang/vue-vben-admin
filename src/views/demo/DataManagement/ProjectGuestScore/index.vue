@@ -40,7 +40,7 @@
       searchInfo.area_id = 1;
 
       const [registerTable, { setColumns, setTableData }] = useTable({
-        title: '项目评分数据列表',
+        title: '评分列表（按项目）',
         formConfig: {
           labelWidth: 120,
           schemas: searchFormSchema,

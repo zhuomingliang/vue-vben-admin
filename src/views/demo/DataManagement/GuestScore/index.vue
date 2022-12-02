@@ -39,7 +39,7 @@
       const searchInfo = reactive<Recordable>({});
       searchInfo.area_id = 1;
       const [registerTable, { reload }] = useTable({
-        title: '用户评分数据列表',
+        title: '评分列表（按用户）',
         api: getProjectScoreByGuest,
         columns,
         formConfig: {

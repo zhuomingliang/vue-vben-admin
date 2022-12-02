@@ -13,7 +13,7 @@
     components: { BasicTable },
     setup() {
       const [registerTable, { reload }] = useTable({
-        title: '区域评分排行',
+        title: '县（市、区）得分情况',
         api: getAreaScoreRank,
         columns,
         formConfig: {
