@@ -20,7 +20,8 @@ export const getProjectScoreDetail = (params: any) =>
 
 export const postProject = (params: any) => defHttp.post({ url: '/Project', params });
 export const putProject = (params: any) => defHttp.put({ url: '/Project', params });
-export const deleteProject = (id: any) => defHttp.delete({ url: '/Project', params: { id } });
+export const deleteArea = (area_id: any) =>
+  defHttp.delete({ url: '/Project/Area', params: { area_id } });
 
 export const postImportProject = (params: UploadFileParams) =>
   defHttp.uploadFile({ url: '/Project/Import' }, params);

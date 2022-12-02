@@ -53,12 +53,6 @@ export const searchFormSchema: FormSchema[] = [
 
 export const formSchema: FormSchema[] = [
   {
-    field: 'id',
-    label: 'ID',
-    component: 'Input',
-    show: false,
-  },
-  {
     label: '县（市、区）',
     field: 'area_id',
     component: 'ApiSelect',

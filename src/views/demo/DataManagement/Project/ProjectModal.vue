@@ -1,9 +1,6 @@
 <template>
   <BasicModal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
     <Form class="p-4" :model="formData" ref="formRef" :colon="false">
-      <FormItem name="id" label="Id" style="display: none">
-        <Input size="middle" v-model:value="formData.id" />
-      </FormItem>
       <FormItem
         name="area_id"
         v-bind="formItemLayout"
@@ -25,22 +22,25 @@
       >
         <InputNumber size="middle" v-model:value="formData.order" placeholder="请输入排序" />
       </FormItem>
-      <FormItem
-        v-for="(project, index) in formData.projects"
-        :key="index"
-        v-bind="index === 0 ? formItemLayout : formItemLayoutWithOutLabel"
-        :label="index === 0 ? '项目' : ''"
-        :name="['projects', index, 'project']"
-        :rules="[{ required: true, message: '请输入项目名称' }]"
-      >
-        <Input
-          size="middle"
-          v-model:value="project.project"
-          placeholder="请输入项目名称"
-          style="width: 88%; margin-right: 8px"
-        />
-        <MinusCircleOutlined @click="removeProject(index)" v-if="formData.projects.length > 1" />
-      </FormItem>
+      <template v-for="(project, index) in formData.projects" :key="index">
+        <FormItem :name="['projects', index, 'id']" style="display: none">
+          <Input v-model:value="project.id" />
+        </FormItem>
+        <FormItem
+          v-bind="index === 0 ? formItemLayout : formItemLayoutWithOutLabel"
+          :label="index === 0 ? '项目' : ''"
+          :name="['projects', index, 'project']"
+          :rules="[{ required: true, message: '请输入项目名称' }]"
+        >
+          <Input
+            size="middle"
+            v-model:value="project.project"
+            placeholder="请输入项目名称"
+            style="width: 88%; margin-right: 8px"
+          />
+          <MinusCircleOutlined @click="removeProject(index)" v-if="formData.projects.length > 1" />
+        </FormItem>
+      </template>
       <FormItem
         v-bind="formItemLayoutWithOutLabel"
         v-show="formData.projects.length < 3 && !isUpdate"
@@ -83,17 +83,19 @@
       const rowId = ref('');
       const formRef = ref();
       const formInit = {
-        id: 0,
         area_id: null,
         order: 1,
         projects: [
           {
+            id: 0,
             project: '',
           },
           {
+            id: 0,
             project: '',
           },
           {
+            id: 0,
             project: '',
           },
         ],
@@ -103,6 +105,7 @@
       const addProject = () => {
         if (formData.projects.length < 3)
           formData.projects.push({
+            id: 0,
             project: '',
           });
       };
@@ -120,12 +123,13 @@
         isUpdate.value = !!data?.isUpdate;
 
         const record = data.record;
-        formData.projects = [...formInit.projects];
         if (unref(isUpdate)) {
-          formData.id = record.id;
           formData.area_id = record.area_id;
           formData.order = record.area_order;
-          formData.projects = [{ project: record.project }];
+          if (record.projects === null) formData.projects = [...formInit.projects];
+          else formData.projects = JSON.parse(record.projects);
+        } else {
+          formData.projects = [...formInit.projects];
         }
       });
 
@@ -139,7 +143,6 @@
           if (unref(isUpdate)) {
             await putProject(values);
           } else {
-            //delete values.id;
             await postProject(values);
           }
 

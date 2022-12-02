@@ -32,7 +32,7 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getProject, deleteProject } from '/@/api/demo/project';
+  import { getProject, deleteArea } from '/@/api/demo/project';
 
   import { useModal } from '/@/components/Modal';
   import ProjectModal from './ProjectModal.vue';
@@ -88,7 +88,7 @@
       }
 
       async function handleDelete(record: Recordable) {
-        await deleteProject(record.id);
+        await deleteArea(record.area_id);
         reload();
       }
 
