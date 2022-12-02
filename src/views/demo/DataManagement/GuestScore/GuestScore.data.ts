@@ -12,8 +12,8 @@ export const columns: BasicColumn[] = [
     },
   },
   {
-    title: '评分人',
-    dataIndex: 'full_name',
+    title: '县（市、区）',
+    dataIndex: 'area_name',
     width: 80,
     customCell: (data) => {
       return { rowSpan: data['rowspan'] };
@@ -54,7 +54,7 @@ export const columns: BasicColumn[] = [
     },
   },
   {
-    title: '平均得分',
+    title: '平均分',
     dataIndex: 'avg_score',
     width: 80,
     customCell: (data) => {

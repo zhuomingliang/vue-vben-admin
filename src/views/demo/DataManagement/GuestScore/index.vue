@@ -1,15 +1,15 @@
 <template>
   <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
     <BasicTree
-      title="区域列表"
+      title="用户姓名"
       toolbar
       search
       :expandedKeys="['0']"
       :clickRowToExpand="false"
       :treeData="treeData"
       @select="handleSelect"
-      :selectedKeys="[1]"
-      :fieldNames="{ key: 'id', title: 'name' }"
+      :selectedKeys="defaultUser"
+      :fieldNames="{ key: 'id', title: 'full_name' }"
       class="m-4 mr-0 overflow-hidden bg-white w-1/5 xl:w-1/6"
     />
     <BasicTable
@@ -25,7 +25,7 @@
   import { defineComponent, ref, reactive, onMounted } from 'vue';
   import { PageWrapper } from '/@/components/Page';
   import { BasicTable, useTable } from '/@/components/Table';
-  import { getAllAreaList } from '/@/api/demo/area';
+  import { getAllGuest } from '/@/api/demo/guest';
   import { getProjectScoreByGuest } from '/@/api/demo/project';
 
   import { BasicTree, TreeItem } from '/@/components/Tree';
@@ -36,8 +36,8 @@
     components: { PageWrapper, BasicTree, BasicTable },
     setup() {
       const treeData = ref<TreeItem[]>([]);
+      const defaultUser = ref<any>([]);
       const searchInfo = reactive<Recordable>({});
-      searchInfo.area_id = 1;
       const [registerTable, { reload }] = useTable({
         title: '评分列表（按用户）',
         api: getProjectScoreByGuest,
@@ -50,6 +50,8 @@
         showTableSetting: true,
         bordered: true,
         showIndexColumn: false,
+        pagination: false,
+        immediate: false,
       });
 
       function handleSelect(keys) {
@@ -57,13 +59,18 @@
           return;
         }
 
-        searchInfo.area_id = keys[0];
+        searchInfo.guest_information_id = keys[0];
 
         reload();
       }
 
       async function fetch() {
-        treeData.value = (await getAllAreaList()) as unknown as TreeItem[];
+        const Users = await getAllGuest();
+        treeData.value = Users as unknown as TreeItem[];
+        const selectUser = Users[0] ? Users[0].id : [];
+        searchInfo.guest_information_id = selectUser;
+        defaultUser.value = [selectUser];
+        reload();
       }
 
       function handleSuccess() {
@@ -76,6 +83,7 @@
 
       return {
         registerTable,
+        defaultUser,
         treeData,
         searchInfo,
         handleSelect,
