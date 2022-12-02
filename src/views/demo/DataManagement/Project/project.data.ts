@@ -1,6 +1,8 @@
+import { h } from 'vue';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { getAllAreaList } from '/@/api/demo/area';
+import { Row, Col } from 'ant-design-vue';
 
 export const columns: BasicColumn[] = [
   {
@@ -21,8 +23,28 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '项目名称',
-    dataIndex: 'project',
+    dataIndex: 'projects',
     width: 240,
+    customRender: ({ value }) => {
+      if (value === undefined || value === null) return null;
+      const projects = JSON.parse(value);
+      const result: any[] = [];
+      if (Array.isArray(projects)) {
+        if (projects.length > 0) {
+          projects.forEach((row) => {
+            result.push(
+              h(Row, { align: 'middle' }, () => [h(Col, { span: 24 }, () => row.project)]),
+            );
+          });
+        }
+      }
+
+      if (result.length > 0) {
+        return h('div', { class: 'project_info' }, result);
+      }
+
+      return null;
+    },
   },
 ];
 

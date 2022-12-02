@@ -109,3 +109,12 @@
     },
   });
 </script>
+<style>
+  .project_info > div {
+    height: 40px;
+  }
+
+  .project_info > div:not(:last-child) {
+    border-bottom: 1px solid #eee;
+  }
+</style>

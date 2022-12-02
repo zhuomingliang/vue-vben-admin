@@ -26,6 +26,7 @@
   import { getGuest, postSms } from '/@/api/demo/guest';
 
   import { columns, searchFormSchema } from './guest.data';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   export default defineComponent({
     name: 'Guest',
@@ -53,7 +54,11 @@
       });
 
       function handleWarning(record: Recordable) {
-        postSms({ phone: record.phone });
+        const { createMessage } = useMessage();
+
+        postSms({ phone: record.phone }).then(() => {
+          createMessage.success('已发送短信提醒');
+        });
       }
 
       function handleSuccess() {
