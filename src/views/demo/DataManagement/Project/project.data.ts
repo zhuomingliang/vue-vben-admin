@@ -9,17 +9,11 @@ export const columns: BasicColumn[] = [
     title: '县（市、区）',
     dataIndex: 'area_name',
     width: 80,
-    customCell: (data) => {
-      return { rowSpan: data['rowspan'] };
-    },
   },
   {
     title: '排序',
     dataIndex: 'area_order',
     width: 40,
-    customCell: (data) => {
-      return { rowSpan: data['rowspan'] };
-    },
   },
   {
     title: '项目名称',

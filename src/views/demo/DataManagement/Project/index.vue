@@ -110,8 +110,12 @@
   });
 </script>
 <style>
+  .ant-table-row > td:nth-child(3) {
+    padding: 0 !important;
+  }
+
   .project_info > div {
-    height: 40px;
+    height: 45px;
   }
 
   .project_info > div:not(:last-child) {
