@@ -9,13 +9,12 @@
       :treeData="treeData"
       :fieldNames="{ key: 'id', title: 'name' }"
       @select="handleSelect"
-      :selectedKeys="[1]"
+      :selectedKeys="defaultArea"
       class="m-4 mr-0 overflow-hidden bg-white w-1/5 xl:w-1/6"
     />
     <BasicTable
       @register="registerTable"
       @edit-end="handleSuccess"
-      :pagination="false"
       class="w-4/5 xl:w-5/6"
       style="padding: 16px"
     />
@@ -37,7 +36,7 @@
     setup() {
       const treeData = ref<TreeItem[]>([]);
       const searchInfo = reactive<Recordable>({});
-      searchInfo.area_id = 1;
+      const defaultArea = ref<any>([]);
 
       const [registerTable, { setColumns, setTableData }] = useTable({
         title: '评分列表（按项目）',
@@ -49,9 +48,16 @@
         showTableSetting: false,
         bordered: true,
         showIndexColumn: false,
+        pagination: false,
+        immediate: false,
       });
+
       async function fetch() {
-        treeData.value = (await getAllAreaList()) as unknown as TreeItem[];
+        const area = (await getAllAreaList()) as unknown as TreeItem[];
+        treeData.value = area;
+        const selectArea = area[0] ? area[0].id : [];
+        searchInfo.area_id = selectArea;
+        defaultArea.value = [selectArea];
       }
 
       async function fetchScore() {
@@ -90,6 +96,7 @@
 
       return {
         registerTable,
+        defaultArea,
         treeData,
         handleSelect,
         handleSuccess,

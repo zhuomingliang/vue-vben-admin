@@ -2,6 +2,8 @@
   <div>
     <BasicTable @register="registerTable" :pagination="false">
       <template #toolbar>
+        <span style="width: 100%; text-align: center; color: lightcoral">{{ end_time }}</span>
+        <a-button type="primary" @click="handleEditIssue"> 设置项目评分截止时间 </a-button>
         <a-button type="primary" @click="handleCreate"> 新增 </a-button>
         <a-button type="primary" @click="handleImport"> 导入 </a-button>
       </template>
@@ -24,27 +26,33 @@
         />
       </template>
     </BasicTable>
+    <IssueModal @register="registerEditIssueModal" />
     <ProjectModal @register="registerCreateProjectModal" @success="handleSuccess" />
     <ImportProjectModal @register="registerImportProjectModal" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { ref, defineComponent, onMounted } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { getProject, deleteArea } from '/@/api/demo/project';
+  import { getCurrentIssue } from '/@/api/demo/Issue';
 
   import { useModal } from '/@/components/Modal';
   import ProjectModal from './ProjectModal.vue';
   import ImportProjectModal from '../Project/ImportProjectModal.vue';
+  import IssueModal from './IssueModal.vue';
+  import { events } from '/@/views/demo/InformationManagement/HomeDecorationExpo/HomeDecorationExpo.data';
+  import mitt from '/@/utils/mitt';
 
   import { columns, searchFormSchema } from './project.data';
 
   export default defineComponent({
     name: 'Project',
-    components: { BasicTable, ProjectModal, ImportProjectModal, TableAction },
+    components: { BasicTable, IssueModal, ProjectModal, ImportProjectModal, TableAction },
     setup() {
       const [registerCreateProjectModal, { openModal: openModalCreateProjectModal }] = useModal();
+      const [registerEditIssueModal, { openModal: openModalEditIssueModal }] = useModal();
       const [registerImportProjectModal, { openModal: openModalImportProjectModal }] = useModal();
 
       const [registerTable, { reload }] = useTable({
@@ -68,6 +76,28 @@
         },
       });
 
+      const end_time = ref('');
+      async function fetch() {
+        const result = await getCurrentIssue();
+        if (typeof result === 'object' && result.end_time !== null) {
+          end_time.value = '评分截止时间：' + result.end_time;
+        } else {
+          end_time.value = '';
+        }
+      }
+
+      const emitter = mitt(events);
+
+      emitter.on('reloadEndTime', fetch);
+
+      onMounted(() => fetch());
+      async function handleEditIssue() {
+        const issue = await getCurrentIssue();
+        openModalEditIssueModal(true, {
+          record: issue,
+          isUpdate: true,
+        });
+      }
       function handleCreate() {
         openModalCreateProjectModal(true, {
           isUpdate: false,
@@ -98,6 +128,7 @@
 
       return {
         registerTable,
+        registerEditIssueModal,
         registerCreateProjectModal,
         registerImportProjectModal,
         handleCreate,
@@ -105,6 +136,8 @@
         handleEdit,
         handleDelete,
         handleSuccess,
+        handleEditIssue,
+        end_time,
       };
     },
   });
