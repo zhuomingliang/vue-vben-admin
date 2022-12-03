@@ -17,7 +17,11 @@
       @edit-end="handleSuccess"
       class="w-4/5 xl:w-5/6"
       style="padding: 16px"
-    />
+    >
+      <template #toolbar>
+        <a-button @click="Download"> 导出 </a-button>
+      </template>
+    </BasicTable>
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -29,6 +33,7 @@
 
   import { BasicTree, TreeItem } from '/@/components/Tree';
   import { columns, searchFormSchema } from './ProjectGuestScore.data';
+  import { downloadByUrl } from '/@/utils/file/download';
 
   export default defineComponent({
     name: 'Content',
@@ -51,6 +56,13 @@
         pagination: false,
         immediate: false,
       });
+
+      function Download() {
+        downloadByUrl({
+          url: 'https://codeload.github.com/anncwb/vue-vben-admin-doc/zip/master',
+          target: '_self',
+        });
+      }
 
       async function fetch() {
         const area = (await getAllAreaList()) as unknown as TreeItem[];
@@ -100,6 +112,7 @@
         treeData,
         handleSelect,
         handleSuccess,
+        Download,
       };
     },
   });

@@ -1,6 +1,9 @@
 <template>
   <div>
     <BasicTable @register="registerTable">
+      <template #toolbar>
+        <a-button @click="Download"> 导出 </a-button>
+      </template>
       <template #action="{ record }">
         <TableAction
           :actions="[
@@ -28,6 +31,7 @@
 
   import { columns, searchFormSchema } from './guest.data';
   import { useMessage } from '/@/hooks/web/useMessage';
+  import { downloadByUrl } from '/@/utils/file/download';
 
   export default defineComponent({
     name: 'Guest',
@@ -62,6 +66,13 @@
         });
       }
 
+      function Download() {
+        downloadByUrl({
+          url: 'https://codeload.github.com/anncwb/vue-vben-admin-doc/zip/master',
+          target: '_self',
+        });
+      }
+
       function handleSuccess() {
         reload();
       }
@@ -70,6 +81,7 @@
         registerTable,
         handleWarning,
         handleSuccess,
+        Download,
       };
     },
   });

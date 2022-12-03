@@ -1,6 +1,9 @@
 <template>
   <div>
     <BasicTable @register="registerTable" :pagination="false">
+      <template #toolbar>
+        <a-button @click="Download"> 导出 </a-button>
+      </template>
       <template #action="{ record }">
         <TableAction
           :actions="[
@@ -25,6 +28,7 @@
   import ProjectDrawer from './ProjectDrawer.vue';
 
   import { columns, searchFormSchema } from './project.data';
+  import { downloadByUrl } from '/@/utils/file/download';
 
   export default defineComponent({
     name: 'Project',
@@ -53,6 +57,13 @@
         },
       });
 
+      function Download() {
+        downloadByUrl({
+          url: '/ProjectScore/indexXlsx',
+          target: '_self',
+        });
+      }
+
       function handleDetail(record: Recordable) {
         openDrawer(true, {
           record,
@@ -69,6 +80,7 @@
         registerProjectDrawer,
         handleDetail,
         handleSuccess,
+        Download,
       };
     },
   });
