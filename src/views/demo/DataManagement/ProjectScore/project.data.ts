@@ -5,7 +5,7 @@ export const columns: BasicColumn[] = [
   {
     title: '序号',
     dataIndex: 'area_order',
-    width: 80,
+    width: 25,
     customCell: (data) => {
       return { rowSpan: data['rowspan'] };
     },
@@ -39,7 +39,7 @@ export const columns: BasicColumn[] = [
   {
     title: '项目得分',
     dataIndex: 'project_score',
-    width: 60,
+    width: 40,
   },
 ];
 

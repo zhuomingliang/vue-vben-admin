@@ -72,7 +72,6 @@
         try {
           const values = await validate();
           values.end_time = values.end_time.format('YYYY-MM-DD hh:mm:ss');
-          console.log(values);
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
             await putIssue(values);
