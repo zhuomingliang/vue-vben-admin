@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BasicTable @register="registerTable" :pagination="false">
+    <BasicTable @register="registerTable" :pagination="false" class="project">
       <template #toolbar>
         <span style="width: 60%; text-align: center; color: lightcoral">{{ end_time }}</span>
         <a-button type="primary" @click="handleEditIssue"> 设置项目评分截止时间 </a-button>
@@ -143,7 +143,7 @@
   });
 </script>
 <style>
-  .ant-table-row > td:nth-child(3) {
+  .project .ant-table-row > td:nth-child(3) {
     padding: 0 !important;
   }
 
