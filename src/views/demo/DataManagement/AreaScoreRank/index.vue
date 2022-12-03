@@ -1,7 +1,7 @@
 <template>
   <BasicTable @register="registerTable" :pagination="false">
     <template #toolbar>
-      <a-button @click="Download"> 导出 </a-button>
+      <a-button @click="Download" preIcon="ant-design:export-outlined"> 导出 </a-button>
     </template>
   </BasicTable>
 </template>
@@ -32,7 +32,7 @@
 
       function Download() {
         downloadByUrl({
-          url: 'https://codeload.github.com/anncwb/vue-vben-admin-doc/zip/master',
+          url: '/ProjectScore/AreaScoreExport',
           target: '_self',
         });
       }

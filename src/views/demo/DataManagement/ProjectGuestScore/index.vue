@@ -19,7 +19,7 @@
       style="padding: 16px"
     >
       <template #toolbar>
-        <a-button @click="Download"> 导出 </a-button>
+        <a-button @click="Download" preIcon="ant-design:export-outlined"> 导出 </a-button>
       </template>
     </BasicTable>
   </PageWrapper>
@@ -30,7 +30,6 @@
   import { BasicTable, useTable } from '/@/components/Table';
   import { getAllAreaList } from '/@/api/demo/area';
   import { getGuestScoreByProject } from '/@/api/demo/project';
-
   import { BasicTree, TreeItem } from '/@/components/Tree';
   import { columns, searchFormSchema } from './ProjectGuestScore.data';
   import { downloadByUrl } from '/@/utils/file/download';
@@ -59,7 +58,7 @@
 
       function Download() {
         downloadByUrl({
-          url: 'https://codeload.github.com/anncwb/vue-vben-admin-doc/zip/master',
+          url: '/ProjectScore/ByProjectExport',
           target: '_self',
         });
       }
