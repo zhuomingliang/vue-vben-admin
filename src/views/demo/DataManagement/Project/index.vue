@@ -2,7 +2,7 @@
   <div>
     <BasicTable @register="registerTable" :pagination="false">
       <template #toolbar>
-        <span style="width: 100%; text-align: center; color: lightcoral">{{ end_time }}</span>
+        <span style="width: 60%; text-align: center; color: lightcoral">{{ end_time }}</span>
         <a-button type="primary" @click="handleEditIssue"> 设置项目评分截止时间 </a-button>
         <a-button type="primary" @click="handleCreate"> 新增 </a-button>
         <a-button type="primary" @click="handleImport"> 导入 </a-button>

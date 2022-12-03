@@ -58,6 +58,7 @@
         const selectArea = area[0] ? area[0].id : [];
         searchInfo.area_id = selectArea;
         defaultArea.value = [selectArea];
+        fetchScore();
       }
 
       async function fetchScore() {
@@ -91,7 +92,6 @@
 
       onMounted(() => {
         fetch();
-        fetchScore();
       });
 
       return {
