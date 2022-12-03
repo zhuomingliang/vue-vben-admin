@@ -37,7 +37,7 @@
     name: 'Guest',
     components: { BasicTable, TableAction },
     setup() {
-      const [registerTable, { reload }] = useTable({
+      const [registerTable, { getForm, reload }] = useTable({
         title: '评分完成情况',
         api: getGuest,
         columns,
@@ -67,8 +67,9 @@
       }
 
       function Download() {
+        const params = new URLSearchParams(getForm().getFieldsValue());
         downloadByUrl({
-          url: '/GuestInformation/export',
+          url: '/GuestInformation/export?' + params.toString(),
           target: '_self',
         });
       }

@@ -61,7 +61,7 @@
 
       function Download() {
         downloadByUrl({
-          url: '/ProjectScore/ByGuestxlsx',
+          url: '/ProjectScore/ByGuestxlsx?guest_information_id=' + searchInfo.guest_information_id,
           target: '_self',
         });
       }

@@ -58,7 +58,7 @@
 
       function Download() {
         downloadByUrl({
-          url: '/ProjectScore/ByProjectExport',
+          url: '/ProjectScore/ByProjectExport?area_id=' + searchInfo.area_id,
           target: '_self',
         });
       }
