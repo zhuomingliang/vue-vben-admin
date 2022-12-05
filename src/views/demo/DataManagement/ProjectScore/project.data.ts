@@ -41,6 +41,11 @@ export const columns: BasicColumn[] = [
     dataIndex: 'project_score',
     width: 40,
   },
+  {
+    title: '项目得分排位',
+    dataIndex: 'project_rank',
+    width: 60,
+  },
 ];
 
 export const searchFormSchema: FormSchema[] = [
