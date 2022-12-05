@@ -26,10 +26,11 @@
     </BasicTable>
     <GuestModal @register="registerCreateGuestModal" @success="handleSuccess" />
     <ImportGuestModal @register="registerImportGuestModal" @success="handleSuccess" />
+    <MessageModal :msg="msg" @register="registerMessageModal" />
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, ref } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { getGuest, deleteGuest } from '/@/api/demo/guest';
@@ -37,15 +38,19 @@
   import { useModal } from '/@/components/Modal';
   import GuestModal from './GuestModal.vue';
   import ImportGuestModal from './ImportGuestModal.vue';
+  import MessageModal from './MessageModal.vue';
 
   import { columns, searchFormSchema } from './guest.data';
 
   export default defineComponent({
     name: 'Guest',
-    components: { BasicTable, GuestModal, ImportGuestModal, TableAction },
+    components: { BasicTable, GuestModal, ImportGuestModal, MessageModal, TableAction },
     setup() {
+      const msg = ref('')
+
       const [registerCreateGuestModal, { openModal: openModalCreateGuestModal }] = useModal();
       const [registerImportGuestModal, { openModal: openModalImportGuestModal }] = useModal();
+      const [registerMessageModal, { openModal: openMessageModal }] = useModal();
 
       const [registerTable, { reload }] = useTable({
         title: '用户列表',
@@ -92,8 +97,17 @@
         reload();
       }
 
-      function handleSuccess() {
+
+      function handleSuccess(res) {
         reload();
+        if (res.message) {
+          msg.value = res.message
+          handleOpenMsg()
+        }
+      }
+
+      function handleOpenMsg() {
+        openMessageModal(true);
       }
 
       return {
@@ -105,6 +119,8 @@
         handleEdit,
         handleDelete,
         handleSuccess,
+        msg,
+        registerMessageModal
       };
     },
   });

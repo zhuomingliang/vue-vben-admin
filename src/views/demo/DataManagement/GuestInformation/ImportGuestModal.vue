@@ -77,9 +77,9 @@
         try {
           console.log(formData.fileList);
           setModalProps({ confirmLoading: true });
-          await postImportGuest({ file: formData.fileList[0] });
+          let res = await postImportGuest({ file: formData.fileList[0] });
           closeModal();
-          emit('success', { isUpdate: false });
+          emit('success', { isUpdate: false, message: res.data.message });
         } finally {
           setModalProps({ confirmLoading: false });
         }
