@@ -38,7 +38,10 @@
             placeholder="请输入项目名称"
             style="width: 88%; margin-right: 8px"
           />
-          <MinusCircleOutlined @click="removeProject(index)" v-if="formData.projects.length > 1" />
+          <MinusCircleOutlined
+            @click="removeProject(index)"
+            v-if="formData.projects.length > 1 && !isUpdate"
+          />
         </FormItem>
       </template>
       <FormItem
