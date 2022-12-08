@@ -104,7 +104,7 @@
 
       function Download() {
         downloadByUrl({
-          url: '/ProjectScore/ByAreaExport?guest_information_id=' + searchInfo.guest_information_id,
+          url: '/ProjectScore/ByAreaExport?area_id=' + searchInfo.area_id,
           target: '_self',
         });
       }
