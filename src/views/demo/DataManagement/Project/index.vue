@@ -1,33 +1,35 @@
 <template>
-  <BasicTable @register="registerTable" :pagination="false" class="project">
-    <template #toolbar>
-      <span style="width: 60%; text-align: center; color: lightcoral">{{ end_time }}</span>
-      <a-button type="primary" @click="handleEditIssue"> 设置项目评分截止时间 </a-button>
-      <a-button type="primary" @click="handleCreate"> 新增 </a-button>
-      <a-button type="primary" @click="handleImport"> 导入 </a-button>
-    </template>
-    <template #action="{ record }">
-      <TableAction
-        :actions="[
-          {
-            icon: 'clarity:note-edit-line',
-            onClick: handleEdit.bind(null, record),
-          },
-          {
-            icon: 'ant-design:delete-outlined',
-            color: 'error',
-            popConfirm: {
-              title: '是否确认删除',
-              confirm: handleDelete.bind(null, record),
+  <div>
+    <BasicTable @register="registerTable" :pagination="false" class="project">
+      <template #toolbar>
+        <span style="width: 60%; text-align: center; color: lightcoral">{{ end_time }}</span>
+        <a-button type="primary" @click="handleEditIssue"> 设置项目评分截止时间 </a-button>
+        <a-button type="primary" @click="handleCreate"> 新增 </a-button>
+        <a-button type="primary" @click="handleImport"> 导入 </a-button>
+      </template>
+      <template #action="{ record }">
+        <TableAction
+          :actions="[
+            {
+              icon: 'clarity:note-edit-line',
+              onClick: handleEdit.bind(null, record),
             },
-          },
-        ]"
-      />
-    </template>
-  </BasicTable>
-  <IssueModal @register="registerEditIssueModal" />
-  <ProjectModal @register="registerCreateProjectModal" @success="handleSuccess" />
-  <ImportProjectModal @register="registerImportProjectModal" @success="handleSuccess" />
+            {
+              icon: 'ant-design:delete-outlined',
+              color: 'error',
+              popConfirm: {
+                title: '是否确认删除',
+                confirm: handleDelete.bind(null, record),
+              },
+            },
+          ]"
+        />
+      </template>
+    </BasicTable>
+    <IssueModal @register="registerEditIssueModal" />
+    <ProjectModal @register="registerCreateProjectModal" @success="handleSuccess" />
+    <ImportProjectModal @register="registerImportProjectModal" @success="handleSuccess" />
+  </div>
 </template>
 <script lang="ts">
   import { ref, defineComponent, onMounted } from 'vue';
