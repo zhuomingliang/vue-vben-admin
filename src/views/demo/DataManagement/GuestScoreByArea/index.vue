@@ -97,8 +97,9 @@
           return prev;
         }, 0);
 
+        const length = avg_score.length;
         avg_score1.value = (totalNo / i).toFixed(2);
-        avg_score2.value = (totalNo2 / avg_score.length).toFixed(2);
+        avg_score2.value = length ? (totalNo2 / length).toFixed(2) : '';
       }
 
       function Download() {
