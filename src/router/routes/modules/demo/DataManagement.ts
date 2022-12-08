@@ -54,6 +54,16 @@ const DataManagement: AppRouteModule = {
       component: () => import('/@/views/demo/DataManagement/GuestScore/index.vue'),
     },
     {
+      path: 'GuestScoreByArea',
+      name: 'GuestScoreByArea',
+      meta: {
+        title: '评分列表（按区划）',
+        ignoreKeepAlive: false,
+        permission: 'Project',
+      },
+      component: () => import('/@/views/demo/DataManagement/GuestScoreByArea/index.vue'),
+    },
+    {
       path: 'ProjectGuestScore',
       name: 'ProjectGuestScore',
       meta: {
