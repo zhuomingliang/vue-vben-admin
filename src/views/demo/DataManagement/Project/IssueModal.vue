@@ -71,7 +71,8 @@
       async function handleSubmit() {
         try {
           const values = await validate();
-          values.end_time = values.end_time.format('YYYY-MM-DD hh:mm:ss');
+          values.end_time = values.end_time.format('YYYY-MM-DD HH:mm:ss');
+
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
             await putIssue(values);
