@@ -82,7 +82,7 @@
         });
         let column = columns;
         if (i == 2) {
-          column = column.filter((num, index) => {
+          column = column.filter((_, index) => {
             return index !== i;
           });
         }
