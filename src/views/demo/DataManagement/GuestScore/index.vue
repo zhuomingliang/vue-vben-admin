@@ -17,7 +17,7 @@
       @edit-end="handleSuccess"
       :searchInfo="searchInfo"
       class="w-4/5 xl:w-5/6"
-      style="padding: 16px"
+      style="padding: 16px 16px 0"
     >
       <template #toolbar>
         <a-button @click="Download" preIcon="ant-design:export-outlined"> 导出 </a-button>
