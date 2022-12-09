@@ -5,7 +5,7 @@ export const columns: BasicColumn[] = [
   {
     title: '序号',
     dataIndex: 'id',
-    width: 80,
+    width: 60,
     customCell: (data) => {
       return { rowSpan: data['rowspan'] };
     },
@@ -13,7 +13,7 @@ export const columns: BasicColumn[] = [
   {
     title: '姓名',
     dataIndex: 'full_name',
-    width: 80,
+    width: 60,
     customCell: (data) => {
       return { rowSpan: data['rowspan'] };
     },
@@ -26,12 +26,12 @@ export const columns: BasicColumn[] = [
   {
     title: '项目评分',
     dataIndex: 'score',
-    width: 80,
+    width: 60,
   },
   {
     title: '平均分',
     dataIndex: 'avg_score',
-    width: 80,
+    width: 60,
     customCell: (data) => {
       return { rowSpan: data['rowspan'] };
     },
