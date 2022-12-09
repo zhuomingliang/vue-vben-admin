@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
+  <PageWrapper dense contentClass="flex">
     <BasicTree
       title="区域列表"
       toolbar
@@ -71,7 +71,6 @@
         showIndexColumn: false,
         pagination: false,
         immediate: false,
-        canResize: true,
       });
 
       const avg_score1 = ref('');
