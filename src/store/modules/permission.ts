@@ -184,18 +184,17 @@ export const usePermissionStore = defineStore({
           // this function may only need to be executed once, and the actual project can be put at the right time by itself
           let routeList: AppRouteRecordRaw[] = [];
           let userPermissions: string[] = [];
-          try {
-            //this.changePermissionCode();
-            userPermissions = await getUserPermissions();
-            routes = filter(asyncRoutes, routeFilter);
-            routeList = routes.filter(routeFilter);
-          } catch (error) {
-            console.error(error);
-          }
+
+          //this.changePermissionCode();
+          userPermissions = await getUserPermissions();
+
+          routes = filter(asyncRoutes, routeFilter);
+          routeList = routes.filter(routeFilter);
+
           const permissionFilter = (route: AppRouteRecordRaw) => {
             const { permission = '' } = route.meta;
             if (!permission) return true;
-            return userPermissions.includes(permission);
+            return userPermissions?.includes(permission);
           };
 
           routes = filter(asyncRoutes, permissionFilter);
