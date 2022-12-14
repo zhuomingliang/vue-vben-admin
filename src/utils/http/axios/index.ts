@@ -85,7 +85,6 @@ const transform: AxiosTransform = {
       case ResultEnum.HTTP_UNAUTHORIZED:
         errorMsg = t('sys.api.timeoutMessage');
         const userStore = useUserStoreWithOut();
-        userStore.setToken(undefined);
         userStore.logout(true, false);
         break;
       case ResultEnum.HTTP_UNPROCESSABLE_ENTITY:
@@ -124,8 +123,6 @@ const transform: AxiosTransform = {
     } else if (options.errorMessageMode === 'message') {
       createMessage.error(errorMsg);
     }
-
-    //if (status === ResultEnum.HTTP_UNAUTHORIZED) return null;
 
     throw new Error(errorMsg || t('sys.api.apiRequestFailed'));
   },

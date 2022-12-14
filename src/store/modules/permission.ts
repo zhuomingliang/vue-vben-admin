@@ -186,6 +186,7 @@ export const usePermissionStore = defineStore({
           let userPermissions: string[] = [];
 
           //this.changePermissionCode();
+
           userPermissions = await getUserPermissions();
 
           routes = filter(asyncRoutes, routeFilter);
