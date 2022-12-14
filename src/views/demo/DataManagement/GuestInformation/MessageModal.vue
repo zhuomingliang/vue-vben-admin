@@ -1,6 +1,6 @@
 <template>
   <BasicModal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
-    <div>{{msg || '--'}}</div>
+    <div>{{ msg || '--' }}</div>
   </BasicModal>
 </template>
 
@@ -10,14 +10,13 @@
 
   export default defineComponent({
     name: 'MessageModal',
-    props: {
-      msg: String
-    },
     components: { BasicModal },
+    props: {
+      msg: String,
+    },
     emits: ['success', 'register'],
-    setup(props, { emit }) {
-      console.log(props)
-      const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data) => {
+    setup() {
+      const [registerModal, { setModalProps, closeModal }] = useModalInner(async () => {
         setModalProps({ confirmLoading: false });
       });
       const getTitle = '提示';
@@ -29,12 +28,8 @@
       return {
         registerModal,
         getTitle,
-        handleSubmit
+        handleSubmit,
       };
-    }
-  })
+    },
+  });
 </script>
-
-<style scoped>
-
-</style>
