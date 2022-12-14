@@ -95,11 +95,16 @@ export function createPermissionGuard(router: Router) {
       return;
     }
 
-    const routes = await permissionStore.buildRoutesAction();
+    try {
+      const routes = await permissionStore.buildRoutesAction();
 
-    routes.forEach((route) => {
-      router.addRoute(route as unknown as RouteRecordRaw);
-    });
+      routes.forEach((route) => {
+        router.addRoute(route as unknown as RouteRecordRaw);
+      });
+    } catch (error) {
+      console.log(error);
+      return;
+    }
 
     router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
 
