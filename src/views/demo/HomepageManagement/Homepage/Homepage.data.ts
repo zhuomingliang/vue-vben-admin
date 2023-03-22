@@ -73,6 +73,7 @@ export const formSchema: FormSchema[] = [
         { label: '模块 6', value: '6' },
         { label: '模块 7', value: '7' },
         { label: '模块 8', value: '8' },
+        { label: '模块 9', value: '9' },
       ],
     },
     colProps: { span: 12 },
