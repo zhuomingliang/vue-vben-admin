@@ -9,7 +9,7 @@ export const columns: BasicColumn[] = [
   {
     title: '分类名称',
     dataIndex: 'name',
-    width: 150,
+    width: 100,
   },
 
   {
@@ -95,9 +95,15 @@ export const formSchema: FormSchema[] = [
     label: '分类名称',
     required: true,
     component: 'Input',
+    colProps: { span: 15 },
+  },
+  {
+    field: 'order',
+    label: '排序',
+    required: true,
+    component: 'InputNumber',
     colProps: { span: 20 },
   },
-
   {
     field: 'status',
     label: '状态',
