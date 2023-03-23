@@ -1,6 +1,6 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
-import { getMainMenu, getSubMenuByMainMenuId } from '/@/api/demo/Navigation';
+import { getMainMenu } from '/@/api/demo/Navigation';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
 import { putMainMenuStatus, putSubMenuStatus, putThirdMenuStatus } from '/@/api/demo/Navigation';
