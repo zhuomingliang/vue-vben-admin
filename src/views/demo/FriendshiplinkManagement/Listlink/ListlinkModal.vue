@@ -4,7 +4,7 @@
     @register="registerModal"
     :title="getTitle"
     @ok="handleSubmit"
-    width="30%"
+    width="500px"
   >
     <BasicForm @register="registerForm" />
   </BasicModal>
@@ -13,14 +13,11 @@
   import { defineComponent, ref, computed, unref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { formSchema } from './Classification.data';
-  import { postClassification, putClassification } from '/@/api/demo/Classification';
-  import { useComponentRegister } from '/@/components/Form';
-  import { Tinymce } from '/@/components/Tinymce';
+  import { formSchema } from './Listlink.data';
+  import { postListlink, putListlink } from '/@/api/demo/Listlink';
 
-  useComponentRegister('Tinymce', Tinymce);
   export default defineComponent({
-    name: 'ClassificationModal',
+    name: 'ListlinkModal',
     components: { BasicModal, BasicForm },
     emits: ['success', 'register'],
     setup(_, { emit }) {
@@ -38,13 +35,11 @@
 
       const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data) => {
         resetFields();
-        setFieldsValue({
-          content: '',
-        });
         setModalProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
 
-        const record = { ...data.record };
+        const record = data.record;
+
         if (unref(isUpdate)) {
           setFieldsValue({
             ...record,
@@ -57,13 +52,12 @@
       async function handleSubmit() {
         try {
           const values = await validate();
-
           setModalProps({ confirmLoading: true });
           if (unref(isUpdate)) {
-            await putClassification(values);
+            await putListlink(values);
           } else {
             delete values.id;
-            await postClassification(values);
+            await postListlink(values);
           }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });
