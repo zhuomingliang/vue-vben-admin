@@ -15,10 +15,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './Classification.data';
   import { postClassification, putClassification } from '/@/api/demo/Classification';
-  import { useComponentRegister } from '/@/components/Form';
-  import { Tinymce } from '/@/components/Tinymce';
 
-  useComponentRegister('Tinymce', Tinymce);
   export default defineComponent({
     name: 'ClassificationModal',
     components: { BasicModal, BasicForm },

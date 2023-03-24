@@ -38,7 +38,7 @@
     emits: ['uploading', 'done', 'error'],
     setup(props, { emit }) {
       let uploading = false;
-      const headers = { 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN') };
+      const headers = { 'X-XSRF-TOKEN': getCookie('XSRF-TOKEN') || '' };
       const { uploadUrl } = useGlobSetting();
       const { t } = useI18n();
       const { prefixCls } = useDesign('tinymce-img-upload');
@@ -56,11 +56,15 @@
       }
 
       function handleChange(info: Recordable) {
-        console.log(info);
         const file = info.file;
         const status = file?.status;
         const url = file?.response?.url;
-        const name = file?.name;
+        // const name = file?.name;
+        let name = file?.name || '';
+        if (name) {
+          // 对文件名进行编码
+          name = encodeURIComponent(name);
+        }
 
         if (status === 'uploading') {
           if (!uploading) {

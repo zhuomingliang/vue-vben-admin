@@ -40,7 +40,7 @@
         />
       </template>
     </BasicTable>
-    <ListlinkModal @register="registerCreateNavigationModal" @success="handleSuccess" />
+    <ListlinkModal @register="registerCreateListlinkModal" @success="handleSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -62,8 +62,7 @@
       ListlinkModal,
     },
     setup() {
-      const [registerCreateNavigationModal, { openModal: openModalCreateNavigationModal }] =
-        useModal();
+      const [registerCreateListlinkModal, { openModal: openModalCreateListlinkModal }] = useModal();
       const treeData = ref<TreeItem[]>([]);
       const searchInfo = reactive<Recordable>({ main_menu_id: 0 });
       const [registerTable, { reload }] = useTable({
@@ -90,7 +89,7 @@
       function handleCreateLink() {
         if (searchInfo.main_menu_id == 0) {
           let record = { main_menu_id: parseInt(searchInfo.main_menu_id) };
-          openModalCreateNavigationModal(true, {
+          openModalCreateListlinkModal(true, {
             record,
             isUpdate: false,
           });
@@ -122,7 +121,7 @@
       });
       return {
         registerTable,
-        registerCreateNavigationModal,
+        registerCreateListlinkModal,
         treeData,
         handleSelect,
         handleSuccess,

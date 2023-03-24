@@ -1,6 +1,6 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
-import { getMainMenu } from '/@/api/demo/Navigation';
+import { getClassification } from '/@/api/demo/Listlink';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
 import { putMainMenuStatus, putSubMenuStatus, putThirdMenuStatus } from '/@/api/demo/Navigation';
@@ -90,41 +90,20 @@ export const columns: BasicColumn[] = [
   },
 ];
 export const searchFormSchema: FormSchema[] = [];
+
 export const formSchema: FormSchema[] = [
   {
-    field: 'main_menu_id',
+    field: 'id',
     label: 'ID',
     component: 'Input',
     show: false,
   },
   {
-    field: 'nav',
-    label: '一级导航栏',
-    required: true,
-    component: 'Input',
-  },
-  {
-    field: 'order',
-    label: '顺序',
-    required: true,
-    component: 'InputNumber',
-    defaultValue: 1,
-  },
-];
-
-export const formSchema2: FormSchema[] = [
-  {
-    field: 'sub_menu_id',
-    label: 'ID',
-    component: 'Input',
-    show: false,
-  },
-  {
-    label: '一级导航栏',
-    field: 'main_menu_id',
+    label: '分类',
+    field: 'cate_id',
     component: 'ApiSelect',
     componentProps: {
-      api: getMainMenu,
+      api: getClassification,
       labelField: 'name',
       valueField: 'id',
     },
@@ -132,16 +111,39 @@ export const formSchema2: FormSchema[] = [
     required: true,
   },
   {
-    field: 'nav',
-    label: '二级导航栏',
+    field: 'name',
+    label: '名称',
     required: true,
     component: 'Input',
+    colProps: { span: 20 },
   },
   {
+    field: 'link',
+    label: '链接',
+    required: true,
+    component: 'Input',
+    colProps: { span: 20 },
+  },
+
+  {
     field: 'order',
-    label: '顺序',
+    label: '排序',
     required: true,
     component: 'InputNumber',
     defaultValue: 1,
+    colProps: { span: 15 },
+  },
+
+  {
+    field: 'status',
+    label: '状态',
+    component: 'RadioButtonGroup',
+    defaultValue: true,
+    componentProps: {
+      options: [
+        { label: '启用', value: true },
+        { label: '停用', value: false },
+      ],
+    },
   },
 ];

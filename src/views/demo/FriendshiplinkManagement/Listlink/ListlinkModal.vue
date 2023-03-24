@@ -57,6 +57,7 @@
             await putListlink(values);
           } else {
             delete values.id;
+            console.log(values);
             await postListlink(values);
           }
           closeModal();
