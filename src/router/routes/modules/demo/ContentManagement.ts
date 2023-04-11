@@ -8,9 +8,9 @@ const DataManagement: AppRouteModule = {
   component: LAYOUT,
   redirect: '/ContentManagement/Content',
   meta: {
-    orderNo: 2000,
     icon: 'ion:md-book',
     title: '内容管理',
+    orderNo: 5000,
   },
   children: [
     {

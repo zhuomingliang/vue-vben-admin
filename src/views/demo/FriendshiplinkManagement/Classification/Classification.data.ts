@@ -16,7 +16,7 @@ export const columns: BasicColumn[] = [
     title: '排序',
     dataIndex: 'order',
     width: 60,
-    edit: true,
+    edit: false,
   },
   {
     title: '状态',
@@ -35,6 +35,7 @@ export const columns: BasicColumn[] = [
           record.pendingStatus = true;
           const newStatus = checked ? true : false;
           const { createMessage } = useMessage();
+          console.log(record);
           putStatus(record.id, newStatus)
             .then(() => {
               record.status = newStatus;

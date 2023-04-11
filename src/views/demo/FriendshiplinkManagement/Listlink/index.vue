@@ -5,7 +5,6 @@
       toolbar
       search
       :expandedKeys="['0']"
-      :selectedKeys="['0']"
       :clickRowToExpand="false"
       :treeData="treeData"
       :fieldNames="{ key: 'id', title: 'name' }"
@@ -14,8 +13,9 @@
     />
     <BasicTable
       @register="registerTable"
+      @edit-end="handleSuccess"
+      :beforeEditSubmit="beforeEditSubmit"
       class="w-4/5 xl:w-5/6"
-      style="padding: 16px"
       :searchInfo="searchInfo"
     >
       <template #toolbar>
@@ -40,17 +40,18 @@
         />
       </template>
     </BasicTable>
-    <ListlinkModal @register="registerCreateListlinkModal" @success="handleSuccess" />
+    <ListlinkModal @register="registerModal" @success="handleSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts">
   import { defineComponent, ref, reactive, onMounted } from 'vue';
   import { columns, searchFormSchema } from './Listlink.data';
-  import { getClassification, getListlink, deleteListlink } from '/@/api/demo/Listlink';
+  import { getClassification, getListlink, deleteListlink, putOrder } from '/@/api/demo/Listlink';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { PageWrapper } from '/@/components/Page';
   import { BasicTree, TreeItem } from '/@/components/Tree';
   import { useModal } from '/@/components/Modal';
+  import { useMessage } from '/@/hooks/web/useMessage';
   import ListlinkModal from './ListlinkModal.vue';
   export default defineComponent({
     name: 'Listlink',
@@ -62,14 +63,16 @@
       ListlinkModal,
     },
     setup() {
-      const [registerCreateListlinkModal, { openModal: openModalCreateListlinkModal }] = useModal();
       const treeData = ref<TreeItem[]>([]);
-      const searchInfo = reactive<Recordable>({ main_menu_id: 0 });
+      const searchInfo = reactive<Recordable>({});
+      const { createMessage } = useMessage();
+
+      const [registerModal, { openModal }] = useModal();
       const [registerTable, { reload }] = useTable({
         title: '友情链接列表',
         api: getListlink,
         columns,
-        pagination: false,
+
         formConfig: {
           labelWidth: 120,
           schemas: searchFormSchema,
@@ -86,42 +89,64 @@
           fixed: undefined,
         },
       });
-      function handleCreateLink() {
-        if (searchInfo.main_menu_id == 0) {
-          let record = { main_menu_id: parseInt(searchInfo.main_menu_id) };
-          openModalCreateListlinkModal(true, {
-            record,
-            isUpdate: false,
-          });
-        }
-      }
-      function handleEdit() {}
 
-      async function handleDelete(record: Recordable) {
-        await deleteListlink(record.id);
-      }
-
-      function handleSuccess() {
-        reload();
+      async function fetch() {
+        treeData.value = (await getClassification(0)) as unknown as TreeItem[];
       }
 
       function handleSelect(keys) {
         if (typeof keys[0] === 'undefined') {
           return;
         }
-        let ids = keys[0].split('-');
-        searchInfo.main_menu_id = ids[0];
+
+        let ids = keys[0];
+
+        searchInfo.cate_id = ids;
+        console.log(searchInfo.cate_id);
         reload();
       }
-      async function fetch() {
-        treeData.value = (await getClassification(0)) as unknown as TreeItem[];
+
+      function handleCreateLink() {
+        openModal(true, {
+          isUpdate: false,
+        });
       }
+      function handleEdit(record: Recordable) {
+        openModal(true, {
+          record,
+          isUpdate: true,
+        });
+      }
+
+      async function handleDelete(record: Recordable) {
+        await deleteListlink(record.id);
+      }
+
+      async function beforeEditSubmit({ record, key, value }) {
+        return Save(key, record, value);
+      }
+
+      function Save(key: string, record: object, value: any) {
+        if (key === 'order') {
+          putOrder({ title: record['title'], created_at: record['created_at'], order: value }).then(
+            () =>
+              createMessage.success({
+                content: `更新成功`,
+              }),
+          );
+        }
+      }
+
+      function handleSuccess() {
+        reload();
+      }
+
       onMounted(() => {
         fetch();
       });
       return {
         registerTable,
-        registerCreateListlinkModal,
+        registerModal,
         treeData,
         handleSelect,
         handleSuccess,
@@ -129,6 +154,7 @@
         handleCreateLink,
         handleEdit,
         handleDelete,
+        beforeEditSubmit,
       };
     },
   });

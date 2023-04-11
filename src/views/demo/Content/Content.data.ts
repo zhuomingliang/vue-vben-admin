@@ -33,6 +33,16 @@ export const columns: BasicColumn[] = [
     title: '标题',
     dataIndex: 'title',
     width: 150,
+    customRender: ({ text, record }) => {
+      return h(
+        'a',
+        {
+          href: `http://10.36.28.183/#/article-detail?id=${record.main_menu_id}&subId=${record.sub_menu_id}&articleId=${record.id}`,
+          target: '_blank',
+        },
+        text,
+      );
+    },
   },
   {
     title: '顺序',

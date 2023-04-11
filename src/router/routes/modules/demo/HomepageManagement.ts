@@ -8,7 +8,7 @@ const DataManagement: AppRouteModule = {
   component: LAYOUT,
   redirect: '/HomepageManagement/Homepage',
   meta: {
-    orderNo: 2000,
+    orderNo: 8000,
     icon: 'ion:md-book',
     title: '首页管理',
   },

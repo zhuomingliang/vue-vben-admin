@@ -3,7 +3,7 @@ import { FormSchema } from '/@/components/Table';
 import { getClassification } from '/@/api/demo/Listlink';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
-import { putMainMenuStatus, putSubMenuStatus, putThirdMenuStatus } from '/@/api/demo/Navigation';
+import { putStatus } from '/@/api/demo/Listlink';
 import { useMessage } from '/@/hooks/web/useMessage';
 export const columns: BasicColumn[] = [
   {
@@ -36,44 +36,18 @@ export const columns: BasicColumn[] = [
           record.pendingStatus = true;
           const newStatus = checked ? true : false;
           const { createMessage } = useMessage();
-          console.log(record);
-          if (typeof record.third_menu_id !== 'undefined') {
-            putThirdMenuStatus(record.third_menu_id, newStatus)
-              .then(() => {
-                record.status = newStatus;
-                createMessage.success(`修改状态成功`);
-              })
-              .catch(() => {
-                createMessage.error('修改状态失败');
-              })
-              .finally(() => {
-                record.pendingStatus = false;
-              });
-          } else if (typeof record.sub_menu_id !== 'undefined') {
-            putSubMenuStatus(record.sub_menu_id, newStatus)
-              .then(() => {
-                record.status = newStatus;
-                createMessage.success(`修改状态成功`);
-              })
-              .catch(() => {
-                createMessage.error('修改状态失败');
-              })
-              .finally(() => {
-                record.pendingStatus = false;
-              });
-          } else if (typeof record.main_menu_id !== 'undefined') {
-            putMainMenuStatus(record.main_menu_id, newStatus)
-              .then(() => {
-                record.status = newStatus;
-                createMessage.success(`修改状态成功`);
-              })
-              .catch(() => {
-                createMessage.error('修改状态失败');
-              })
-              .finally(() => {
-                record.pendingStatus = false;
-              });
-          }
+
+          putStatus(record.id, newStatus)
+            .then(() => {
+              record.status = newStatus;
+              createMessage.success(`修改状态成功`);
+            })
+            .catch(() => {
+              createMessage.error('修改状态失败');
+            })
+            .finally(() => {
+              record.pendingStatus = false;
+            });
         },
       });
     },

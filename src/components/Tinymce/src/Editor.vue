@@ -343,4 +343,9 @@
       visibility: hidden;
     }
   }
+
+  .tox > div[role='listbox'] {
+    position: relative;
+    z-index: 1600;
+  }
 </style>

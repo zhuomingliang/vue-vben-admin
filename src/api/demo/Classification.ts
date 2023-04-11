@@ -6,6 +6,6 @@ export const putClassification = (params: any) => defHttp.put({ url: '/LinksCate
 export const deleteClassification = (id: any) =>
   defHttp.delete({ url: '/LinksCate', params: { id } });
 
-export const putOrder = (params: any) => defHttp.put({ url: '/Links/Order', params });
+export const putOrder = (params: any) => defHttp.put({ url: '/LinksCate/Order', params });
 export const putStatus = (id: number, status: boolean) =>
-  defHttp.put({ url: '/Links/Status', params: { id, status } });
+  defHttp.put({ url: '/LinksCate/Status', params: { id, status } });
