@@ -33,6 +33,8 @@
   import 'tinymce/plugins/fullscreen';
   import 'tinymce/plugins/hr';
   import 'tinymce/plugins/insertdatetime';
+  import 'tinymce/plugins/image';
+  //import 'tinymce/plugins/imagetools';
   import 'tinymce/plugins/link';
   import 'tinymce/plugins/lists';
   import 'tinymce/plugins/media';
